@@ -1,0 +1,60 @@
+body {
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+    position: relative;
+    height: auto;
+    overflow: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    width: 90vw;
+    font-family: 'arial';
+    background-size: cover;
+    background-repeat: no-repeat;
+    justify-content: center;
+    display: flex;
+}
+body .more-than-three{
+    background-image: url('assets/emoji/discord.png');
+}
+::-webkit-scrollbar{
+    width: 3px;
+    background-color: aqua;
+}
+::-webkit-scrollbar-thumb{
+    background-color: #000000;
+}
+h2 .emoticon{
+    width: 30px;
+}
+.emoticon {
+    vertical-align: middle;
+    width: 26px;
+    position: relative;
+    height: auto;
+}
+#halaman{
+    position: relative;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    top: 0vh;
+}
+button {
+    min-width: 100px;
+    height: 40px;
+    margin: 3px;
+    background-color: #fff;
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 200px;
+    box-shadow: 4px 4px 0px 1px black;
+}
+.category{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}

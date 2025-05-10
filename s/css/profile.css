@@ -1,0 +1,99 @@
+body {
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+    position: relative;
+    height: 99vh;
+    overflow: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    width: 90vw;
+    font-family: 'arial';
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url('https://wallpapers-clan.com/wp-content/uploads/2024/03/starfall-night-sky-mountains-aesthetic-gif-preview-desktop-wallpaper.gif');
+    justify-content: center;
+    display: flex;
+}
+body .more-than-three{
+    background-image: url('assets/emoji/discord.png');
+}
+::-webkit-scrollbar{
+    width: 3px;
+    background-color: aqua;
+}
+::-webkit-scrollbar-thumb{
+    background-color: #000000;
+}
+h2 .emoticon{
+    width: 30px;
+}
+.emoticon {
+    vertical-align: middle;
+    width: 26px;
+    position: relative;
+    height: auto;
+}
+#buttonlist .emoticon {
+    vertical-align: middle;
+    width: 40px;
+    position: relative;
+    height: auto;
+}
+.photoprofile{
+    position: relative;
+    border-radius: 10px;
+    border: 3px solid black;
+    top: 1vh;
+    width: 150px;
+    height: 150px;
+}
+#profile{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    height: auto;
+}
+#buttonlist{
+    height: auto;
+    align-items: center;
+    text-align: center;
+    justify-content: flex-start;
+    width: 90%;
+    margin-top: -2dvh;
+    display: flex;
+    flex-direction: column;
+}
+#buttonlist a {
+    text-decoration: none;
+}
+#buttonlist a button{
+    justify-content: left;
+    align-items: center;
+    padding: 0px 10px;
+    text-align: center;
+    border-radius: 10px;
+    margin-top: 12px;
+    cursor: pointer;
+    display: flex;
+    box-shadow: 4px 4px 0px 1px #000000; /* Shadow ke kanan bawah tanpa blur */
+    background-color: rgb(255, 255, 255);
+    font-size: 18px;
+    height: 60px;
+    width: 300px;
+}
+#buttonlist a button p{
+    margin: 25px;
+}
+#buttonlist button:hover{
+    background-color: rgb(232, 253, 255);
+    transform: scale(1.1);
+}
+#buttonlist button:active{
+    transform: scale(1);
+    background-color: rgb(180, 250, 255);
+}

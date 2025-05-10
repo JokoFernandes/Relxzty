@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Document</title>
+  <link rel="stylesheet" href="css/affiliate.css" />
+  <style>
+    body.auto {
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+    <div id="halaman">
+        <h1>halo</h1>
+        <div class="category">
+        <button>Joki</button>
+        <button>Akun</button>
+        <button>Top Up</button>
+        <button>sewa jasa dll</button>
+        </div>
+    </div>
+    <script src="script/emoji.js"></script>
+    <script>
+      // Hitung jumlah button dalam #buttonlist
+      const buttons = document.querySelectorAll('#buttonlist button');
+
+      if (buttons.length > 6) {
+        // Tambahkan class ke body dan ke #profile
+        document.body.classList.add('auto');
+      }
+    </script>
+  </div>
+</body>
+</html>

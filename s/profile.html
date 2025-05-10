@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Document</title>
+  <link rel="stylesheet" href="css/profile.css" />
+  <style>
+    body.auto {
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="profile">
+    <img src="assets/image/pp.png" alt="photoprofile" class="photoprofile"/>
+    
+    <h2 id="nama" style="text-align: center; margin-top: 10px; position: relative; font-size: 4dvh;">:primo:Jorell:primo:</h2>
+    
+    <p id="description" style="position: relative; margin-top: -16px; text-align: center; font-size: 17.8px; top: -4px; font-weight: 600;">
+      Halo Gak Tau mau ngomong apa jadi Lorem ipsum dolor sit amet consectetur, adipisicing elit.:cool:
+    </p>
+    
+    <div id="buttonlist">
+      <a href="https://sociabuzz.com/jokofernandezalvonso/tribe"><button>:scbz:<p>Donate</p></button></a>
+      <a href="https://www.youtube.com/@JorellXander"><button>:yt:<p>Youtube</p></button></a>
+      <a href="https://www.tiktok.com/@jorell2111?lang=en"><button>:tt:<p>TikTok</p></button></a>
+      <a href="" style="display: none;"><button>:ig:<p>Instagram</p></button></a>
+      <a href="" style="display: none;"><button>:dc:<p>Discord</p></button></a>
+      
+    </div>
+
+    <script src="script/emoji.js"></script>
+    <script>
+      // Hitung jumlah button dalam #buttonlist
+      const buttons = document.querySelectorAll('#buttonlist button');
+
+      if (buttons.length > 6) {
+        // Tambahkan class ke body dan ke #profile
+        document.body.classList.add('auto');
+      }
+    </script>
+  </div>
+</body>
+</html>
