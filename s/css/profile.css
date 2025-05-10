@@ -51,7 +51,9 @@ h2 .emoticon{
 }
 #profile{
     position: relative;
+    left: 5%;
     display: flex;
+    translate: (50%,50%);
     flex-direction: column;
     justify-content: center;
     align-items: center;
