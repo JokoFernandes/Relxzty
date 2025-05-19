@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    body {
+        display: flex;
+    font-family: 'Franklin Gothic Medium';
+    margin: 0;
+    padding: 0;
+}
+
+#logo {
+    width: 10vw;
+    height: 10vw;
+}
+
+a {
+    text-decoration: none;
+}
+
+#namalogo {
+    font-size: 4vw;
+    font-weight: 600;
+    position: relative;
+    top: -4vh;
+    color: black;
+}
+
+#apps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 kolom */
+    gap: 10px;
+    text-align: center;
+    margin: 10px;
+}
+
+    </style>
+</head>
+<body>
+
+    <div id="apps"><a href="https://www.youtube.com" target=""><img id="logo" src="image/dc.png" alt="Discord"><br><p id="namalogo">Discord</p></a></div>
+    <script>
+        document.addEventListener("keydown", function(event){
+            if(event.key === "k") {
+                window.open("https://www.youtube.com", "_self")
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Right Click & Hold Event</title>
+    <style>
+        #myElement {
+            width: 200px;
+            height: 200px;
+            background-color: lightblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="myElement">
+        Coba klik kanan atau tahan layar!
+    </div>
+
+    <script>
+        // Event listener untuk komputer (klik kanan)
+        document.getElementById('myElement').addEventListener("dblclick", function(event) {
+            event.preventDefault(); // Mencegah menu konteks default
+            alert('Klik kanan terdeteksi!');
+        });
+
+        // Event listener untuk perangkat sentuh (menahan layar)
+        let touchTimer;
+        document.getElementById('myElement').addEventListener('touchstart', function(event) {
+            touchTimer = setTimeout(function() {
+                alert('Menahan layar terdeteksi!');
+            }, 1000); // Menunggu 1 detik sebelum menganggap sebagai "hold"
+        });
+
+        document.getElementById('myElement').addEventListener('touchend', function(event) {
+            clearTimeout(touchTimer); // Hapus timer jika pengguna melepaskan layar sebelum 1 detik
+        });
+    </script>
+</body>
+</html>

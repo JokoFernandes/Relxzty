@@ -1,0 +1,75 @@
+body {
+    justify-content: flex-start;
+    text-align: center;
+    margin: 0;
+}
+
+.list{
+    position: relative;
+    transform: translate(-50%,-50%);
+    top: 40dvh;
+    left: 50%;
+    width: 87%;
+    border: 3px solid black;
+    border-radius: 15px;
+    height: 100%;
+}
+.inputsound{
+    position: relative;
+    top: 2.8dvh;
+}
+.custom {
+    background-color: rgba(250, 235, 215, 0);
+    border: solid 2px black;
+    width: 150px;
+    height: 75px;
+    font-size: 24px;
+    font-weight: 700;
+    margin: -15px;
+    margin-top: 20px;
+    color: rgb(0, 0, 0);
+    border-radius: 15px;
+    background-size: cover;
+}
+#inputsnd{
+    width: 200px;
+    height: 70px;
+    background-color: black;
+    border-radius: 10px;
+    position: relative;
+    top: 13px;
+    color: white;
+    font-size: 50px;
+}
+#button {
+    background-color: rgba(250, 235, 215, 0);
+    border: solid 2px black;
+    width: 110px;
+    height: 75px;
+    margin: 5px;
+    margin-top: 20px;
+    color: rgb(0, 0, 0);
+    border-radius: 15px;
+    background-size: cover;
+}
+.b1 #button {
+    background-position: center;
+    background-image: url('https://ih1.redbubble.net/image.2292637586.5804/raf,360x360,075,t,fafafa:ca443f4786.jpg');
+}
+.b2 #button {
+    background-position: center;
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXRPL7tbmsNiolqZ3vwmHZWr-rTAxDnkFF-Q&s');
+}
+.b3 #button {
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4GxhOBE88sLWnLOU-sVVUPfZEdfDUwmrt6g&s');
+}
+.b4 #button {
+    background-image: url('https://i.imgflip.com/7ioy6b.jpg?a484200');
+    background-position: top;
+}
+#button .text {
+    position: relative;
+    top: 64%;
+    font-size: 15px;
+    font-weight: 600;
+}
