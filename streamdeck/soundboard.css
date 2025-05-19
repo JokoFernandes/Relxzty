@@ -1,18 +1,25 @@
 body {
-    justify-content: flex-start;
     text-align: center;
+    box-sizing: border-box;
+    overflow: auto;
+    width: 98vw;
+    align-items: center;
     margin: 0;
+    height: auto;
 }
 
 .list{
     position: relative;
+    overflow: auto;
+    box-sizing: border-box;
     transform: translate(-50%,-50%);
-    top: 40dvh;
-    left: 50%;
-    width: 87%;
+    justify-content: center;
+    top: 50dvh;
+    left: 50dvw;
+    width: 98.5dvw;
     border: 3px solid black;
     border-radius: 15px;
-    height: 100%;
+    height: 97dvh;
 }
 .inputsound{
     position: relative;
