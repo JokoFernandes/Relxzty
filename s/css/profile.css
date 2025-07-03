@@ -16,6 +16,9 @@ body {
     justify-content: center;
     display: flex;
 }
+a {
+    -webkit-tap-highlight-color: transparent;
+}
 body .more-than-three{
     background-image: url('assets/emoji/discord.png');
 }
