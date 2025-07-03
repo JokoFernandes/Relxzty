@@ -12,7 +12,7 @@ body {
     font-family: 'arial';
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url('https://wallpapers-clan.com/wp-content/uploads/2024/03/starfall-night-sky-mountains-aesthetic-gif-preview-desktop-wallpaper.gif');
+    background-image: url('../bg.png');
     justify-content: center;
     display: flex;
 }
@@ -25,6 +25,12 @@ body .more-than-three{
 }
 ::-webkit-scrollbar-thumb{
     background-color: #000000;
+}
+#nama{
+    background-image: linear-gradient(to top, #0084ff, #0000ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rgb1 0.8s infinite;
 }
 h2 .emoticon{
     width: 30px;
@@ -59,6 +65,7 @@ h2 .emoticon{
     align-items: center;
     width: 600px;
     height: auto;
+    animation: load 0.5s ease-in-out;
 }
 #buttonlist{
     height: auto;
@@ -87,6 +94,7 @@ h2 .emoticon{
     font-size: 18px;
     height: 60px;
     width: 300px;
+    transition: ease-in-out all 0.22s;
 }
 #buttonlist a button p{
     margin: 25px;
@@ -98,4 +106,22 @@ h2 .emoticon{
 #buttonlist button:active{
     transform: scale(1);
     background-color: rgb(180, 250, 255);
+}
+@keyframes load {
+    0%{
+        opacity: 0;
+        top:0%;
+    }
+    100%{
+        opacity: 1;
+        top:0;
+    }
+}
+@keyframes rgb1 {
+    0%{
+       filter: hue-rotate(0deg);
+    }
+    100%{
+        filter: hue-rotate(360deg);
+    }
 }
