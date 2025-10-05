@@ -30,10 +30,7 @@ body .more-than-three{
     background-color: #000000;
 }
 #nama{
-    background-image: linear-gradient(to top, #0084ff, #0000ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: rgb1 0.8s infinite;
+    color: azure;
 }
 h2 .emoticon{
     width: 30px;
@@ -128,3 +125,4 @@ h2 .emoticon{
         filter: hue-rotate(360deg);
     }
 }
+
