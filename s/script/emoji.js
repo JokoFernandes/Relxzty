@@ -17,6 +17,8 @@ function replaceTextWithEmojis(node) {
             ":ig:": "<img src='assets/emoji/ig.png' alt='' class='emoticon'>",
             ":scbz:": "<img src='assets/emoji/sociabuzz.png' alt='' class='emoticon'>",
             ":dc:": "<img src='assets/emoji/discord.png' alt='' class='emoticon' style='border-radius:4px;'>",
+            ":rblx:": "<img src='assets/emoji/roblox.png' alt='' class='emoticon' style='border-radius:4px;'>",
+            ":itk:": "<img src='assets/emoji/itemku.png' alt='' class='emoticon' style='border-radius:4px;'>",
             ":saweria:": "<img src='https://saweria.co/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fcapy_happy.603c7293.svg&w=384&q=75' alt='' class ='emoticon'>"
         };
 
@@ -37,3 +39,4 @@ function replaceTextWithEmojis(node) {
 document.addEventListener("DOMContentLoaded", function() {
     replaceTextWithEmojis(document.body);
 });
+
