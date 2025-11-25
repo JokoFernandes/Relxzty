@@ -18,7 +18,7 @@ local goal = {}
 goal.CFrame = CFrame.new(target.CFrame.Position)
 
 local info = TweenInfo.new(
-    60,
+    30,
     Enum.EasingStyle.Linear,
     Enum.EasingDirection.Out
 )
@@ -29,7 +29,7 @@ tween:Play()
 game.ReplicatedStorage.NetworkContainer.RemoteEvents.Job:FireServer("JanjiJiwa")
 -- NPC folder 
 local npcFolder = game.Workspace:WaitForChild("NPC")
-local userm = game.Players.Asepjuragan_fruit
+
 
 spawn(function()
     while running do
@@ -60,7 +60,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("NetworkContainer"):WaitForChi
             Method = "POST",
             Headers = { ["Content-Type"] = "application/json" },
             Body = HttpService:JSONEncode({
-                content = "@here AsepHelloWorld Money: " .. message
+                content = "@here" .. name .. " Money: " .. message
             })
         })
 
