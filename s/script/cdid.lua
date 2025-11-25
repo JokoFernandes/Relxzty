@@ -53,14 +53,14 @@ game:GetService("ReplicatedStorage"):WaitForChild("NetworkContainer"):WaitForChi
         local HttpService = game:GetService("HttpService")
         local WEBHOOK = "https://discord.com/api/webhooks/1441305375574851635/YV0xu1N8-KCGr1WV9x0RwsWiQD48Kxlg3qKd5C1DvS-K1ejfgKGYNY3NE_zQGcx_Bj8G"
 
-        local message = userm.PlayerGui.Main.Container.Hub.CashFrame.Frame.TextLabel.Text
+        local message = _G.userm.PlayerGui.Main.Container.Hub.CashFrame.Frame.TextLabel.Text
 
         request({
             Url = WEBHOOK,
             Method = "POST",
             Headers = { ["Content-Type"] = "application/json" },
             Body = HttpService:JSONEncode({
-                content = "@here" .. name .. " Money: " .. message
+                content = "@here" .. _G.name .. " Money: " .. message
             })
         })
 
