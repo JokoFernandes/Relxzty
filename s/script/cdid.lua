@@ -1,12 +1,10 @@
-local userm = game.Players.Asepjuragan_fruit
-local user = "ASEP"
 local args = {
 	"JanjiJiwa"
 }
 game:GetService("ReplicatedStorage"):WaitForChild("NetworkContainer"):WaitForChild("RemoteEvents"):WaitForChild("Job"):FireServer(unpack(args))
 local running = true
 -- goto
-taks.wait(4)
+task.wait(4)
 local TweenService = game:GetService("TweenService")
 local player = game.Players.LocalPlayer
 local char = player.Character or player.CharacterAdded:Wait()
@@ -31,6 +29,7 @@ tween:Play()
 game.ReplicatedStorage.NetworkContainer.RemoteEvents.Job:FireServer("JanjiJiwa")
 -- NPC folder 
 local npcFolder = game.Workspace:WaitForChild("NPC")
+local userm = game.Players.Asepjuragan_fruit
 
 spawn(function()
     while running do
@@ -61,7 +60,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("NetworkContainer"):WaitForChi
             Method = "POST",
             Headers = { ["Content-Type"] = "application/json" },
             Body = HttpService:JSONEncode({
-                content = "@here " User " Money: " .. message
+                content = "@here AsepHelloWorld Money: " .. message
             })
         })
 
