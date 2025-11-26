@@ -202,6 +202,6 @@ firesignal(REDisplaySystemMessage.OnClientEvent,
 		}
 	)
 
-	task.wait(1.8)
+	task.wait(delay)
 
 end
