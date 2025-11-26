@@ -84,6 +84,50 @@ for i = 1, total do
 			Weight = wght
 		}
 	) 
+-- Generated with sigma spy 
+
+-- Services
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+-- Variables
+local Character = Players.LocalPlayer.Character
+local REReplicateTextEffect = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/ReplicateTextEffect"]
+
+-- This data was received from the server
+firesignal(REReplicateTextEffect.OnClientEvent, 
+    {
+        UUID = "4b669e89-d602-4182-9508-f3ee2f305033",
+        Channel = "All",
+        TextData = {
+            AttachTo = Character.Head,
+            Text = "!",
+            EffectType = "Exclaim",
+            TextColor = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.new(0.25, 0.90, 0.80)),
+	ColorSequenceKeypoint.new(1, Color3.new(0.25, 0.90, 0.80))
+})
+        },
+        Duration = 0.5,
+        Container = Character.Head
+    }
+)
+	-- Generated with sigma spy 
+
+-- Services
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+-- Variables
+local Head = Players.LocalPlayer.Character.Head
+local REPlayFishingEffect = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/PlayFishingEffect"]
+
+-- This data was received from the server
+firesignal(REPlayFishingEffect.OnClientEvent, 
+    Players.LocalPlayer,
+    Head,
+    5
+)
 
 	local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
