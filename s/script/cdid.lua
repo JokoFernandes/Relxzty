@@ -51,7 +51,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("NetworkContainer"):WaitForChi
 
         -- WEBHOOK
         local HttpService = game:GetService("HttpService")
-        local WEBHOOK = "https://discord.com/api/webhooks/1441305375574851635/YV0xu1N8-KCGr1WV9x0RwsWiQD48Kxlg3qKd5C1DvS-K1ejfgKGYNY3NE_zQGcx_Bj8G"
+        local WEBHOOK = "https://discord.com/api/webhooks/1441305379425226783/DxcnGuxHEtbl2iMnCNSGMR2cpgexUdkdLq7J5qBOR5If-BJZ29HJxOgkfe7whot7xZ2L"
 
         local message = _G.userm.PlayerGui.Main.Container.Hub.CashFrame.Frame.TextLabel.Text
 
