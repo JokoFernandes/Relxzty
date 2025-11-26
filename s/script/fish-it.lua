@@ -1,7 +1,16 @@
 -- admin abuse
+_G.Loop = 1
+_G.Weight = 650
+_G.fishId = 269
+_G.Msg = "<b><font size=\"20\" color=\"#ffffff\">[Server]:</font></b> Asepjuragan_fruit obtained a <b><font color=\"rgb(24, 255, 152)\">GALAXY Elshark Gran Maja (650K kg)</font></b> with a 1 in 4M chance!"
+_G.delay = 1.8
+_G.fishtype = "Elshark Gran Maja"
 -- input
-local fishId = 269
-local wght = 650000
+local message = _G.Msg
+local fishId = _G.fishId
+local wght = _G.Weight
+local delay = _G.delay
+local fishtype = _G.fishtype
 -- Services
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
@@ -11,7 +20,7 @@ local RETextNotification = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.
 -- This data was received from the server
 firesignal(RETextNotification.OnClientEvent, 
     {
-        CustomDuration = 1,
+        CustomDuration = 3.5,
         Text = "Get ready ",
         Type = "Text",
         TextColor = {
@@ -21,7 +30,7 @@ firesignal(RETextNotification.OnClientEvent,
         }
     }
 )
-task.wait(2)
+task.wait(4.5)
 -- Services
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
@@ -32,7 +41,7 @@ local RETextNotification = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.
 firesignal(RETextNotification.OnClientEvent, 
     {
         CustomDuration = 5,
-        Text = "Ambatukammmmmm",
+        Text = "🥵 AMBATUKAAMMMMM",
         Type = "Event",
         TextColor = {
             B = 0,
@@ -43,7 +52,7 @@ firesignal(RETextNotification.OnClientEvent,
 )
 task.wait(1.5)
 -- ikan
-local total = 50
+local total = _G.Loop
 for i = 1, total do
 
 	local Players = game:GetService("Players")
@@ -79,7 +88,7 @@ for i = 1, total do
 
 	-- This data was received from the server
 	firesignal(REFishCaught.OnClientEvent, 
-		"Elshark Gran Maja",
+		fishtype,
 		{
 			Weight = wght
 		}
@@ -97,7 +106,7 @@ local REReplicateTextEffect = ReplicatedStorage.Packages._Index["sleitnick_net@0
 -- This data was received from the server
 firesignal(REReplicateTextEffect.OnClientEvent, 
     {
-        UUID = "4b669e89-d602-4182-9508-f3ee2f305033",
+        UUID = i,
         Channel = "All",
         TextData = {
             AttachTo = Character.Head,
@@ -128,7 +137,18 @@ firesignal(REPlayFishingEffect.OnClientEvent,
     Head,
     5
 )
+-- Generated with sigma spy 
 
+-- Services
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+-- Variables
+local REDisplaySystemMessage = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/DisplaySystemMessage"]
+
+-- This data was received from the server
+firesignal(REDisplaySystemMessage.OnClientEvent, 
+    message
+)
 	local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 	local REObtainedNewFishNotification = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/ObtainedNewFishNotification"]
@@ -145,7 +165,7 @@ firesignal(REPlayFishingEffect.OnClientEvent,
 			InventoryItem = {
 				Id = fishId,
 				Favorited = false,
-				UUID = "1a06884e-3430-473d-af94-304ff5b8e532",
+				UUID = i,
 				Metadata = {
 					Weight = wght,
 					VariantSeed = 17419837,
