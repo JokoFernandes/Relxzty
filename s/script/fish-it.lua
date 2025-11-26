@@ -1,10 +1,5 @@
 -- admin abuse
-_G.Loop = 1
-_G.Weight = 650
-_G.fishId = 269
-_G.Msg = "<b><font size=\"20\" color=\"#ffffff\">[Server]:</font></b> Asepjuragan_fruit obtained a <b><font color=\"rgb(24, 255, 152)\">GALAXY Elshark Gran Maja (650K kg)</font></b> with a 1 in 4M chance!"
-_G.delay = 1.8
-_G.fishtype = "Elshark Gran Maja"
+
 -- input
 local message = _G.Msg
 local fishId = _G.fishId
