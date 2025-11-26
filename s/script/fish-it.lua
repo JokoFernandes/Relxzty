@@ -181,26 +181,28 @@ firesignal(REDisplaySystemMessage.OnClientEvent,
 	-- Services
 	local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-	-- Variables
-	local ArrayUpdate = ReplicatedStorage.Packages._Index["ytrev_replion@2.0.0-rc.3"].replion.Remotes.ArrayUpdate
+-- Variables
+local ArrayUpdate = ReplicatedStorage.Packages._Index["ytrev_replion@2.0.0-rc.3"].replion.Remotes.ArrayUpdate
 
-	-- This data was received from the server
-	firesignal(ArrayUpdate.OnClientEvent, 
-		"\11",
-		"i",
-		{
-			"Inventory",
-			"Items"
-		},
-		{
-			Id = fishId,
-			Favorited = false,
-			UUID = i,
-			Metadata = {
-				Weight = wght
-			}
-		}
-	)
+-- This data was received from the server
+firesignal(ArrayUpdate.OnClientEvent, 
+    "\11",
+    "i",
+    {
+        "Inventory",
+        "Items"
+    },
+    {
+        Id = 269,
+        Favorited = false,
+        UUID = "5000",
+        Metadata = {
+            Weight = 650000,
+VariantSeed = 17419837,
+					VariantId = "Galaxy"
+        }
+    }
+)
 
 	task.wait(delay)
 
