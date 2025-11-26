@@ -41,6 +41,7 @@ firesignal(RETextNotification.OnClientEvent,
         }
     }
 )
+task.wait(1.5)
 -- ikan
 local total = 50
 for i = 1, total do
