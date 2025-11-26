@@ -142,6 +142,6 @@ for i = 1, total do
 		}
 	)
 
-	task.wait(0.8)
+	task.wait(1.8)
 
 end
