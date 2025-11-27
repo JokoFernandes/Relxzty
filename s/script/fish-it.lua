@@ -56,7 +56,7 @@ for i = 1, total do
 	local hrp = char:WaitForChild("HumanoidRootPart")
 
 	-- hitung posisi di depan player
-	local front = hrp.Position + (hrp.CFrame.LookVector * 5)
+	local front = hrp.Position + (hrp.CFrame.LookVector * 20)
 
 	local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
@@ -108,8 +108,8 @@ firesignal(REReplicateTextEffect.OnClientEvent,
             Text = "!",
             EffectType = "Exclaim",
             TextColor = ColorSequence.new({
-	ColorSequenceKeypoint.new(0, Color3.new(0.25, 0.90, 0.80)),
-	ColorSequenceKeypoint.new(1, Color3.new(0.25, 0.90, 0.80))
+	ColorSequenceKeypoint.new(0, Color3.new(0.25, 0.85, 0.80)),
+	ColorSequenceKeypoint.new(1, Color3.new(0.25, 0.85, 0.80))
 })
         },
         Duration = 0.5,
