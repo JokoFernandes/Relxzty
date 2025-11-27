@@ -1,4 +1,4 @@
--- GUI EXECUTOR VERSION
+-- GUI EXECUTOR VERSION 0.2
 local ui = Instance.new("ScreenGui")
 ui.Parent = game.CoreGui
 
@@ -7,15 +7,17 @@ local window = Instance.new("Frame", ui)
 window.Size = UDim2.new(0, 240, 0, 300)
 window.Position = UDim2.new(0.5, -120, 0.5, -150)
 window.BackgroundColor3 = Color3.fromRGB(40,40,40)
-window.Active = true
-window.Draggable = true
+window.Active = false
+window.Draggable = false
 
--- TITLE
+-- TITLE (Hanya title yang bisa drag)
 local title = Instance.new("TextLabel", window)
 title.Size = UDim2.new(1,0,0,30)
 title.Text = "Executor GUI"
 title.BackgroundColor3 = Color3.fromRGB(60,60,60)
 title.TextColor3 = Color3.fromRGB(255,255,255)
+title.Active = true
+title.Draggable = true
 
 ---------------------------------------------------------
 -- TOGGLE (Loop)
@@ -65,7 +67,7 @@ knob.Changed:Connect(function(prop)
 end)
 
 ---------------------------------------------------------
--- SELECT OPTION (Dropdown)
+-- SELECT OPTION (Dropdown + OVERFLOW 2 ITEM)
 ---------------------------------------------------------
 local places = {"Spawn", "Shop", "Boss"}
 
@@ -74,12 +76,16 @@ dropdown.Size = UDim2.new(1, -20, 0, 35)
 dropdown.Position = UDim2.new(0, 10, 0, 120)
 dropdown.Text = "Select Place"
 
-local list = Instance.new("Frame", window)
-list.Size = UDim2.new(1, -20, 0, #places * 30)
+local list = Instance.new("ScrollingFrame", window)
+list.Size = UDim2.new(1, -20, 0, 60) -- Hanya 2 item terlihat
 list.Position = UDim2.new(0, 10, 0, 160)
 list.BackgroundColor3 = Color3.fromRGB(60,60,60)
 list.Visible = false
 list.ClipsDescendants = true
+list.CanvasSize = UDim2.new(0, 0, 0, #places * 30)
+list.ScrollBarImageTransparency = 0
+list.ScrollBarThickness = 6
+list.AutomaticCanvasSize = Enum.AutomaticSize.None
 
 dropdown.MouseButton1Click:Connect(function()
     list.Visible = not list.Visible
@@ -119,4 +125,3 @@ tpBtn.MouseButton1Click:Connect(function()
         char:PivotTo(CFrame.new(100, 5, 0))
     end
 end)
-
