@@ -5,7 +5,6 @@ ui.Parent = game.CoreGui
 local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
-local ui = player:WaitForChild("PlayerGui")
  
 -- =========================
 -- WINDOW UTAMA
@@ -87,12 +86,12 @@ toggleBtn.MouseButton1Click:Connect(function()
     toggleBtn.BackgroundColor3 = toggle and Color3.fromRGB(60,120,60) or Color3.fromRGB(120,60,60)
  
     task.spawn(function()
-        while toggle do
-            print("Loop aktif")
-            task.wait(1)
-        end
-    end)
+	while toggle do
+		print("Loop aktif")
+		task.wait(1)
+	end
 end)
+
  
 ---------------------------------------------------------
 -- SLIDER SPEED
