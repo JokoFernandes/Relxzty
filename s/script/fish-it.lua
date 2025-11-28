@@ -67,7 +67,7 @@ for i = 1, total do
 	firesignal(RECaughtFishVisual.OnClientEvent, 
 		Players.LocalPlayer,
 		front,
-		"Elshark Gran Maja",
+		fishtype,
 		{
 			VariantId= "GALAXY",
 			VariantSeed = 12349013,
