@@ -130,7 +130,7 @@ local REPlayFishingEffect = ReplicatedStorage.Packages._Index["sleitnick_net@0.2
 firesignal(REPlayFishingEffect.OnClientEvent, 
     Players.LocalPlayer,
     Head,
-    5
+    6
 )
 -- Generated with sigma spy 
 
@@ -195,7 +195,7 @@ firesignal(ArrayUpdate.OnClientEvent,
     {
         Id = 269,
         Favorited = false,
-        UUID = "5000",
+        UUID = i,
         Metadata = {
             Weight = 650000,
 VariantSeed = 17419837,
