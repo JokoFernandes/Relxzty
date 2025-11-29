@@ -204,6 +204,24 @@ VariantSeed = 17419837,
         }
     }
 )
+-- Generated with sigma spy 
+
+-- Services
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+-- Variables
+local Set = ReplicatedStorage.Packages._Index["ytrev_replion@2.0.0-rc.3"].replion.Remotes.Set
+
+-- This data was received from the server
+firesignal(Set.OnClientEvent, 
+    "\11",
+    {
+        "InventoryNotifications",
+        "Fish"
+    },
+    30000
+)
+
 
 	task.wait(delay)
 
