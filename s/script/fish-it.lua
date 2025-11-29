@@ -219,7 +219,7 @@ firesignal(Set.OnClientEvent,
         "InventoryNotifications",
         "Fish"
     },
-    30000
+    i
 )
 
 
