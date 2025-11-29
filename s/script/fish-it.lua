@@ -70,7 +70,7 @@ for i = 1, total do
 		front,
 		fishtype,
 		{
-			VariantId= "GALAXY",
+			VariantId= mutation,
 			VariantSeed = 12349013,
 			Weight = wght
 		}
