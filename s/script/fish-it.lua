@@ -3,13 +3,26 @@
 -- input
 local message = _G.Msg
 local fishId = _G.fishId
-local wght = _G.Weight
+local wght = _G.Weight 
 local delay = _G.delay
 local fishtype = _G.fishtype
 local mutation = _G.mutation
+local chance = _G.chance
 -- Services
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
+local function formatNumber(num)
+    if num >= 1_000_000_000 then
+        return string.format("%.1fB", num / 1_000_000_000)  -- Billion
+    elseif num >= 1_000_000 then
+        return string.format("%.1fM", num / 1_000_000)      -- Million
+    elseif num >= 1_000 then
+        return string.format("%.1fK", num / 1_000)          -- Thousand
+    else
+        return tostring(num)
+    end
+end
+local weight = formatNumber(wght)
 -- Variables
 local RETextNotification = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/TextNotification"]
 
@@ -136,6 +149,7 @@ firesignal(REPlayFishingEffect.OnClientEvent,
 -- Generated with sigma spy 
 
 -- Services
+local messager = "<b><font size=\'20\' color=\'#ffffff\'>[Server]:</font></b> " .. player.DisplayName .. " obtained a <b><font color=\'rgb(24, 255, 152)\'>" .. string.upper(mutation) .. " " ..  fishtype  .. " ("..weight  .. " kg)</font></b> with ".. chance .." chance!"
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 -- Variables
@@ -143,7 +157,7 @@ local REDisplaySystemMessage = ReplicatedStorage.Packages._Index["sleitnick_net@
 
 -- This data was received from the server
 firesignal(REDisplaySystemMessage.OnClientEvent, 
-    message
+    messager
 )
 	local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
