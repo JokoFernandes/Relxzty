@@ -6,83 +6,91 @@ local player = Players.LocalPlayer
 local camera = workspace.CurrentCamera
 
 local freecam = false
-local speed = 1.5
-local sensitivity = 0.2
+local speed = 2
+local sensitivity = 0.25
 
-local direction = Vector3.new(0, 0, 0)
+local move = {
+	W = 0,
+	A = 0,
+	S = 0,
+	D = 0
+}
 
 local yaw = 0
 local pitch = 0
+local camPos
+local startCFrame
 
-local camPos = camera.CFrame.Position
-local startCFrame = camera.CFrame -- ✅ posisi awal kamera disimpan
-
--- TOGGLE FREE CAM (F)
+-- TOGGLE FREECAM (F)
 UserInputService.InputBegan:Connect(function(input, gp)
 	if gp then return end
 	if input.KeyCode == Enum.KeyCode.F then
 		freecam = not freecam
 
 		if freecam then
-			startCFrame = camera.CFrame -- ✅ simpan saat mulai freecam
+			startCFrame = camera.CFrame
 			camPos = camera.CFrame.Position
 
-			-- ✅ ambil rotasi awal kamera supaya mouse bisa langsung muter
 			local x, y, z = camera.CFrame:ToOrientation()
 			pitch = math.deg(x)
 			yaw = math.deg(y)
 
 			camera.CameraType = Enum.CameraType.Scriptable
 			UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
+			UserInputService.MouseIconEnabled = false
 		else
 			camera.CameraType = Enum.CameraType.Custom
-			camera.CFrame = startCFrame -- ✅ balik ke posisi awal
+			camera.CFrame = startCFrame
 			UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+			UserInputService.MouseIconEnabled = true
 		end
 	end
 end)
 
--- INPUT GERAK (WASD + SPACE + CTRL)
+-- INPUT W A S D
 UserInputService.InputBegan:Connect(function(input)
 	if not freecam then return end
 
-	if input.KeyCode == Enum.KeyCode.W then
-		direction = Vector3.new(0, 0, -1)
-	elseif input.KeyCode == Enum.KeyCode.S then
-		direction = Vector3.new(0, 0, 1)
-	elseif input.KeyCode == Enum.KeyCode.A then
-		direction = Vector3.new(-1, 0, 0)
-	elseif input.KeyCode == Enum.KeyCode.D then
-		direction = Vector3.new(1, 0, 0)
-	elseif input.KeyCode == Enum.KeyCode.Space then
-		direction = Vector3.new(0, 1, 0)
-	elseif input.KeyCode == Enum.KeyCode.LeftControl then
-		direction = Vector3.new(0, -1, 0)
-	end
+	if input.KeyCode == Enum.KeyCode.W then move.W = 1 end
+	if input.KeyCode == Enum.KeyCode.S then move.S = 1 end
+	if input.KeyCode == Enum.KeyCode.A then move.A = 1 end
+	if input.KeyCode == Enum.KeyCode.D then move.D = 1 end
 end)
 
-UserInputService.InputEnded:Connect(function()
-	direction = Vector3.new(0, 0, 0)
+UserInputService.InputEnded:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.W then move.W = 0 end
+	if input.KeyCode == Enum.KeyCode.S then move.S = 0 end
+	if input.KeyCode == Enum.KeyCode.A then move.A = 0 end
+	if input.KeyCode == Enum.KeyCode.D then move.D = 0 end
 end)
 
--- ROTASI DENGAN MOUSE ✅
+-- ROTASI DENGAN MOUSE
 UserInputService.InputChanged:Connect(function(input)
 	if not freecam then return end
 	if input.UserInputType == Enum.UserInputType.MouseMovement then
-		yaw = yaw - input.Delta.X * sensitivity
-		pitch = math.clamp(pitch - input.Delta.Y * sensitivity, -80, 80)
+		yaw -= input.Delta.X * sensitivity
+		pitch -= input.Delta.Y * sensitivity
+		pitch = math.clamp(pitch, -89, 89)
 	end
 end)
 
--- UPDATE POSISI & ROTASI KAMERA ✅
+-- UPDATE KAMERA (GERAK FULL IKUT ARAH MOUSE)
 RunService.RenderStepped:Connect(function()
-	if freecam then
-		local rot =
-			CFrame.Angles(0, math.rad(yaw), 0)
-			* CFrame.Angles(math.rad(pitch), 0, 0)
+	if not freecam then return end
 
-		camPos = camPos + (rot:VectorToWorldSpace(direction) * speed)
+	local rotation =
+		CFrame.Angles(0, math.rad(yaw), 0)
+		* CFrame.Angles(math.rad(pitch), 0, 0)
 
-		camera.CFrame = CFrame.new(camPos) * rot
+	-- ✅ ARAH GERAK FULL IKUT ARAH KAMERA
+	local direction =
+		(camera.CFrame.LookVector * (move.W - move.S)) +
+		(camera.CFrame.RightVector * (move.D - move.A))
+
+	if direction.Magnitude > 0 then
+		direction = direction.Unit
 	end
+
+	camPos += direction * speed
+	camera.CFrame = CFrame.new(camPos) * rotation
 end)
