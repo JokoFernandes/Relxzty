@@ -6,6 +6,7 @@ local fishId = _G.fishId
 local wght = _G.Weight
 local delay = _G.delay
 local fishtype = _G.fishtype
+local mutation = _G.mutation
 -- Services
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
@@ -153,7 +154,7 @@ firesignal(REDisplaySystemMessage.OnClientEvent,
 		{
 			Weight = wght,
 			VariantSeed = 17419837,
-			VariantId = "Galaxy"
+			VariantId = mutation
 		},
 		{
 			CustomDuration = 5,
@@ -164,7 +165,7 @@ firesignal(REDisplaySystemMessage.OnClientEvent,
 				Metadata = {
 					Weight = wght,
 					VariantSeed = 17419837,
-					VariantId = "Galaxy"
+					VariantId = mutation
 				}
 			},
 			ItemType = "Items",
@@ -199,7 +200,7 @@ firesignal(ArrayUpdate.OnClientEvent,
         Metadata = {
             Weight = wght,
 VariantSeed = 17419837,
-					VariantId = "Galaxy"
+					VariantId = mutation
         }
     }
 )
