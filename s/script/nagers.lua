@@ -186,8 +186,8 @@ instantFishingCorner.CornerRadius = UDim.new(0, 10)
 instantFishing.BackgroundTransparency = buttonTransparency
 instantFishing.Size = UDim2.new(1, -20, 0, 40)
 instantFishing.Position = UDim2.new(0, 10, 0, 180)
-instantFishing.PlaceholderText = "Delay Complete"
-instantFishing.Text = ""
+instantFishing.PlaceholderText = "Complete Delay"
+instantFishing.Text = "1"
 instantFishing.BackgroundColor3 = buttonColor
 instantFishing.TextColor3 = Color3.fromRGB(255,255,255)
 
@@ -202,6 +202,8 @@ toggleInstant.Text = "Toggle Fishing: OFF"
 toggleInstant.BackgroundColor3 = buttonColor
 toggleInstant.TextColor3 = Color3.fromRGB(255,255,255)
 
+local toggelInstantFishing = false
+
 toggleInstant.MouseButton1Click:Connect(function()
 	local instantDelay = tonumber(instantFishing.Text)
 	toggelInstantFishing = not toggelInstantFishing
@@ -211,11 +213,11 @@ toggleInstant.MouseButton1Click:Connect(function()
 		local RFChargeFishingRod = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RF/ChargeFishingRod"]
 		RFChargeFishingRod:InvokeServer()
 		task.wait(0.28)
-		while true do
+		while toggelInstantFishing do
 			local ReplicatedStorage = game:GetService("ReplicatedStorage")
 			local Argument1 = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RF/RequestFishingMinigameStarted"]
 			Argument1:InvokeServer(-1.233184814453125,0.8976325017669844,1764318083.535636)
-			task.wait(1)
+			task.wait(tonumber(instantFishing.Text))
 			
 			local REFishingCompleted = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/FishingCompleted"]
 			REFishingCompleted:FireServer()
@@ -235,6 +237,7 @@ toggleInstant.MouseButton1Click:Connect(function()
 			task.wait()
 			local RFChargeFishingRod = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RF/ChargeFishingRod"]
 			RFChargeFishingRod:InvokeServer()
+			task.wait(0.1)
 		end
 	end)
 end)
