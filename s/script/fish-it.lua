@@ -193,7 +193,7 @@ firesignal(ArrayUpdate.OnClientEvent,
         "Items"
     },
     {
-        Id = 269,
+        Id = fishId,
         Favorited = false,
         UUID = i,
         Metadata = {
