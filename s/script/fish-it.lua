@@ -197,7 +197,7 @@ firesignal(ArrayUpdate.OnClientEvent,
         Favorited = false,
         UUID = i,
         Metadata = {
-            Weight = 650000,
+            Weight = wght,
 VariantSeed = 17419837,
 					VariantId = "Galaxy"
         }
