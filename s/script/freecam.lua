@@ -10,10 +10,12 @@ local speed = 1.5
 local sensitivity = 0.2
 
 local direction = Vector3.new(0, 0, 0)
+
 local yaw = 0
 local pitch = 0
 
 local camPos = camera.CFrame.Position
+local startCFrame = camera.CFrame -- ✅ posisi awal kamera disimpan
 
 -- TOGGLE FREE CAM (F)
 UserInputService.InputBegan:Connect(function(input, gp)
@@ -22,17 +24,25 @@ UserInputService.InputBegan:Connect(function(input, gp)
 		freecam = not freecam
 
 		if freecam then
+			startCFrame = camera.CFrame -- ✅ simpan saat mulai freecam
+			camPos = camera.CFrame.Position
+
+			-- ✅ ambil rotasi awal kamera supaya mouse bisa langsung muter
+			local x, y, z = camera.CFrame:ToOrientation()
+			pitch = math.deg(x)
+			yaw = math.deg(y)
+
 			camera.CameraType = Enum.CameraType.Scriptable
 			UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
-			camPos = camera.CFrame.Position
 		else
 			camera.CameraType = Enum.CameraType.Custom
+			camera.CFrame = startCFrame -- ✅ balik ke posisi awal
 			UserInputService.MouseBehavior = Enum.MouseBehavior.Default
 		end
 	end
 end)
 
--- INPUT GERAK
+-- INPUT GERAK (WASD + SPACE + CTRL)
 UserInputService.InputBegan:Connect(function(input)
 	if not freecam then return end
 
@@ -55,7 +65,7 @@ UserInputService.InputEnded:Connect(function()
 	direction = Vector3.new(0, 0, 0)
 end)
 
--- ROTASI DENGAN MOUSE
+-- ROTASI DENGAN MOUSE ✅
 UserInputService.InputChanged:Connect(function(input)
 	if not freecam then return end
 	if input.UserInputType == Enum.UserInputType.MouseMovement then
@@ -64,10 +74,11 @@ UserInputService.InputChanged:Connect(function(input)
 	end
 end)
 
--- UPDATE KAMERA
+-- UPDATE POSISI & ROTASI KAMERA ✅
 RunService.RenderStepped:Connect(function()
 	if freecam then
-		local rot = CFrame.Angles(0, math.rad(yaw), 0)
+		local rot =
+			CFrame.Angles(0, math.rad(yaw), 0)
 			* CFrame.Angles(math.rad(pitch), 0, 0)
 
 		camPos = camPos + (rot:VectorToWorldSpace(direction) * speed)
