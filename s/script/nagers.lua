@@ -227,7 +227,7 @@ toggleInstant.MouseButton1Click:Connect(function()
 			local RFChargeFishingRod = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RF/ChargeFishingRod"]
 			RFChargeFishingRod:InvokeServer({[4] = tickTime})
 					
-			task.wait(0.15)
+			task.wait(0.2)
 			local Argument1 = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RF/RequestFishingMinigameStarted"]
 			Argument1:InvokeServer(hrp.Position.Y, randomDecimal, tickTime)
 					
@@ -238,10 +238,10 @@ toggleInstant.MouseButton1Click:Connect(function()
 			
 			local REUpdateChargeState = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/UpdateChargeState"]
 			firesignal(REUpdateChargeState.OnClientEvent)
-
 			local REUpdateChargeState = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/UpdateChargeState"]
 			firesignal(REUpdateChargeState.OnClientEvent)
-
+			task.wait()
+			game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("_Index"):WaitForChild("sleitnick_net@0.2.0"):WaitForChild("net"):WaitForChild("RF/CancelFishingInputs"):InvokeServer()
 			task.wait()
 		end
 	end)
