@@ -218,17 +218,16 @@ toggleInstant.MouseButton1Click:Connect(function()
 		task.wait(0.28)
 		while toggelInstantFishing do
 			local tickTime = tick()
-			local randomDigits = tostring(math.random(10^15, 10^16 - 1)) -- random 15–16 digit
+			local randomDigits = tostring(math.random(10^14, 10^15 - 1)) -- random 15–16 digit
 			local randomDecimal = tonumber("0." .. randomDigits)
 			local args = {
 				tickTime
 			}
 			local ReplicatedStorage = game:GetService("ReplicatedStorage")
 			local RFChargeFishingRod = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RF/ChargeFishingRod"]
-			RFChargeFishingRod:InvokeServer([4] = tickTime)
+			RFChargeFishingRod:InvokeServer({[4] = tickTime})
 					
 			task.wait(0.15)
-			local ReplicatedStorage = game:GetService("ReplicatedStorage")
 			local Argument1 = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RF/RequestFishingMinigameStarted"]
 			Argument1:InvokeServer(hrp.Position.Y, randomDecimal, tickTime)
 					
@@ -237,11 +236,9 @@ toggleInstant.MouseButton1Click:Connect(function()
 			local REFishingCompleted = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/FishingCompleted"]
 			REFishingCompleted:FireServer()
 			
-			local ReplicatedStorage = game:GetService("ReplicatedStorage")
 			local REUpdateChargeState = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/UpdateChargeState"]
 			firesignal(REUpdateChargeState.OnClientEvent)
 
-			local ReplicatedStorage = game:GetService("ReplicatedStorage")
 			local REUpdateChargeState = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/UpdateChargeState"]
 			firesignal(REUpdateChargeState.OnClientEvent)
 
