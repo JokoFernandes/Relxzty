@@ -3,6 +3,7 @@ local ui = Instance.new("ScreenGui")
 ui.ResetOnSpawn = false
 ui.Parent = game:GetService("CoreGui")
 ui.Name = "Asep Store"
+ui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 local player = game.Players.LocalPlayer
 local hrp = player.Character:WaitForChild("HumanoidRootPart")
 -- config
@@ -37,6 +38,8 @@ title.Text = "Asep Exploit"
 title.TextColor3 = Color3.fromRGB(255,255,255)
 title.BackgroundColor3 = bgrd
 title.Active = true
+
+
 
 ----------------------------------------------------
 -- ✅ DRAG HANYA DARI TITLE
@@ -92,9 +95,9 @@ for i, name in ipairs(menuList) do
 	local btnCorner = Instance.new("UICorner", btn)
 	btnCorner.CornerRadius = UDim.new(0, 10)
 	btn.BackgroundTransparency = buttonTransparency
+	btn.BorderMode = Enum.BorderMode.Outline
 	btn.BorderSizePixel = 1
 	btn.BorderColor3 = buttonBrdr
-	btn.BorderMode = Enum.BorderMode.Outline
 	btn.Size = UDim2.new(1, 0, 0, 40)
 	btn.Position = UDim2.new(0, 0, 0, (i-1)*43)
 	btn.Text = name
@@ -186,8 +189,8 @@ instantFishingCorner.CornerRadius = UDim.new(0, 10)
 instantFishing.BackgroundTransparency = buttonTransparency
 instantFishing.Size = UDim2.new(1, -20, 0, 40)
 instantFishing.Position = UDim2.new(0, 10, 0, 180)
-instantFishing.PlaceholderText = "Complete Delay"
-instantFishing.Text = "1"
+instantFishing.PlaceholderText = "Delay Complete"
+instantFishing.Text = ""
 instantFishing.BackgroundColor3 = buttonColor
 instantFishing.TextColor3 = Color3.fromRGB(255,255,255)
 
@@ -297,50 +300,6 @@ for i, place in pairs(places) do
 	end)
 end
 
-local inputDelays = Instance.new("TextBox", rightPanel)
-local inputDelaysCorner = Instance.new("UICorner", inputReel)
-inputDelaysCorner.CornerRadius = UDim.new(0, 10)
-inputDelays.BackgroundTransparency = buttonTransparency
-inputDelays.Size = UDim2.new(1, -20, 0, 40)
-inputDelays.Position = UDim2.new(0, 10, 0, 60)
-inputDelays.PlaceholderText = "Fish"
-inputDelays.Text = ""
-inputDelays.BackgroundColor3 = buttonColor
-inputDelays.TextColor3 = Color3.fromRGB(255,255,255)
-
-local CountFun = Instance.new("TextBox", rightPanel)
-local CountFunCorner = Instance.new("UICorner", inputReel)
-CountFunCorner.CornerRadius = UDim.new(0, 10)
-CountFun.BackgroundTransparency = buttonTransparency
-CountFun.Size = UDim2.new(1, -20, 0, 40)
-CountFun.Position = UDim2.new(0, 10, 0, 60)
-CountFun.PlaceholderText = "Count"
-CountFun.Text = ""
-CountFun.BackgroundColor3 = buttonColor
-CountFun.TextColor3 = Color3.fromRGB(255,255,255)
-
-local inputWeight = Instance.new("TextBox", rightPanel)
-local inputWeightCorner = Instance.new("UICorner", inputReel)
-inputWeightCorner.CornerRadius = UDim.new(0, 10)
-inputWeight.BackgroundTransparency = buttonTransparency
-inputWeight.Size = UDim2.new(1, -20, 0, 40)
-inputWeight.Position = UDim2.new(0, 10, 0, 60)
-inputWeight.PlaceholderText = "Weight"
-inputWeight.Text = ""
-inputWeight.BackgroundColor3 = buttonColor
-inputWeight.TextColor3 = Color3.fromRGB(255,255,255)
-
-local inputFishId = Instance.new("TextBox", rightPanel)
-local inputFishIdCorner = Instance.new("UICorner", inputReel)
-inputFishIdCorner.CornerRadius = UDim.new(0, 10)
-inputFishId.BackgroundTransparency = buttonTransparency
-inputFishId.Size = UDim2.new(1, -20, 0, 40)
-inputFishId.Position = UDim2.new(0, 10, 0, 60)
-inputFishId.PlaceholderText = "ID"
-inputFishId.Text = ""
-inputFishId.BackgroundColor3 = buttonColor
-inputFishId.TextColor3 = Color3.fromRGB(255,255,255)
-
 local tpBtn = Instance.new("TextButton", rightPanel)
 local tpCorner = Instance.new("UICorner", tpBtn)
 tpBtn.Visible = false
@@ -353,6 +312,7 @@ tpBtn.Text = "Teleport"
 tpBtn.BackgroundColor3 = buttonColor
 tpBtn.TextColor3 = Color3.fromRGB(255,255,255)
 tpBtn.MouseButton1Click:Connect(function()
+
 	local selected = dropdown.Text
 
 	-- contoh cek berdasarkan nama murni
@@ -379,14 +339,117 @@ tpBtn.MouseButton1Click:Connect(function()
 		print("Invalid place selected:", dropdown.Text)
 	end
 end)
+local vfishid = Instance.new("TextBox", rightPanel)
+local vfishidCorner = Instance.new("UICorner", vfishid)
+vfishidCorner.CornerRadius = UDim.new(0, 10)
+vfishid.BackgroundTransparency = buttonTransparency
+vfishid.Size = UDim2.new(0.5, -5, 0, 30)
+vfishid.Position = UDim2.new(0, 10, 0, 10)
+vfishid.PlaceholderText = "ID example:269 for el maja"
+vfishid.Text = "269"
+vfishid.BackgroundColor3 = buttonColor
+vfishid.TextColor3 = Color3.fromRGB(255,255,255)
+
+local vweight = Instance.new("TextBox", rightPanel)
+local vweightCorner = Instance.new("UICorner", vweight)
+vweightCorner.CornerRadius = UDim.new(0, 10)
+vweight.BackgroundTransparency = buttonTransparency
+vweight.Size = UDim2.new(0.5, -5, 0, 30)
+vweight.Position = UDim2.new(0, 10, 0, 45)
+vweight.PlaceholderText = "Weight example: 5000000"
+vweight.Text = "650000"
+vweight.BackgroundColor3 = buttonColor
+vweight.TextColor3 = Color3.fromRGB(255,255,255)
+
+local vmutation = Instance.new("TextBox", rightPanel)
+local vmutationCorner = Instance.new("UICorner", vmutation)
+vmutation.BackgroundTransparency = buttonTransparency
+vmutation.Size = UDim2.new(0.5, -5, 0, 30)
+vmutation.Position = UDim2.new(0, 10, 0, 80)
+vmutation.PlaceholderText = "Mutation example: Galaxy"
+vmutation.Text = "Galaxy"
+vmutation.BackgroundColor3 = buttonColor
+vmutation.TextColor3 = Color3.fromRGB(255,255,255)
+
+local vcount = Instance.new("TextBox", rightPanel)
+local vcountCorner = Instance.new("UICorner", vcount)
+vcountCorner.CornerRadius = UDim.new(0, 10)
+vcount.BackgroundTransparency = buttonTransparency
+vcount.Size = UDim2.new(0.5, -5, 0, 30)
+vcount.Position = UDim2.new(0, 240, 0, 10)
+vcount.PlaceholderText = "Count example:10"
+vcount.Text = "1"
+vcount.BackgroundColor3 = buttonColor
+vcount.TextColor3 = Color3.fromRGB(255,255,255)
+
+local vdelay = Instance.new("TextBox", rightPanel)
+local vdelayCorner = Instance.new("UICorner", vdelay)
+vdelayCorner.CornerRadius = UDim.new(0, 10)
+vdelay.BackgroundTransparency = buttonTransparency
+vdelay.Size = UDim2.new(0.5, -5, 0, 30)
+vdelay.Position = UDim2.new(0, 240, 0, 45)
+vdelay.PlaceholderText = "Delay example: 1 for 1 sec each loop"
+vdelay.Text = "1"
+vdelay.BackgroundColor3 = buttonColor
+vdelay.TextColor3 = Color3.fromRGB(255,255,255)
+
+local vfishtype = Instance.new("TextBox", rightPanel)
+local vfishtypeCorner = Instance.new("UICorner", vfishtype)
+vfishtypeCorner.CornerRadius = UDim.new(0, 10)
+vfishtype.BackgroundTransparency = buttonTransparency
+vfishtype.Size = UDim2.new(0.75, -5, 0, 35)
+vfishtype.Position = UDim2.new(0, 60, 0, 115)
+vfishtype.PlaceholderText = "FishType example:Elshark Gran Maja"
+vfishtype.Text = "Elshark Gran Maja"
+vfishtype.BackgroundColor3 = buttonColor
+vfishtype.TextColor3 = Color3.fromRGB(255,255,255)
+
+local vchance = Instance.new("TextBox", rightPanel)
+local vchanceCorner = Instance.new("UICorner", vchance)
+vchanceCorner.CornerRadius = UDim.new(0, 10)
+vchance.BackgroundTransparency = buttonTransparency
+vchance.Size = UDim2.new(0.5, -5, 0, 30)
+vchance.Position = UDim2.new(0, 240, 0, 80)
+vchance.PlaceholderText = "Chance example: 1 In 4M"
+vchance.Text = "1 In 4M"
+vchance.BackgroundColor3 = buttonColor
+vchance.TextColor3 = Color3.fromRGB(255,255,255)
+
+local vstart = Instance.new("TextButton", rightPanel)
+local vstartCorner = Instance.new("UICorner", vstart)
+vstartCorner.CornerRadius = UDim.new(0, 10)
+vstart.Size = UDim2.new(1, -20, 0, 40)
+vstart.Position = UDim2.new(0, 10, 0, 160)
+vstart.Text = "Start"
+vstart.BackgroundColor3 = buttonColor
+vstart.TextColor3 = Color3.fromRGB(255,255,255)
+vstart.MouseButton1Click:Connect(function()
+	
+	_G.fishId = tonumber(vfishid.Text)
+	_G.mutation = vmutation.Text
+	_G.Weight = tonumber(vweight.Text)
+	_G.Loop = tonumber(vcount.Text)
+	_G.delay = tonumber(vdelay.Text)
+	_G.fishtype = vfishtype.Text
+	_G.chance = vchance.Text
+	task.wait(1)
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/s/script/fish-it.lua"))()
+end)
 
 
 -- ✅ MENU KIRI → MENGGANTI ISI KANAN
 ----------------------------------------------------
 local function show(group)
+	vstart.Visible = false
+	vfishid.Visible = false
+	vchance.Visible = false
+	vweight.Visible = false
+	vmutation.Visible = false
+	vcount.Visible = false
+	vdelay.Visible = false
+	vfishtype.Visible = false
 	toggleBtn.Visible = false
 	inputBox.Visible = false
-	inputFishId.Visible = false
 	tpBtn.Visible = false
 	instantFishing.Visible = false 
 	toggleInstant.Visible = false
@@ -394,17 +457,20 @@ local function show(group)
 	inputReel.Visible = false
 	dropdown.Visible = false
 	list.Visible = false
-	
-	CountFun.Visible = false
-	inputWeight.Visible = false 
-	inputDelays.Visible = false
 	task.wait(0.01)
 	if group == "Teleport" then
 		tpBtn.Visible = true
 		dropdown.Visible = true
 	end
 	if group == "Fun Action" then
-		print("s")
+		vstart.Visible = true
+		vfishid.Visible = true
+		vchance.Visible = true
+		vweight.Visible = true
+		vmutation.Visible = true
+		vcount.Visible = true
+		vdelay.Visible = true
+		vfishtype.Visible = true
 	end
 	if group == "Misc" then
 		print("S")
