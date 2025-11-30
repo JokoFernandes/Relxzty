@@ -247,7 +247,7 @@ end)
 ----------------------------------------------------
 -- ✅ PANEL Teleport
 ----------------------------------------------------
-local places = {"Spawn", "Ancient Jungle", "Clasic Event","Clasic Event Cave", "Ancient Ruin", "Sacred Temple", "Syssipus","Treasure Island","Crater Island"}
+local places = {"Spawn", "Ancient Jungle", "Classic Event", "Classic Event Cave", "Ancient Ruin", "Sacred Temple", "Sisyphus Statue","Treasure Island","Crater Island", "Esoteric Deep"}
 
 local dropdown = Instance.new("TextButton", rightPanel)
 local dropdownCorner = Instance.new("UICorner", dropdown)
@@ -323,17 +323,31 @@ tpBtn.MouseButton1Click:Connect(function()
 		-- if char and char.PrimaryPart then char:SetPrimaryPartCFrame(CFrame.new(x,y,z)) end
 
 	elseif selected == "Ancient Jungle" then
-		hrp.CFrame = CFrame.new(0, 10, 0)
+		hrp.CFrame = CFrame.new(1515, 27, -306)
 
 	elseif selected == "Ancient Ruin" then
-		hrp.CFrame = CFrame.new(0, 10, 0)
+		hrp.CFrame = CFrame.new(6086, -586, 4637)
 
-	elseif selected == "Shop" then
-		hrp.CFrame = CFrame.new(0, 10, 0)
+	elseif selected == "Sacred Temple" then
+		hrp.CFrame = CFrame.new(1483, -20, -641)
 
-	elseif selected == "Spawn" then
-		hrp.CFrame = CFrame.new(0, 100, 0)
+	elseif selected == "Crater Island" then
+		hrp.CFrame = CFrame.new(1020, 20, 5085)
+			
+	elseif selected == "Esoteric Deep" then
+		hrp.CFrame = CFrame.new(3244, -1303, 1405)
+			
+	elseif selected == "Sisyphus Statue" then
+		hrp.CFrame = CFrame.new(-3704, -134.5, -1012)
+			
+	elseif selected == "Classic Event" then
+		hrp.CFrame = CFrame.new(1438, 46, 2777)
 
+	elseif selected == "Iron Cave2" then
+		hrp.CFrame = CFrame.new(-8924, -580, 134)
+			
+	elseif selected == "Iron Cave" then
+		hrp.CFrame = CFrame.new(-8794, -583, 89)
 	else
 		-- jika tidak cocok
 		print("Invalid place selected:", dropdown.Text)
