@@ -235,6 +235,22 @@ firesignal(Set.OnClientEvent,
     i
 )
 
+local Update = ReplicatedStorage.Packages._Index["ytrev_replion@2.0.0-rc.3"].replion.Remotes.Update
+
+-- This data was received from the server
+firesignal(Update.OnClientEvent, 
+    "\12",
+    {
+        "CaughtFishMastery",
+        fishtype
+    },
+    {
+        Count = i,
+		Mutations = {
+            Galaxy = true
+        }
+    }
+)
 
 
 
