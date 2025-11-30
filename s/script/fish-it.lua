@@ -191,17 +191,18 @@ firesignal(REDisplaySystemMessage.OnClientEvent,
 	)
 
 	-- ✅ KODE BARU DITAMBAHKAN DI AKHIR TIAP PERULANGAN
-	-- Generated with sigma spy 
+-- Generated with sigma spy 
 
-	-- Services
-	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+-- Services
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 -- Variables
 local ArrayUpdate = ReplicatedStorage.Packages._Index["ytrev_replion@2.0.0-rc.3"].replion.Remotes.ArrayUpdate
 
 -- This data was received from the server
 firesignal(ArrayUpdate.OnClientEvent, 
-    "\11",
+    [[
+]],
     "i",
     {
         "Inventory",
@@ -210,14 +211,13 @@ firesignal(ArrayUpdate.OnClientEvent,
     {
         Id = fishId,
         Favorited = false,
-        UUID = i,
+        UUID =i,
         Metadata = {
-            Weight = wght,
-VariantSeed = 17419837,
-					VariantId = mutation
+            Weight = wght
         }
     }
 )
+
 -- Generated with sigma spy 
 
 -- Services
@@ -228,13 +228,15 @@ local Set = ReplicatedStorage.Packages._Index["ytrev_replion@2.0.0-rc.3"].replio
 
 -- This data was received from the server
 firesignal(Set.OnClientEvent, 
-    "\11",
+    [[
+]],
     {
         "InventoryNotifications",
         "Fish"
     },
     i
 )
+
 
 
 	task.wait(delay)
