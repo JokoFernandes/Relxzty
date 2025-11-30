@@ -247,7 +247,7 @@ end)
 ----------------------------------------------------
 -- ✅ PANEL Teleport
 ----------------------------------------------------
-local places = {"Spawn", "Ancient Jungle", "Classic Event", "Classic Event Cave", "Ancient Ruin", "Sacred Temple", "Sisyphus Statue","Treasure Island","Crater Island", "Esoteric Deep"}
+local places = {"Spawn", "Ancient Jungle", "Classic Event", "Iron Cave2", "Ancient Ruin", "Sacred Temple", "Sisyphus Statue","Iron Cave","Crater Island", "Esoteric Deep"}
 
 local dropdown = Instance.new("TextButton", rightPanel)
 local dropdownCorner = Instance.new("UICorner", dropdown)
