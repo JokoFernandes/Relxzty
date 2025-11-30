@@ -232,7 +232,7 @@ firesignal(Set.OnClientEvent,
         "InventoryNotifications",
         "Fish"
     },
-    1
+    i
 )
 
 
