@@ -201,8 +201,7 @@ local ArrayUpdate = ReplicatedStorage.Packages._Index["ytrev_replion@2.0.0-rc.3"
 
 -- This data was received from the server
 firesignal(ArrayUpdate.OnClientEvent, 
-    [[
-]],
+    "\12",
     "i",
     {
         "Inventory",
@@ -211,7 +210,7 @@ firesignal(ArrayUpdate.OnClientEvent,
     {
         Id = fishId,
         Favorited = false,
-        UUID =i,
+        UUID = i,
         Metadata = {
             Weight = wght
         }
@@ -228,14 +227,14 @@ local Set = ReplicatedStorage.Packages._Index["ytrev_replion@2.0.0-rc.3"].replio
 
 -- This data was received from the server
 firesignal(Set.OnClientEvent, 
-    [[
-]],
+    "\12",
     {
         "InventoryNotifications",
         "Fish"
     },
-    i
+    1
 )
+
 
 
 
