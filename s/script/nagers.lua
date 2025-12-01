@@ -1,20 +1,4 @@
 -- SCREEN GUI
-local RETextNotification = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/TextNotification"]
-
--- This data was received from the server
-firesignal(RETextNotification.OnClientEvent, 
-    {
-        CustomDuration = 3.5,
-        Text = "Script Loaded",
-        Type = "Text",
-        TextColor = {
-            B = 10,
-            G = 245,
-            R = 10
-        }
-    }
-)
-
 local ui = Instance.new("ScreenGui")
 ui.ResetOnSpawn = false
 ui.Parent = game:GetService("CoreGui")
