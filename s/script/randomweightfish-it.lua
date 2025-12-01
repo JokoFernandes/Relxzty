@@ -5,7 +5,6 @@ local message = _G.Msg
 local min = tonumber((_G.min or 0))
 local max = tonumber((_G.max or 0)) - 0.1
 local fishId = tonumber((_G.fishId or 186))
-local wght = min + (math.random(0, 1000000) / 1000000) * (max - min)
 local delay = tonumber(_G.delay)
 local fishtype = _G.fishtype
 local mutation {
@@ -78,6 +77,7 @@ task.wait(1.5)
 -- ikan
 local total = _G.Loop
 for i = 1, total do
+	local wght = min + (math.random(0, 1000000) / 1000000) * (max - min)
 	local m = math.random(0, 8) 
 	local Players = game:GetService("Players")
 	local player = Players.LocalPlayer
@@ -98,7 +98,7 @@ for i = 1, total do
 		front,
 		fishtype,
 		{
-			VariantId= mutation,
+			VariantId= mutation[m],
 			VariantSeed = 12349013,
 			Weight = wght
 		}
@@ -183,7 +183,7 @@ firesignal(REDisplaySystemMessage.OnClientEvent,
 		{
 			Weight = wght,
 			VariantSeed = 17419837,
-			VariantId = mutation
+			VariantId = mutation[m]
 		},
 		{
 			CustomDuration = 5,
@@ -194,7 +194,7 @@ firesignal(REDisplaySystemMessage.OnClientEvent,
 				Metadata = {
 					Weight = wght,
 					VariantSeed = 17419837,
-					VariantId = mutation
+					VariantId = mutation[m]
 				}
 			},
 			ItemType = "Items",
