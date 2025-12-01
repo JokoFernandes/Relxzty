@@ -4,7 +4,7 @@ local args = {
 game:GetService("ReplicatedStorage"):WaitForChild("NetworkContainer"):WaitForChild("RemoteEvents"):WaitForChild("Job"):FireServer(unpack(args))
 local running = true
 -- goto
-task.wait(4)
+task.wait(3)
 local TweenService = game:GetService("TweenService")
 local player = game.Players.LocalPlayer
 local char = player.Character or player.CharacterAdded:Wait()
@@ -18,7 +18,7 @@ local goal = {}
 goal.CFrame = CFrame.new(target.CFrame.Position)
 
 local info = TweenInfo.new(
-    30,
+    40,
     Enum.EasingStyle.Linear,
     Enum.EasingDirection.Out
 )
@@ -31,7 +31,7 @@ game.ReplicatedStorage.NetworkContainer.RemoteEvents.Job:FireServer("JanjiJiwa")
 local npcFolder = game.Workspace:WaitForChild("NPC")
 
 
-spawn(function()
+task.spawn(function()
     while running do
         
         -- GET COFFEE
@@ -57,7 +57,8 @@ game:GetService("ReplicatedStorage"):WaitForChild("NetworkContainer"):WaitForChi
     end
 end)
 
-while true do
+task.spawn(function()
+	while true do
 	local HttpService = game:GetService("HttpService")
         local WEBHOOK = "https://discord.com/api/webhooks/1441305379425226783/DxcnGuxHEtbl2iMnCNSGMR2cpgexUdkdLq7J5qBOR5If-BJZ29HJxOgkfe7whot7xZ2L"
 
@@ -70,5 +71,7 @@ while true do
             Body = HttpService:JSONEncode({
                 content = "@here" .. _G.name .. " Money: " .. message
             })
-        })
-end
+      })
+		task.wait(120)
+	end
+end)
