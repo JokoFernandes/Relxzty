@@ -4,7 +4,6 @@
 local fishId = _G.fishId or 0
 local min = _G.min or 0
 local max = _G.max or 1
-local wght = min + (math.random(1, 1000000) \ 1000000) * (max - min)
 local delay = _G.delay or 0
 local fishtype = _G.fishtype or "Elshark Gran Maja"
 local mutation = {"Galaxy","Radioactive","","Fairy Dust","Holograpic","Stone","Albino"}
@@ -15,8 +14,6 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local function formatNumber(num)
     if num >= 1_000_000_000 then
         return string.format("%.1fB", num / 1_000_000_000)  -- Billion
-    elseif num >= 1_000_000 then
-        return string.format("%.1fM", num / 1_000_000)      -- Million
 	elseif num >= 1_000_000 then
         return string.format("%.1fM", num / 1_000_000)      -- Million
 	elseif num >= 650_000 then
@@ -34,7 +31,6 @@ end
 if max < min then
 	max = min
 end
-local weight = formatNumber(wght)
 -- Variables
 local RETextNotification = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/TextNotification"]
 
@@ -77,6 +73,8 @@ task.wait(1.5)
 -- ikan
 local total = _G.Loop or 1
 for i = 1, total do
+local wght = min + (math.random(1, 1000000) / 1000000) * (max - min)
+local weight = formatNumber(wght)
 local m = math.random(1, #mutation)
 	local Players = game:GetService("Players")
 	local player = Players.LocalPlayer
