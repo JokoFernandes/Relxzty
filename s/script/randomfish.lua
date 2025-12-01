@@ -73,7 +73,7 @@ task.wait(1.5)
 -- ikan
 local total = _G.Loop or 1
 for i = 1, total do
-local wght = min + (math.random(1, 1000000) / 1000000) * (max - min)
+local wght = min + (math.random(1, 20) / 20) * (max - min)
 local weight = formatNumber(wght)
 local m = math.random(1, #mutation)
 	local Players = game:GetService("Players")
