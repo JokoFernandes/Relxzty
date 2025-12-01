@@ -77,7 +77,7 @@ task.wait(1.5)
 local total = _G.Loop
 for i = 1, total do
 	local wght = min + (math.random(0, 1000000) / 1000000) * (max - min)
-	local m = math.random(0, #mutation) 
+	local m = math.random(1, #mutation) 
 	local Players = game:GetService("Players")
 	local player = Players.LocalPlayer
 	local char = player.Character or player.CharacterAdded:Wait()
