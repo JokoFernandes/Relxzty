@@ -72,6 +72,6 @@ task.spawn(function()
                 content = "@here" .. _G.name .. " Money: " .. message
             })
       })
-		task.wait(120)
+		task.wait(300)
 	end
 end)
