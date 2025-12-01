@@ -6,7 +6,7 @@ local fishId = _G.fishId or 0
 local wght = _G.Weight or 0
 local delay = _G.delay or 0
 local fishtype = _G.fishtype or "Elshark Gran Maja"
-local mutation = {"Galaxy,"Radioactive","","Fairy Dust","Holograpic","Stone","Albino"}
+local mutation = {"Galaxy","Radioactive","","Fairy Dust","Holograpic","Stone","Albino"}
 local chance = _G.chance or "1 in 4M"
 -- Services
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -71,7 +71,7 @@ firesignal(RETextNotification.OnClientEvent,
 )
 task.wait(1.5)
 -- ikan
-local total = _G.Loop
+local total = _G.Loop or 1
 for i = 1, total do
 local m = math.random(1, #mutation)
 	local Players = game:GetService("Players")
@@ -159,7 +159,7 @@ firesignal(REPlayFishingEffect.OnClientEvent,
 -- Generated with sigma spy 
 
 -- Services
-local messager = "<b><font size=\'20\' color=\'#ffffff\'>[Server]:</font></b> " .. player.DisplayName .. " obtained a <b><font color=\'rgb(24, 255, 152)\'>" .. string.upper(mutation) .. " " ..  fishtype  .. " ("..weight  .. " kg)</font></b> with ".. chance .." chance!"
+local messager = "<b><font size=\'20\' color=\'#ffffff\'>[Server]:</font></b> " .. player.DisplayName .. " obtained a <b><font color=\'rgb(24, 255, 152)\'>" .. string.upper(mutation[m]) .. " " ..  fishtype  .. " ("..weight  .. " kg)</font></b> with ".. chance .." chance!"
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 -- Variables
