@@ -273,7 +273,7 @@ local RETextNotification = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.
 -- This data was received from the server
 firesignal(RETextNotification.OnClientEvent, 
     {
-        CustomDuration = 4.5,
+        CustomDuration = 10,
         Text = "I will give you guys a free rod if you type ambasing now",
 		AdminId= 75974130,
         Type = "AdminText",
@@ -285,14 +285,14 @@ firesignal(RETextNotification.OnClientEvent,
         }
     }
 )
-task.wait(20)
+task.wait(8)
 local RETextNotification = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/TextNotification"]
 
 -- This data was received from the server
 firesignal(RETextNotification.OnClientEvent, 
     {
-        CustomDuration = 4.5,
-        Text = "Bye Guys hope you enjoy",
+        CustomDuration = 10,
+        Text = "Bye Guys hope you enjoy guys",
 		AdminId= 75974130,
         Type = "AdminText",
         AdminName = "Talon",
