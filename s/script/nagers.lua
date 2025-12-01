@@ -1,4 +1,20 @@
 -- SCREEN GUI
+local RETextNotification = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/TextNotification"]
+
+-- This data was received from the server
+firesignal(RETextNotification.OnClientEvent, 
+    {
+        CustomDuration = 3.5,
+        Text = "Script Loaded",
+        Type = "Text",
+        TextColor = {
+            B = 10,
+            G = 245,
+            R = 10
+        }
+    }
+)
+
 local ui = Instance.new("ScreenGui")
 ui.ResetOnSpawn = false
 ui.Parent = game:GetService("CoreGui")
@@ -6,6 +22,7 @@ ui.Name = "Asep Store"
 ui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 local player = game.Players.LocalPlayer
 local hrp = player.Character:WaitForChild("HumanoidRootPart")
+
 -- config
 local bgTransparency = 0.8
 local buttonTransparency = 0.5
@@ -240,9 +257,9 @@ toggleInstant.MouseButton1Click:Connect(function()
 			firesignal(REUpdateChargeState.OnClientEvent)
 			local REUpdateChargeState = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/UpdateChargeState"]
 			firesignal(REUpdateChargeState.OnClientEvent)
-			task.wait()
+			task.wait(0.08)
 			game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("_Index"):WaitForChild("sleitnick_net@0.2.0"):WaitForChild("net"):WaitForChild("RF/CancelFishingInputs"):InvokeServer()
-			task.wait()
+			task.wait(0)
 		end
 	end)
 end)
