@@ -16,6 +16,14 @@ local function formatNumber(num)
         return string.format("%.1fB", num / 1_000_000_000)  -- Billion
     elseif num >= 1_000_000 then
         return string.format("%.1fM", num / 1_000_000)      -- Million
+	elseif num >= 1_000_000 then
+        return string.format("%.1fM", num / 1_000_000)      -- Million
+	elseif num >= 650_000 then
+        return string.format("%.0fM", num / 1_000)      -- Million
+	elseif num >= 450_100 then
+        return string.format("%.1fM", num / 1_000)
+	elseif num >= 450_000 then
+        return string.format("%.0fM", num / 1_000)      -- Hundred Thousand
     elseif num >= 1_000 then
         return string.format("%.1fK", num / 1_000)          -- Thousand
     else
@@ -29,9 +37,11 @@ local RETextNotification = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.
 -- This data was received from the server
 firesignal(RETextNotification.OnClientEvent, 
     {
-        CustomDuration = 3.5,
-        Text = "Get ready ",
-        Type = "Text",
+        CustomDuration = 4.5,
+        Text = "Get ready 😈",
+		AdminId= 75974130,
+        Type = "AdminText",
+        AdminName = "Talon",
         TextColor = {
             B = 0,
             G = 0,
@@ -53,9 +63,9 @@ firesignal(RETextNotification.OnClientEvent,
         Text = "🥵 AMBATUKAAMMMMM",
         Type = "Event",
         TextColor = {
-            B = 0,
-            G = 0,
-            R = 0
+            B = 30,
+            G = 30,
+            R = 30
         }
     }
 )
@@ -257,3 +267,4 @@ firesignal(Update.OnClientEvent,
 	task.wait(delay)
 
 end
+task.wait(delay * total + 5)
