@@ -19,11 +19,11 @@ local function formatNumber(num)
 	elseif num >= 1_000_000 then
         return string.format("%.1fM", num / 1_000_000)      -- Million
 	elseif num >= 650_000 then
-        return string.format("%.0fM", num / 1_000)      -- Million
+        return string.format("%.0fK", num / 1_000)      -- Million
 	elseif num >= 450_100 then
-        return string.format("%.1fM", num / 1_000)
+        return string.format("%.1fK", num / 1_000)
 	elseif num >= 450_000 then
-        return string.format("%.0fM", num / 1_000)      -- Hundred Thousand
+        return string.format("%.0fK", num / 1_000)      -- Hundred Thousand
     elseif num >= 1_000 then
         return string.format("%.1fK", num / 1_000)          -- Thousand
     else
