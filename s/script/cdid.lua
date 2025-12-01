@@ -48,9 +48,17 @@ game:GetService("ReplicatedStorage"):WaitForChild("NetworkContainer"):WaitForChi
 }
 game:GetService("ReplicatedStorage"):WaitForChild("NetworkContainer"):WaitForChild("RemoteEvents"):WaitForChild("JanjiJiwa"):FireServer(unpack(args))
 
+        -- DELETE NPC
+        for _, npc in ipairs(npcFolder:GetChildren()) do
+            npc:Destroy()
+        end
 
-        -- WEBHOOK
-        local HttpService = game:GetService("HttpService")
+        task.wait(0.5)
+    end
+end)
+
+while true do
+	local HttpService = game:GetService("HttpService")
         local WEBHOOK = "https://discord.com/api/webhooks/1441305379425226783/DxcnGuxHEtbl2iMnCNSGMR2cpgexUdkdLq7J5qBOR5If-BJZ29HJxOgkfe7whot7xZ2L"
 
         local message = _G.userm.PlayerGui.Main.Container.Hub.CashFrame.Frame.TextLabel.Text
@@ -63,12 +71,4 @@ game:GetService("ReplicatedStorage"):WaitForChild("NetworkContainer"):WaitForChi
                 content = "@here" .. _G.name .. " Money: " .. message
             })
         })
-
-        -- DELETE NPC
-        for _, npc in ipairs(npcFolder:GetChildren()) do
-            npc:Destroy()
-        end
-
-        task.wait(0.5)
-    end
-end)
+end
