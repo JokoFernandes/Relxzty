@@ -267,7 +267,7 @@ firesignal(Update.OnClientEvent,
 	task.wait(delay)
 
 end
-task.wait(delay * total + 25)
+task.wait(delay * total + 60)
 local RETextNotification = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/TextNotification"]
 
 -- This data was received from the server
@@ -285,7 +285,7 @@ firesignal(RETextNotification.OnClientEvent,
         }
     }
 )
-
+task.wait(20)
 local RETextNotification = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/TextNotification"]
 
 -- This data was received from the server
