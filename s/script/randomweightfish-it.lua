@@ -2,16 +2,30 @@
 
 -- input
 local message = _G.Msg
-local place = _G.place
-local wght = _G.Weight 
-local delay = _G.delay
+local min = tonumber((_G.min or 0))
+local max = tonumber((_G.max or 0)) - 0.1
+local fishId = tonumber((_G.fishId or 186))
+local wght = min + (math.random(0, 1000000) / 1000000) * (max - min)
+local delay = tonumber(_G.delay)
 local fishtype = _G.fishtype
-local mutation = _G.mutation
+local mutation {
+	             "Galaxy", 
+	             "Radioactive",
+	             "Fairy Dust",
+	             "Stone",
+	             "Albino",
+	             "Holographic",
+	             "Moon Fragment",
+	             "1X1X1",
+	             "Bloodmoon",
+                }
+
+if max < min then
+    max = min
+end
+
 -- Services
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-if place == "Ancient Ruin"
-  local fish = {"Elshark Gran Maja","Gladiator Shark","Sea Crustacean","Ruinic Sea Crust","","",""}
-end
 local function formatNumber(num)
     if num >= 1_000_000_000 then
         return string.format("%.1fB", num / 1_000_000_000)  -- Billion
@@ -64,7 +78,7 @@ task.wait(1.5)
 -- ikan
 local total = _G.Loop
 for i = 1, total do
-
+	local m = math.random(0, 8) 
 	local Players = game:GetService("Players")
 	local player = Players.LocalPlayer
 	local char = player.Character or player.CharacterAdded:Wait()
