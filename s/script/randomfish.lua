@@ -161,7 +161,7 @@ firesignal(REPlayFishingEffect.OnClientEvent,
 -- Generated with sigma spy 
 
 -- Services
-local messager = "<b><font size=\'20\' color=\'#ffffff\'>[Server]:</font></b> " .. player.DisplayName .. " obtained a <b><font color=\'rgb(24, 255, 152)\'>" .. string.upper(mutation[m]) .. " " ..  fishtype  .. " ("..weight  .. " kg)</font></b> with ".. chance .." chance!"
+local messager = "<b><font size=\'20\' color=\'#ffffff\'>[Server]:</font></b> " .. player.DisplayName .. " obtained a <b><font color=\'rgb(24, 255, 152)\'>" .. string.upper(mutation[m]) .. " Big " ..  fishtype  .. " ("..weight  .. " kg)</font></b> with ".. chance .." chance!"
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 -- Variables
