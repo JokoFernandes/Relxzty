@@ -2,7 +2,9 @@
 
 -- input
 local fishId = _G.fishId or 0
-local wght = _G.Weight or 0
+local min = _G.min or 0
+local max = _G.max or 1
+local wght = min + (math.random(1, 1000000) \ 1000000) * (max - min)
 local delay = _G.delay or 0
 local fishtype = _G.fishtype or "Elshark Gran Maja"
 local mutation = {"Galaxy","Radioactive","","Fairy Dust","Holograpic","Stone","Albino"}
@@ -28,6 +30,9 @@ local function formatNumber(num)
     else
         return tostring(num)
     end
+end
+if max < min then
+	max = min
 end
 local weight = formatNumber(wght)
 -- Variables
