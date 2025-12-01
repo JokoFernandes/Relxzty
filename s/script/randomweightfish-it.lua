@@ -1,7 +1,7 @@
 -- admin abuse
 
 -- input
-local message = _G.Msg
+local chance = _G.chance
 local min = tonumber((_G.min or 0))
 local max = tonumber((_G.max or 0)) - 0.1
 local fishId = tonumber((_G.fishId or 186))
