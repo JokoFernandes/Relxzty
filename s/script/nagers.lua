@@ -2,11 +2,27 @@
 local ui = Instance.new("ScreenGui")
 ui.ResetOnSpawn = false
 ui.Parent = game:GetService("CoreGui")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 ui.Name = "Asep Store"
 ui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 local player = game.Players.LocalPlayer
 local hrp = player.Character:WaitForChild("HumanoidRootPart")
 
+local RETextNotification = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/TextNotification"]
+
+-- This data was received from the server
+firesignal(RETextNotification.OnClientEvent, 
+    {
+        CustomDuration = 3.5,
+        Text = "Loading Script please wait 😊",
+        Type = "Text",
+        TextColor = {
+            B = 21,
+            G = 240,
+            R = 8
+        }
+    }
+)
 -- config
 local bgTransparency = 0.8
 local buttonTransparency = 0.5
@@ -213,7 +229,6 @@ toggleInstant.MouseButton1Click:Connect(function()
 	toggelInstantFishing = not toggelInstantFishing
 	toggleInstant.Text = "Toggle Fishing: " .. (toggelInstantFishing and "ON" or "OFF")
 	task.spawn(function()
-		local ReplicatedStorage = game:GetService("ReplicatedStorage")
 		local RFChargeFishingRod = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RF/ChargeFishingRod"]
 		RFChargeFishingRod:InvokeServer()
 		task.wait(0.28)
