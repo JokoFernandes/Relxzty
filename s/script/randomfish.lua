@@ -1,7 +1,6 @@
 -- admin abuse
 
 -- input
-local message = _G.Msg or 0
 local fishId = _G.fishId or 0
 local wght = _G.Weight or 0
 local delay = _G.delay or 0
