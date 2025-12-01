@@ -7,7 +7,7 @@ local max = tonumber((_G.max or 0)) - 0.1
 local fishId = tonumber((_G.fishId or 186))
 local delay = tonumber(_G.delay)
 local fishtype = _G.fishtype
-local mutation {
+local mutation = {
 	             "Galaxy", 
 	             "Radioactive",
 	             "Fairy Dust",
@@ -36,7 +36,6 @@ local function formatNumber(num)
         return tostring(num)
     end
 end
-local weight = formatNumber(wght)
 -- Variables
 local RETextNotification = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/TextNotification"]
 
@@ -78,7 +77,7 @@ task.wait(1.5)
 local total = _G.Loop
 for i = 1, total do
 	local wght = min + (math.random(0, 1000000) / 1000000) * (max - min)
-	local m = math.random(0, 8) 
+	local m = math.random(0, #mutation) 
 	local Players = game:GetService("Players")
 	local player = Players.LocalPlayer
 	local char = player.Character or player.CharacterAdded:Wait()
@@ -164,7 +163,7 @@ firesignal(REPlayFishingEffect.OnClientEvent,
 -- Generated with sigma spy 
 
 -- Services
-local messager = "<b><font size=\'20\' color=\'#ffffff\'>[Server]:</font></b> " .. player.DisplayName .. " obtained a <b><font color=\'rgb(24, 255, 152)\'>" .. string.upper(mutation) .. " " ..  fishtype  .. " ("..weight  .. " kg)</font></b> with ".. chance .." chance!"
+local messager = "<b><font size=\'20\' color=\'#ffffff\'>[Server]:</font></b> " .. player.DisplayName .. " obtained a <b><font color=\'rgb(24, 255, 152)\'>" .. string.upper(mutation[m]) .. " " ..  fishtype  .. " ("..weight  .. " kg)</font></b> with ".. chance .." chance!"
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 -- Variables
