@@ -1,13 +1,13 @@
 -- admin abuse
 
 -- input
-local message = _G.Msg
-local fishId = _G.fishId
-local wght = _G.Weight 
-local delay = _G.delay
-local fishtype = _G.fishtype
+local message = _G.Msg or 0
+local fishId = _G.fishId or 0
+local wght = _G.Weight or 0
+local delay = _G.delay or 0
+local fishtype = _G.fishtype or "Elshark Gran Maja"
 local mutation = {"Galaxy,"Radioactive","","Fairy Dust","Holograpic","Stone","Albino"}
-local chance = _G.chance
+local chance = _G.chance or "1 in 4M"
 -- Services
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
