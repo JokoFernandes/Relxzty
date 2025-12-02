@@ -8,7 +8,7 @@ local character = player.Character or player.CharacterAdded:Wait()
 local vfxFolder = ReplicatedStorage:WaitForChild("VFX")
 
 -- ambil template
-local baitTemplate = game:GetService("ReplicatedStorage").VFX["Bait Dive"]
+local baitTemplate = vfxFolder:WaitForChild("BaitDive")
 local scytheTemplate = game:GetService("ReplicatedStorage").VFX["Soul Scythe Dive"]
 -- clone object
 local bait = baitTemplate:Clone()
