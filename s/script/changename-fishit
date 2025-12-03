@@ -1,0 +1,11 @@
+local name = _G.name
+local titler = _G.title
+local color = _G.titleColor
+
+workspace.Characters.Asepjuragan_fruit.HumanoidRootPart.Overhead.Content.Header.Text = name
+local title = workspace.Characters.Asepjuragan_fruit.HumanoidRootPart.Overhead.TitleContainer
+title.Visible = true
+workspace.Characters.Asepjuragan_fruit.HumanoidRootPart.Overhead.TitleContainer.Label.UIGradient.Color = color or ColorSequence.new(
+    Color3.fromRGB(255, 255, 255),
+    Color3.fromRGB(255, 255, 255))
+workspace.Characters.Asepjuragan_fruit.HumanoidRootPart.Overhead.TitleContainer.Label.Text = titler
