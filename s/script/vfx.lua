@@ -1,57 +1,25 @@
+local color = _G.color
+local scolor = _G.secColor
+local rod = _G.rod
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Players = game:GetService("Players")
 
-local player = Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
+local partA = game:GetService("ReplicatedStorage").VFX[rod .. " Dive"]
+local partB = game:GetService("ReplicatedStorage").VFX["Bait Dive"]
 
--- ambil folder VFX
-local vfxFolder = ReplicatedStorage:WaitForChild("VFX")
-
--- ambil template
-local baitTemplate = vfxFolder:WaitForChild("BaitDive")
-local scytheTemplate = game:GetService("ReplicatedStorage").VFX["Soul Scythe Dive"]
--- clone object
-local bait = baitTemplate:Clone()
-bait.Parent = workspace
-
-local scythe = scytheTemplate:Clone()
-scythe.Parent = character
-
--- COPY SEMUA ISI SOULSCYTHE KE BAITDIVE
-for _, obj in ipairs(scythe:GetChildren()) do
-	local cloneObj = obj:Clone()
-	cloneObj.Parent = bait
+if partA and partB then
+    for _, obj in ipairs(partA:GetChildren()) do
+            local clone = obj:Clone()
+            clone.Parent = partB
+           for _, sub in ipairs(clone:GetDescendants()) do
+            if sub:IsA("ParticleEmitter") then
+                sub.Color = color
+            elseif sub:IsA("Beam") then
+                sub.Color = color
+            elseif sub:IsA("Trail") then
+                sub.Color = color
+            elseif sub:IsA("PointLight") or sub:IsA("SpotLight") or sub:IsA("SurfaceLight") then
+                sub.Color = scolor
+            end
+        end
+    end
 end
-
--- ambil salah satu attachment hasil copy / asli
-local soulAttachment = scythe:FindFirstChildOfClass("Attachment")
-if not soulAttachment then
-	warn("Tidak ada Attachment di SoulScythe")
-	return
-end
-
--- buat attachment baru di bait
-local baitAttachment = Instance.new("Attachment")
-baitAttachment.Parent = bait
-
--- Align Position
-local alignPos = Instance.new("AlignPosition")
-alignPos.Parent = bait
-alignPos.Attachment0 = baitAttachment
-alignPos.Attachment1 = soulAttachment
-alignPos.RigidityEnabled = false
-alignPos.MaxForce = 999999
-alignPos.Responsiveness = 200
-
--- Align Orientation
-local alignOri = Instance.new("AlignOrientation")
-alignOri.Parent = bait
-alignOri.Attachment0 = baitAttachment
-alignOri.Attachment1 = soulAttachment
-alignOri.RigidityEnabled = false
-alignOri.MaxTorque = 999999
-alignOri.Responsiveness = 200
-
--- pastikan tidak di-anchored
-bait.Anchored = false
-scythe.Anchored = false
