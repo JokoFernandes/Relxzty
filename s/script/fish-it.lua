@@ -84,20 +84,70 @@ for i = 1, total do
 
 	local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-	-- Variables
-	local RECaughtFishVisual = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/CaughtFishVisual"]
+local secretFolder = ReplicatedStorage.Assets.Cutscenes.SECRET
 
-	-- This data was received from the server
-	firesignal(RECaughtFishVisual.OnClientEvent, 
-		Players.LocalPlayer,
-		front,
-		fishtype,
-		{
-			VariantId= mutation,
-			VariantSeed = 12349013,
-			Weight = wght
-		}
-	) 
+
+-- LOOP 1 (PART)
+task.spawn(function()
+for i, obj in ipairs(secretFolder:GetChildren()) do
+    
+    local clone = obj:Clone()
+    local spawnCFrame = hrp.CFrame * CFrame.new(0, 0, -20)
+
+    if clone:IsA("BasePart") then
+        clone.CFrame = spawnCFrame
+    end
+
+    clone.Parent = workspace
+
+    task.delay(30, function()
+        if clone and clone.Parent then
+            clone:Destroy()
+        end
+    end)
+end
+
+
+task.wait(1.5)
+
+
+-- LOOP 2 (MODEL)
+for i, obj in ipairs(secretFolder:GetChildren()) do
+    -- Generated with sigma spy 
+
+-- Variables
+local RETotemSpawned = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/TotemSpawned"]
+
+-- This data was received from the server
+
+
+    local clone = obj:Clone()
+    local spawnCFrame = hrp.CFrame * CFrame.new(0, 0, -20)
+
+    if clone:IsA("Model") then
+        clone:PivotTo(spawnCFrame)
+    elseif clone:IsA("BasePart") then
+        -- mungkin kamu tidak mau BasePart di sini
+        clone.CFrame = spawnCFrame
+    end
+	firesignal(RETotemSpawned.OnClientEvent, 
+    hrp.Position + Vector3.new(0, 90, 0)
+)
+				task.wait(1)
+firesignal(RETotemSpawned.OnClientEvent, 
+    hrp.Position + Vector3.new(0, 90, 0)
+)
+
+    clone.Parent = workspace
+
+    task.delay(30, function()
+        if clone and clone.Parent then
+            clone:Destroy()
+        	end
+    	end)
+  	end
+end)
+	task.wait(1)
 
 	-- animation
 	local ReplicatedStorage = game:GetService("ReplicatedStorage")
