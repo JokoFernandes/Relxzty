@@ -102,7 +102,23 @@ local secretFolder = ReplicatedStorage.Assets.Cutscenes.SECRET
 	) 
 	local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	-- Generated with sigma spy 
 
+-- Services
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+-- Variables
+local Head = Players.LocalPlayer.Character.Head
+local REPlayFishingEffect = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/PlayFishingEffect"]
+
+-- This data was received from the server
+firesignal(REPlayFishingEffect.OnClientEvent, 
+    Players.LocalPlayer,
+    Head,
+    6
+)
+	task.wait(delay)
 -- Variables
 local Character = Players.LocalPlayer.Character
 local REReplicateTextEffect = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/ReplicateTextEffect"]
@@ -187,22 +203,6 @@ end)
 
 -- Services
 
-	-- Generated with sigma spy 
-
--- Services
-local Players = game:GetService("Players")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-
--- Variables
-local Head = Players.LocalPlayer.Character.Head
-local REPlayFishingEffect = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/PlayFishingEffect"]
-
--- This data was received from the server
-firesignal(REPlayFishingEffect.OnClientEvent, 
-    Players.LocalPlayer,
-    Head,
-    6
-)
 -- Generated with sigma spy 
 fdelay = delay
 -- Services
