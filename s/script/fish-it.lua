@@ -146,10 +146,6 @@ local RETotemSpawned = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].
 	firesignal(RETotemSpawned.OnClientEvent, 
     hrp.Position + Vector3.new(0, 90, 0)
 )
-				task.wait(1)
-firesignal(RETotemSpawned.OnClientEvent, 
-    hrp.Position + Vector3.new(0, 90, 0)
-)
 
     clone.Parent = workspace
 
