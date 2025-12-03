@@ -8,6 +8,7 @@ local delay = _G.delay
 local fishtype = _G.fishtype
 local mutation = _G.mutation
 local chance = _G.chance
+local fdelay = 11
 -- Services
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
@@ -86,7 +87,19 @@ for i = 1, total do
 
 local secretFolder = ReplicatedStorage.Assets.Cutscenes.SECRET
 
+	-- animation
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
+	-- Variables
+	local REFishCaught = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/FishCaught"]
+
+	-- This data was received from the server
+	firesignal(REFishCaught.OnClientEvent, 
+		fishtype,
+		{
+			Weight = wght
+		}
+	) 
 -- LOOP 1 (PART)
 task.spawn(function()
 for i, obj in ipairs(secretFolder:GetChildren()) do
@@ -100,7 +113,7 @@ for i, obj in ipairs(secretFolder:GetChildren()) do
 
     clone.Parent = workspace
 
-    task.delay(10, function()
+    task.delay(8, function()
         if clone and clone.Parent then
             clone:Destroy()
         end
@@ -140,28 +153,15 @@ firesignal(RETotemSpawned.OnClientEvent,
 
     clone.Parent = workspace
 
-    task.delay(10, function()
+    task.delay(7, function()
         if clone and clone.Parent then
             clone:Destroy()
         	end
     	end)
   	end
 end)
-	task.wait(11)
+	task.wait(fdelay)
 
-	-- animation
-	local ReplicatedStorage = game:GetService("ReplicatedStorage")
-
-	-- Variables
-	local REFishCaught = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/FishCaught"]
-
-	-- This data was received from the server
-	firesignal(REFishCaught.OnClientEvent, 
-		fishtype,
-		{
-			Weight = wght
-		}
-	) 
 -- Generated with sigma spy 
 
 -- Services
@@ -207,7 +207,7 @@ firesignal(REPlayFishingEffect.OnClientEvent,
     6
 )
 -- Generated with sigma spy 
-
+fdelay = delay
 -- Services
 local messager = "<b><font size=\'20\' color=\'#ffffff\'>[Server]:</font></b> " .. player.DisplayName .. " obtained a <b><font color=\'rgb(24, 255, 152)\'>" .. string.upper(mutation) .. " " ..  fishtype  .. " ("..weight  .. " kg)</font></b> with ".. chance .." chance!"
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
