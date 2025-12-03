@@ -147,7 +147,7 @@ firesignal(RETotemSpawned.OnClientEvent,
     	end)
   	end
 end)
-	task.wait(1)
+	task.wait(11)
 
 	-- animation
 	local ReplicatedStorage = game:GetService("ReplicatedStorage")
