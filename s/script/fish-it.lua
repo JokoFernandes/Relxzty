@@ -121,7 +121,7 @@ for i, obj in ipairs(secretFolder:GetChildren()) do
 end
 
 
-task.wait(1.5)
+task.wait()
 
 
 -- LOOP 2 (MODEL)
@@ -156,7 +156,7 @@ local RETotemSpawned = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].
     	end)
   	end
 end)
-	task.wait(fdelay)
+	task.wait(delay)
 
 -- Generated with sigma spy 
 
