@@ -100,7 +100,7 @@ for i, obj in ipairs(secretFolder:GetChildren()) do
 
     clone.Parent = workspace
 
-    task.delay(30, function()
+    task.delay(10, function()
         if clone and clone.Parent then
             clone:Destroy()
         end
@@ -140,7 +140,7 @@ firesignal(RETotemSpawned.OnClientEvent,
 
     clone.Parent = workspace
 
-    task.delay(30, function()
+    task.delay(10, function()
         if clone and clone.Parent then
             clone:Destroy()
         	end
