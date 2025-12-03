@@ -100,6 +100,31 @@ local secretFolder = ReplicatedStorage.Assets.Cutscenes.SECRET
 			Weight = wght
 		}
 	) 
+	local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+-- Variables
+local Character = Players.LocalPlayer.Character
+local REReplicateTextEffect = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/ReplicateTextEffect"]
+
+-- This data was received from the server
+firesignal(REReplicateTextEffect.OnClientEvent, 
+    {
+        UUID = i,
+        Channel = "All",
+        TextData = {
+            AttachTo = Character.Head,
+            Text = "!",
+            EffectType = "Exclaim",
+            TextColor = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.new(0.25, 0.85, 0.80)),
+	ColorSequenceKeypoint.new(1, Color3.new(0.25, 0.85, 0.80))
+})
+        },
+        Duration = 0.5,
+        Container = Character.Head
+    }
+)
 -- LOOP 1 (PART)
 task.spawn(function()
 for i, obj in ipairs(secretFolder:GetChildren()) do
@@ -113,7 +138,7 @@ for i, obj in ipairs(secretFolder:GetChildren()) do
 
     clone.Parent = workspace
 
-    task.delay(8, function()
+    task.delay(9, function()
         if clone and clone.Parent then
             clone:Destroy()
         end
@@ -149,7 +174,7 @@ local RETotemSpawned = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].
 
     clone.Parent = workspace
 
-    task.delay(7, function()
+    task.delay(8, function()
         if clone and clone.Parent then
             clone:Destroy()
         	end
@@ -161,31 +186,7 @@ end)
 -- Generated with sigma spy 
 
 -- Services
-local Players = game:GetService("Players")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
--- Variables
-local Character = Players.LocalPlayer.Character
-local REReplicateTextEffect = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/ReplicateTextEffect"]
-
--- This data was received from the server
-firesignal(REReplicateTextEffect.OnClientEvent, 
-    {
-        UUID = i,
-        Channel = "All",
-        TextData = {
-            AttachTo = Character.Head,
-            Text = "!",
-            EffectType = "Exclaim",
-            TextColor = ColorSequence.new({
-	ColorSequenceKeypoint.new(0, Color3.new(0.25, 0.85, 0.80)),
-	ColorSequenceKeypoint.new(1, Color3.new(0.25, 0.85, 0.80))
-})
-        },
-        Duration = 0.5,
-        Container = Character.Head
-    }
-)
 	-- Generated with sigma spy 
 
 -- Services
