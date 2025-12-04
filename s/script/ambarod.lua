@@ -3,23 +3,17 @@ local rod = "rbxassetid://127771159160485"
 local rodBackpackImg = game:GetService("Players").LocalPlayer.PlayerGui.Backpack.Display.Tile.Inner.Vector.Image
 local rodInven = game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Main.Content.Pages.Rods["Ghostfinn Rod"].BG.Vector.Image
 local rodbackground = game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Main.Content.Pages.Rods["Ghostfinn Rod"].BG.Glow.UIGradient.Color
-local nameRodInven = game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Main.Content.Pages.Rods["Ghostfinn Rod"].Padded.Top.Label.Text 
-local Rarity = game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Main.Content.Pages.Rods["Ghostfinn Rod"].Padded.Top.TierLabel.Text 
+local nameRodInven = game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Main.Content.Pages.Rods["Ghostfinn Rod"].Padded.Top.Label
+local Rarity = game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Main.Content.Pages.Rods["Ghostfinn Rod"].Padded.Top.TierLabel 
 local invTextColor = game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Main.Content.Pages.Rods["Ghostfinn Rod"].Padded.Top.TierLabel.UIGradient.Color 
 local backpackRodName = game:GetService("Players").LocalPlayer.PlayerGui.Backpack.Display.Tile.Inner.Tags.ItemName
 local nameRodBackpackColor = game:GetService("Players").LocalPlayer.PlayerGui.Backpack.Display.Tile.Inner.Tags.ItemName.UIGradient
 -- stats
-local luck = game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Main.Content.Pages.Rods["Ghostfinn Rod"].Padded.Bottom.Luck.Counter.Text
-local speed = game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Main.Content.Pages.Rods["Ghostfinn Rod"].Padded.Bottom.Speed.Counter.Text
-local weight = game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Main.Content.Pages.Rods["Ghostfinn Rod"].Padded.Bottom.Weight.Counter.Text
+local luck = game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Main.Content.Pages.Rods["Ghostfinn Rod"].Padded.Bottom.Luck.Counter
+local speed = game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Main.Content.Pages.Rods["Ghostfinn Rod"].Padded.Bottom.Speed.Counter
+local weight = game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Main.Content.Pages.Rods["Ghostfinn Rod"].Padded.Bottom.Weight.Counter
 
 -- notif
-local notif = game:GetService("Players").LocalPlayer.PlayerGui["Text Notifications"].Frame.Tile.TextFrame.Label.Text
-
--- start
-
--- get Rod
-
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local REObtainedNewFishNotification = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/ObtainedNewFishNotification"]
@@ -51,5 +45,21 @@ firesignal(REObtainedNewFishNotification.OnClientEvent,
     },
     false
 )
+task.spawn(function()
+    while true do
+	local player = game:GetService("Players").LocalPlayer
+	local playerGui = player:WaitForChild("PlayerGui")
+
+	local notif = playerGui:WaitForChild("Text Notifications"):WaitForChild("Frame"):WaitForChild("Tile"):WaitForChild("TextFrame"):WaitForChild("Label")
+    local notifimg = playerGui:WaitForChild("Text Notifications"):WaitForChild("Frame"):WaitForChild("Tile"):WaitForChild("TextFrame"):WaitForChild("VectorFrame"):WaitForChild("Vector")
+
+	if notif.Text == "Element Rod" and notifimg.Image == "rbxassetid://99867965187788" then
+		notif.Text = "Ambarod"
+        notif.Image = "rbxassetid://127771159160485"
+	end
+
+	task.wait(0.1)
+end
+end)
 
 
