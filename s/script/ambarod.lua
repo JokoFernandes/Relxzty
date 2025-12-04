@@ -1,7 +1,8 @@
-local rod = "rbxassetid://127771159160485"
+local rodimg = "rbxassetid://127771159160485"
+local player = game:GetService("Players").LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
 
 local rodBackpackImg = game:GetService("Players").LocalPlayer.PlayerGui.Backpack.Display.Tile.Inner.Vector.Image
-local rodInven = game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Main.Content.Pages.Rods["Ghostfinn Rod"].BG.Vector.Image
 local rodbackground = game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Main.Content.Pages.Rods["Ghostfinn Rod"].BG.Glow.UIGradient.Color
 local nameRodInven = game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Main.Content.Pages.Rods["Ghostfinn Rod"].Padded.Top.Label
 local Rarity = game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Main.Content.Pages.Rods["Ghostfinn Rod"].Padded.Top.TierLabel 
@@ -9,10 +10,23 @@ local invTextColor = game:GetService("Players").LocalPlayer.PlayerGui.Inventory.
 local backpackRodName = game:GetService("Players").LocalPlayer.PlayerGui.Backpack.Display.Tile.Inner.Tags.ItemName
 local nameRodBackpackColor = game:GetService("Players").LocalPlayer.PlayerGui.Backpack.Display.Tile.Inner.Tags.ItemName.UIGradient
 -- stats
-local luck = game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Main.Content.Pages.Rods["Ghostfinn Rod"].Padded.Bottom.Luck.Counter
-local speed = game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Main.Content.Pages.Rods["Ghostfinn Rod"].Padded.Bottom.Speed.Counter
-local weight = game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Main.Content.Pages.Rods["Ghostfinn Rod"].Padded.Bottom.Weight.Counter
+local rodstat = playerGui:WaitForChild("Inventory"):WaitForChild("Main"):WaitForChild("Content"):WaitForChild("Pages"):WaitForChild("Rods"):WaitForChild("Ghostfinn Rod"):WaitForChild("Padded"):WaitForChild("Bottom")
+local invrod = playerGui:WaitForChild("Inventory"):WaitForChild("Main"):WaitForChild("Content"):WaitForChild("Pages"):WaitForChild("Rods"):WaitForChild("Ghostfinn Rod"):WaitForChild("BG"):WaitForChild("Vector")
+local invrodbg = playerGui:WaitForChild("Inventory"):WaitForChild("Main"):WaitForChild("Content"):WaitForChild("Pages"):WaitForChild("Rods"):WaitForChild("Ghostfinn Rod"):WaitForChild("BG"):WaitForChild("Glow"):WaitForChild("UIGradient")
+local luck = rodstat.Luck
+local speed = rodstat.Speed
+local weight = rodstat.Weight
 
+task.spawn(function()
+		while true do
+			invrodbg = 
+			invrod.Image = rodimg
+			luck.Counter = "66666666%"
+			speed.Counter = "7777777%"
+			weight.Counter = "67M kg"
+			task.wait()
+		end
+	end)
 -- notif
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
@@ -47,8 +61,6 @@ firesignal(REObtainedNewFishNotification.OnClientEvent,
 )
 task.spawn(function()
     while true do
-	local player = game:GetService("Players").LocalPlayer
-	local playerGui = player:WaitForChild("PlayerGui")
 
 	local notif = playerGui:WaitForChild("Text Notifications"):WaitForChild("Frame"):WaitForChild("Tile"):WaitForChild("TextFrame"):WaitForChild("Label")
     local notifimg = playerGui:WaitForChild("Text Notifications"):WaitForChild("Frame"):WaitForChild("Tile"):WaitForChild("TextFrame"):WaitForChild("VectorFrame"):WaitForChild("Vector")
