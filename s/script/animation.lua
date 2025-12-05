@@ -5,7 +5,9 @@ local StartRodCharge = game:GetService("ReplicatedStorage").Modules.Animations.S
 local RodThrow = game:GetService("ReplicatedStorage").Modules.Animations.RodThrow
 local FishCaught = game:GetService("ReplicatedStorage").Modules.Animations.FishCaught
 local EquipIdle = game:GetService("ReplicatedStorage").Modules.Animations.EquipIdle
+local LoopedRodCharge = game:GetService("ReplicatedStorage").Modules.Animations.LoopedRodCharge
 
+LoopedRodCharge.AnimationId = _G.LoopedRodCharge
 ReelIntermission.AnimationId = _G.ReelIntermission
 ReelStart.AnimationId = _G.ReelStart
 ReelingIdle.AnimationId = _G.ReelingIdle
