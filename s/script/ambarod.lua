@@ -101,13 +101,11 @@ task.spawn(function()
 		local notifimg = playerGui["Text Notifications"].Frame.Tile.TextFrame.VectorFrame.Vector
 
 		-- Cek apakah muncul notif
-		if notif.Text:find("Element Rod")
-			and notifimg.Image:find("99867965187788") then
+		if notif.Text == "Element Rod" then
 
 			notif.Text = "Ambarod"
 			notifimg.Image = rodimg
 		end
-
 		task.wait(0.1)
 	end
 end)
