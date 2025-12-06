@@ -1,0 +1,44 @@
+local rodimg = "rbxassetid://127771159160485"
+local player = game:GetService("Players").LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+local invTextColor = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255,255,255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(255,255,255))
+})
+
+local function getUI()
+	local inv = playerGui:FindFirstChild("Inventory")
+	if not inv then return end
+
+	local main = inv:FindFirstChild("Main")
+	if not main then return end
+
+	local rods = main.Content.Pages.Rods:FindFirstChild("Ghostfinn Rod")
+	if not rods then return end
+
+	local rodstat = rods.Padded.Bottom
+	local invrod = rods.BG.Vector
+	local invrodbg = rods.BG.Glow.UIGradient
+	
+	local luck = rodstat.Luck
+	local speed = rodstat.Speed
+	local weight = rodstat.Weight
+
+	return invrodbg, invrod, luck, speed, weight
+end
+
+
+while true do
+	local invrodbg, invrod, luck, speed, weight = getUI()
+
+	if invrodbg then
+		invrodbg.Color = invTextColor
+		invrod.Image = rodimg
+		luck.Counter.Text = "66666666%"
+		speed.Counter.Text = "7777777%"
+		weight.Counter.Text = "67M kg"
+	end
+
+	task.wait()
+end
