@@ -9,30 +9,36 @@ local Rarity = game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Main.C
 local invTextColor = game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Main.Content.Pages.Rods["Ghostfinn Rod"].Padded.Top.TierLabel.UIGradient.Color 
 local backpackRodName = game:GetService("Players").LocalPlayer.PlayerGui.Backpack.Display.Tile.Inner.Tags.ItemName
 local nameRodBackpackColor = game:GetService("Players").LocalPlayer.PlayerGui.Backpack.Display.Tile.Inner.Tags.ItemName.UIGradient
+
 -- stats
 local rodstat = playerGui:WaitForChild("Inventory"):WaitForChild("Main"):WaitForChild("Content"):WaitForChild("Pages"):WaitForChild("Rods"):WaitForChild("Ghostfinn Rod"):WaitForChild("Padded"):WaitForChild("Bottom")
 local invrod = playerGui:WaitForChild("Inventory"):WaitForChild("Main"):WaitForChild("Content"):WaitForChild("Pages"):WaitForChild("Rods"):WaitForChild("Ghostfinn Rod"):WaitForChild("BG"):WaitForChild("Vector")
 local invrodbg = playerGui:WaitForChild("Inventory"):WaitForChild("Main"):WaitForChild("Content"):WaitForChild("Pages"):WaitForChild("Rods"):WaitForChild("Ghostfinn Rod"):WaitForChild("BG"):WaitForChild("Glow"):WaitForChild("UIGradient")
+
 local luck = rodstat.Luck
 local speed = rodstat.Speed
 local weight = rodstat.Weight
 
+-- LOOP STAT
 task.spawn(function()
-		while true do
+	while true do
+		-- hanya jalan kalau UI inventory terbuka
+		if invrod:IsDescendantOf(playerGui) then
 			invrodbg.Color = invTextColor
 			invrod.Image = rodimg
 			luck.Counter.Text = "66666666%"
 			speed.Counter.Text = "7777777%"
 			weight.Counter.Text = "67M kg"
-			task.wait()
 		end
-	end)
--- notif
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
+		task.wait()
+	end
+end)
+
+-- ========== NOTIF ==========
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local REObtainedNewFishNotification = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/ObtainedNewFishNotification"]
 
--- This data was received from the server
 firesignal(REObtainedNewFishNotification.OnClientEvent, 
     257,
     {
@@ -59,19 +65,25 @@ firesignal(REObtainedNewFishNotification.OnClientEvent,
     },
     false
 )
+
+-- LOOP PERUBAHAN NOTIF
 task.spawn(function()
-    while true do
+	while true do
+		local notif = playerGui["Text Notifications"].Frame.Tile.TextFrame.Label
+		local notifimg = playerGui["Text Notifications"].Frame.Tile.TextFrame.VectorFrame.Vector
 
-	local notif = playerGui:WaitForChild("Text Notifications"):WaitForChild("Frame"):WaitForChild("Tile"):WaitForChild("TextFrame"):WaitForChild("Label")
-    local notifimg = playerGui:WaitForChild("Text Notifications"):WaitForChild("Frame"):WaitForChild("Tile"):WaitForChild("TextFrame"):WaitForChild("VectorFrame"):WaitForChild("Vector")
+		-- Cek jika notif muncul / aktif
+		if notif:IsDescendantOf(playerGui)
+			and notif.Text:find("Element Rod")
+			and notifimg.Image:find("99867965187788") then
 
-	if notif.Text == "Element Rod" and notifimg.Image == "rbxassetid://99867965187788" then
-		notif.Text = "Ambarod"
-        notif.Image = rodimg
+			notif.Text = "Ambarod"
+			notifimg.Image = rodimg
+		end
+
+		task.wait(0.1)
 	end
-
-	task.wait(0.1)
-end
 end)
+
 
 
