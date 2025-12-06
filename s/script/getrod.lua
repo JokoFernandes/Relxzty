@@ -57,8 +57,8 @@ end
 while true do
 	local label = getNotif()
 
-	if label then
-		label.Text = "Contoh pesan notif kamu"
+	if label and label.Text == "Galactic" then
+		label.Text = "Amba Rod"
 	end
 
 	task.wait()
