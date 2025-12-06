@@ -19,11 +19,11 @@ local weight = rodstat.Weight
 
 task.spawn(function()
 		while true do
-			invrodbg = 
+			invrodbg.Color = invTextColor
 			invrod.Image = rodimg
-			luck.Counter = "66666666%"
-			speed.Counter = "7777777%"
-			weight.Counter = "67M kg"
+			luck.Counter.Text = "66666666%"
+			speed.Counter.Text = "7777777%"
+			weight.Counter.Text = "67M kg"
 			task.wait()
 		end
 	end)
@@ -67,7 +67,7 @@ task.spawn(function()
 
 	if notif.Text == "Element Rod" and notifimg.Image == "rbxassetid://99867965187788" then
 		notif.Text = "Ambarod"
-        notif.Image = "rbxassetid://127771159160485"
+        notif.Image = rodimg
 	end
 
 	task.wait(0.1)
