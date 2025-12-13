@@ -1,7 +1,7 @@
 -- admin abuse
 
 -- input
-local fishId = _G.fishId or 0
+local fishId = getgenv().fishId or 0
 local min = getgenv().min or 0
 local max = getgenv().max or 1
 local delay = getgenv().delay or 0
