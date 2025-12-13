@@ -2,12 +2,12 @@
 
 -- input
 local fishId = _G.fishId or 0
-local min = _G.min or 0
-local max = _G.max or 1
-local delay = _G.delay or 0
-local fishtype = _G.fishtype or "Elshark Gran Maja"
+local min = getgenv().min or 0
+local max = getgenv().max or 1
+local delay = getgenv().delay or 0
+local fishtype = getgenv().fishtype or "Elshark Gran Maja"
 local mutation = {"Galaxy","Radioactive","","Fairy Dust","Holograpic","Stone","Albino"}
-local chance = _G.chance or "1 in 4M"
+local chance = getgenv() or "1 in 4M"
 -- Services
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
@@ -269,7 +269,7 @@ firesignal(Update.OnClientEvent,
 	task.wait(delay)
 
 end
-task.wait(delay * total + 60)
+task.wait(delay * total + 10)
 local RETextNotification = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.0"].net["RE/TextNotification"]
 
 -- This data was received from the server
