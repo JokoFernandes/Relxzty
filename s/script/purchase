@@ -1,0 +1,801 @@
+--[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+--// Developer Products GUI
+
+local Players = game:GetService("Players")
+local MarketplaceService = game:GetService("MarketplaceService")
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+local SoundService = game:GetService("SoundService")
+local player = Players.LocalPlayer
+local camera = workspace.CurrentCamera
+
+local currentLanguage = "ENG"
+local languages = {
+    ENG = { title = "Developer Products", search = "Search...", sortName = "Sort: Name", sortPrice = "Sort: Price", buy = "BUY", copy = "COPY", all = "ALL", ok = "OK", processing = "Processing...", loading = "Loading", noResults = "No products found...", clear = "Clear" },
+    RU = { title = "Продукты Разработчика", search = "Поиск...", sortName = "Сорт: Имя", sortPrice = "Сорт: Цена", buy = "КУПИТЬ", copy = "КОПИРОВАТЬ", all = "ВСЕМ", ok = "OK", processing = "Обработка...", loading = "Загрузка", noResults = "Товары не найдены...", clear = "Очистить" }
+}
+
+local currentTheme = "Dark"
+local themes = {
+    Dark = {
+        windowBg = Color3.fromRGB(32, 32, 38), titleBg = Color3.fromRGB(40, 40, 48), frameBg = Color3.fromRGB(45, 45, 52),
+        hoverBg = Color3.fromRGB(70, 70, 80), text = Color3.fromRGB(255, 255, 255), subText = Color3.fromRGB(180, 180, 200),
+        priceText = Color3.fromRGB(100, 200, 100), searchBg = Color3.fromRGB(50, 50, 58), sortBg = Color3.fromRGB(60, 60, 70),
+        buyBg = Color3.fromRGB(80, 160, 80), copyBg = Color3.fromRGB(70, 70, 80), allBg = Color3.fromRGB(180, 80, 80),
+        closeBg = Color3.fromRGB(220, 60, 60), minimizeBg = Color3.fromRGB(100, 160, 220), resizeBg = Color3.fromRGB(100, 100, 120),
+        stroke = Color3.fromRGB(90, 90, 100), loaderBg = Color3.fromRGB(40, 40, 48), loaderBar = Color3.fromRGB(80, 160, 80), loaderBarBg = Color3.fromRGB(55, 55, 65)
+    },
+    Light = {
+        windowBg = Color3.fromRGB(240, 240, 245), titleBg = Color3.fromRGB(220, 220, 225), frameBg = Color3.fromRGB(255, 255, 255),
+        hoverBg = Color3.fromRGB(230, 230, 235), text = Color3.fromRGB(30, 30, 35), subText = Color3.fromRGB(100, 100, 110),
+        priceText = Color3.fromRGB(50, 150, 50), searchBg = Color3.fromRGB(255, 255, 255), sortBg = Color3.fromRGB(200, 200, 205),
+        buyBg = Color3.fromRGB(100, 200, 100), copyBg = Color3.fromRGB(180, 180, 185), allBg = Color3.fromRGB(200, 100, 100),
+        closeBg = Color3.fromRGB(255, 80, 80), minimizeBg = Color3.fromRGB(80, 140, 220), resizeBg = Color3.fromRGB(150, 150, 160),
+        stroke = Color3.fromRGB(200, 200, 205), loaderBg = Color3.fromRGB(220, 220, 225), loaderBar = Color3.fromRGB(100, 200, 100), loaderBarBg = Color3.fromRGB(200, 200, 205)
+    }
+}
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "DevProductsIMGUI"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Parent = player:WaitForChild("PlayerGui")
+
+local LoaderFrame = Instance.new("Frame")
+LoaderFrame.Size = UDim2.new(0, 320, 0, 140)
+LoaderFrame.Position = UDim2.fromScale(0.5, 0.5)
+LoaderFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+LoaderFrame.BackgroundColor3 = themes.Dark.loaderBg
+LoaderFrame.BorderSizePixel = 0
+LoaderFrame.BackgroundTransparency = 1
+LoaderFrame.Parent = ScreenGui
+
+local LoaderCorner = Instance.new("UICorner")
+LoaderCorner.CornerRadius = UDim.new(0, 16)
+LoaderCorner.Parent = LoaderFrame
+
+local LoaderStroke = Instance.new("UIStroke")
+LoaderStroke.Color = themes.Dark.stroke
+LoaderStroke.Thickness = 2
+LoaderStroke.Transparency = 1
+LoaderStroke.Parent = LoaderFrame
+
+local LoadingLabel = Instance.new("TextLabel")
+LoadingLabel.Text = languages.ENG.loading .. "..."
+LoadingLabel.Font = Enum.Font.GothamBold
+LoadingLabel.TextColor3 = themes.Dark.text
+LoadingLabel.TextSize = 20
+LoadingLabel.BackgroundTransparency = 1
+LoadingLabel.Size = UDim2.new(1, 0, 0, 40)
+LoadingLabel.Position = UDim2.new(0, 0, 0, 25)
+LoadingLabel.TextXAlignment = Enum.TextXAlignment.Center
+LoadingLabel.Parent = LoaderFrame
+
+local ProgressLabel = Instance.new("TextLabel")
+ProgressLabel.Text = "0%"
+ProgressLabel.Font = Enum.Font.Code
+ProgressLabel.TextColor3 = themes.Dark.text
+ProgressLabel.TextSize = 28
+ProgressLabel.BackgroundTransparency = 1
+ProgressLabel.Size = UDim2.new(1, 0, 0, 40)
+ProgressLabel.Position = UDim2.new(0, 0, 0, 60)
+ProgressLabel.TextXAlignment = Enum.TextXAlignment.Center
+ProgressLabel.Parent = LoaderFrame
+
+local ProgressBarBg = Instance.new("Frame")
+ProgressBarBg.Size = UDim2.new(1, -40, 0, 16)
+ProgressBarBg.Position = UDim2.new(0, 20, 1, -45)
+ProgressBarBg.BackgroundColor3 = themes.Dark.loaderBarBg
+ProgressBarBg.BorderSizePixel = 0
+ProgressBarBg.Parent = LoaderFrame
+
+local ProgressBarBgCorner = Instance.new("UICorner")
+ProgressBarBgCorner.CornerRadius = UDim.new(0, 8)
+ProgressBarBgCorner.Parent = ProgressBarBg
+
+local ProgressBar = Instance.new("Frame")
+ProgressBar.Size = UDim2.new(0, 0, 1, 0)
+ProgressBar.BackgroundColor3 = themes.Dark.loaderBar
+ProgressBar.BorderSizePixel = 0
+ProgressBar.Parent = ProgressBarBg
+
+local ProgressBarCorner = Instance.new("UICorner")
+ProgressBarCorner.CornerRadius = UDim.new(0, 8)
+ProgressBarCorner.Parent = ProgressBar
+
+TweenService:Create(LoaderFrame, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {BackgroundTransparency = 0}):Play()
+TweenService:Create(LoaderStroke, TweenInfo.new(0.5), {Transparency = 0}):Play()
+
+task.spawn(function()
+    local dots = 0
+    while LoaderFrame and LoaderFrame.Parent do
+        dots = (dots + 1) % 4
+        LoadingLabel.Text = languages[currentLanguage].loading .. string.rep(".", dots)
+        task.wait(0.5)
+    end
+end)
+
+local Window = Instance.new("Frame")
+Window.Size = UDim2.new(0, 380, 0, 520)
+Window.Position = UDim2.fromScale(0.5, 0.5)
+Window.AnchorPoint = Vector2.new(0.5, 0.5)
+Window.BackgroundColor3 = themes.Dark.windowBg
+Window.BorderSizePixel = 0
+Window.ClipsDescendants = true
+Window.BackgroundTransparency = 1
+Window.Visible = false
+Window.Parent = ScreenGui
+
+local WindowCorner = Instance.new("UICorner")
+WindowCorner.CornerRadius = UDim.new(0, 12)
+WindowCorner.Parent = Window
+
+local WindowStroke = Instance.new("UIStroke")
+WindowStroke.Color = themes.Dark.stroke
+WindowStroke.Thickness = 1.5
+WindowStroke.Transparency = 1
+WindowStroke.Parent = Window
+
+local Shadow = Instance.new("ImageLabel")
+Shadow.Name = "Shadow"
+Shadow.Size = UDim2.new(1, 30, 1, 30)
+Shadow.Position = UDim2.new(0, -15, 0, -15)
+Shadow.BackgroundTransparency = 1
+Shadow.Image = "rbxassetid://6014261993"
+Shadow.ImageColor3 = Color3.new(0, 0, 0)
+Shadow.ImageTransparency = 1
+Shadow.ScaleType = Enum.ScaleType.Slice
+Shadow.SliceCenter = Rect.new(18, 18, 82, 82)
+Shadow.ZIndex = -1
+Shadow.Parent = Window
+
+local ShadowAspect = Instance.new("UIAspectRatioConstraint")
+ShadowAspect.AspectRatio = 1
+ShadowAspect.Parent = Shadow
+
+local TitleBar = Instance.new("Frame")
+TitleBar.Size = UDim2.new(1, 0, 0, 45)
+TitleBar.BackgroundColor3 = themes.Dark.titleBg
+TitleBar.BorderSizePixel = 0
+TitleBar.Parent = Window
+
+local TitleCorner = Instance.new("UICorner")
+TitleCorner.CornerRadius = UDim.new(0, 12)
+TitleCorner.Parent = TitleBar
+
+local TitleLabel = Instance.new("TextLabel")
+TitleLabel.Text = languages.ENG.title
+TitleLabel.Font = Enum.Font.GothamBold
+TitleLabel.TextColor3 = themes.Dark.text
+TitleLabel.TextSize = 16
+TitleLabel.BackgroundTransparency = 1
+TitleLabel.Position = UDim2.new(0, 15, 0, 0)
+TitleLabel.Size = UDim2.new(1, -240, 1, 0)
+TitleLabel.Parent = TitleBar
+
+local MinimizeButton = Instance.new("TextButton")
+MinimizeButton.Size = UDim2.new(0, 32, 0, 32)
+MinimizeButton.Position = UDim2.new(1, -80, 0.5, 0)
+MinimizeButton.AnchorPoint = Vector2.new(0.5, 0.5)
+MinimizeButton.BackgroundColor3 = themes.Dark.minimizeBg
+MinimizeButton.Text = "-"
+MinimizeButton.TextColor3 = themes.Dark.text
+MinimizeButton.Font = Enum.Font.GothamBold
+MinimizeButton.TextSize = 20
+MinimizeButton.AutoButtonColor = false
+MinimizeButton.Parent = TitleBar
+
+local MinimizeCorner = Instance.new("UICorner")
+MinimizeCorner.CornerRadius = UDim.new(0, 8)
+MinimizeCorner.Parent = MinimizeButton
+
+local CloseButton = Instance.new("TextButton")
+CloseButton.Size = UDim2.new(0, 32, 0, 32)
+CloseButton.Position = UDim2.new(1, -40, 0.5, 0)
+CloseButton.AnchorPoint = Vector2.new(0.5, 0.5)
+CloseButton.BackgroundColor3 = themes.Dark.closeBg
+CloseButton.Text = "x"
+CloseButton.TextColor3 = themes.Dark.text
+CloseButton.Font = Enum.Font.GothamBold
+CloseButton.TextSize = 20
+CloseButton.AutoButtonColor = false
+CloseButton.Parent = TitleBar
+
+local CloseCorner = Instance.new("UICorner")
+CloseCorner.CornerRadius = UDim.new(0, 8)
+CloseCorner.Parent = CloseButton
+
+local LangButton = Instance.new("TextButton")
+LangButton.Text = "RU"
+LangButton.Font = Enum.Font.GothamBold
+LangButton.TextColor3 = themes.Dark.text
+LangButton.TextSize = 12
+LangButton.BackgroundColor3 = themes.Dark.sortBg
+LangButton.Position = UDim2.new(1, -160, 0.5, 0)
+LangButton.AnchorPoint = Vector2.new(0.5, 0.5)
+LangButton.Size = UDim2.new(0, 40, 0, 28)
+LangButton.AutoButtonColor = false
+LangButton.Parent = TitleBar
+
+local LangCorner = Instance.new("UICorner")
+LangCorner.CornerRadius = UDim.new(0, 6)
+LangCorner.Parent = LangButton
+
+local ThemeButton = Instance.new("TextButton")
+ThemeButton.Text = "Light"
+ThemeButton.Font = Enum.Font.GothamBold
+ThemeButton.TextColor3 = themes.Dark.text
+ThemeButton.TextSize = 12
+ThemeButton.BackgroundColor3 = themes.Dark.sortBg
+ThemeButton.Position = UDim2.new(1, -240, 0.5, 0)
+ThemeButton.AnchorPoint = Vector2.new(0.5, 0.5)
+ThemeButton.Size = UDim2.new(0, 60, 0, 28)
+ThemeButton.AutoButtonColor = false
+ThemeButton.Parent = TitleBar
+
+local ThemeCorner = Instance.new("UICorner")
+ThemeCorner.CornerRadius = UDim.new(0, 6)
+ThemeCorner.Parent = ThemeButton
+
+local ResizeHandle = Instance.new("Frame")
+ResizeHandle.Size = UDim2.new(0, 18, 0, 18)
+ResizeHandle.Position = UDim2.new(1, -18, 1, -18)
+ResizeHandle.BackgroundColor3 = themes.Dark.resizeBg
+ResizeHandle.BorderSizePixel = 0
+ResizeHandle.Parent = Window
+
+local ResizeCorner = Instance.new("UICorner")
+ResizeCorner.CornerRadius = UDim.new(0, 4)
+ResizeCorner.Parent = ResizeHandle
+
+local ResizeIcon = Instance.new("TextLabel")
+ResizeIcon.Text = "("
+ResizeIcon.Font = Enum.Font.GothamBold
+ResizeIcon.TextSize = 14
+ResizeIcon.TextColor3 = themes.Dark.text
+ResizeIcon.BackgroundTransparency = 1
+ResizeIcon.Size = UDim2.new(1, 0, 1, 0)
+ResizeIcon.Parent = ResizeHandle
+
+local SearchContainer = Instance.new("Frame")
+SearchContainer.Size = UDim2.new(1, -24, 0, 36)
+SearchContainer.Position = UDim2.new(0, 12, 0, 55)
+SearchContainer.BackgroundColor3 = themes.Dark.searchBg
+SearchContainer.Parent = Window
+
+local SearchContainerCorner = Instance.new("UICorner")
+SearchContainerCorner.CornerRadius = UDim.new(0, 8)
+SearchContainerCorner.Parent = SearchContainer
+
+local SearchBox = Instance.new("TextBox")
+SearchBox.PlaceholderText = languages.ENG.search
+SearchBox.Text = ""
+SearchBox.Font = Enum.Font.Code
+SearchBox.TextColor3 = themes.Dark.text
+SearchBox.PlaceholderColor3 = themes.Dark.subText
+SearchBox.BackgroundTransparency = 1
+SearchBox.Position = UDim2.new(0, 10, 0, 0)
+SearchBox.Size = UDim2.new(1, -50, 1, 0)
+SearchBox.Parent = SearchContainer
+
+local SearchIcon = Instance.new("TextLabel")
+SearchIcon.Text = "🔎"
+SearchIcon.Font = Enum.Font.GothamBold
+SearchIcon.TextSize = 18
+SearchIcon.BackgroundTransparency = 1
+SearchIcon.Position = UDim2.new(0, 10, 0, 0)
+SearchIcon.Size = UDim2.new(0, 30, 1, 0)
+SearchIcon.TextColor3 = themes.Dark.subText
+SearchIcon.Parent = SearchContainer
+
+local ClearButton = Instance.new("TextButton")
+ClearButton.Name = "ClearButton"
+ClearButton.Text = "x"
+ClearButton.Font = Enum.Font.GothamBold
+ClearButton.TextSize = 16
+ClearButton.TextColor3 = themes.Dark.subText
+ClearButton.BackgroundTransparency = 1
+ClearButton.Position = UDim2.new(1, -35, 0, 0)
+ClearButton.Size = UDim2.new(0, 30, 1, 0)
+ClearButton.Visible = false
+ClearButton.AutoButtonColor = false
+ClearButton.Parent = SearchContainer
+
+local ClearHover = Instance.new("Frame")
+ClearHover.Size = UDim2.new(1, 0, 1, 0)
+ClearHover.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ClearHover.BackgroundTransparency = 1
+ClearHover.ZIndex = 0
+ClearHover.Parent = ClearButton
+
+local SortButton = Instance.new("TextButton")
+SortButton.Text = languages.ENG.sortName
+SortButton.Font = Enum.Font.Code
+SortButton.TextColor3 = themes.Dark.text
+SortButton.BackgroundColor3 = themes.Dark.sortBg
+SortButton.Position = UDim2.new(0, 12, 0, 100)
+SortButton.Size = UDim2.new(0, 100, 0, 28)
+SortButton.AutoButtonColor = false
+SortButton.Parent = Window
+
+local SortCorner = Instance.new("UICorner")
+SortCorner.CornerRadius = UDim.new(0, 6)
+SortCorner.Parent = SortButton
+
+local ScrollingFrame = Instance.new("ScrollingFrame")
+ScrollingFrame.Size = UDim2.new(1, -24, 1, -150)
+ScrollingFrame.Position = UDim2.new(0, 12, 0, 135)
+ScrollingFrame.BackgroundTransparency = 1
+ScrollingFrame.BorderSizePixel = 0
+ScrollingFrame.ScrollBarThickness = 6
+ScrollingFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
+ScrollingFrame.Parent = Window
+
+local ListLayout = Instance.new("UIListLayout")
+ListLayout.Padding = UDim.new(0, 8)
+ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+ListLayout.Parent = ScrollingFrame
+
+local NoResultsLabel = Instance.new("TextLabel")
+NoResultsLabel.Name = "NoResults"
+NoResultsLabel.Text = languages.ENG.noResults
+NoResultsLabel.Font = Enum.Font.Gotham
+NoResultsLabel.TextColor3 = themes.Dark.subText
+NoResultsLabel.TextSize = 16
+NoResultsLabel.BackgroundTransparency = 1
+NoResultsLabel.Size = UDim2.new(1, 0, 0, 40)
+NoResultsLabel.Position = UDim2.new(0, 0, 0, 20)
+NoResultsLabel.Visible = false
+NoResultsLabel.Parent = ScrollingFrame
+
+local function animateButtonPress(btn, color)
+    local original = btn.BackgroundColor3
+    TweenService:Create(btn, TweenInfo.new(0.1), {BackgroundColor3 = color}):Play()
+    task.delay(0.1, function()
+        if btn and btn.Parent then
+            TweenService:Create(btn, TweenInfo.new(0.1), {BackgroundColor3 = original}):Play()
+        end
+    end)
+end
+
+local function createProductFrame(product)
+    local theme = themes[currentTheme]
+    local lang = languages[currentLanguage]
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(1, 0, 0, 90)
+    frame.BackgroundColor3 = theme.frameBg
+    frame.BackgroundTransparency = 0
+    frame.Parent = ScrollingFrame
+
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 10)
+    corner.Parent = frame
+
+    local hover = Instance.new("Frame")
+    hover.Name = "HoverBg"
+    hover.Size = UDim2.new(1, 0, 1, 0)
+    hover.BackgroundColor3 = theme.hoverBg
+    hover.BackgroundTransparency = 1
+    hover.ZIndex = 0
+    hover.Parent = frame
+
+    local hoverCorner = Instance.new("UICorner")
+    hoverCorner.CornerRadius = UDim.new(0, 10)
+    hoverCorner.Parent = hover
+
+    local name = Instance.new("TextLabel")
+    name.Name = "NameLabel"
+    name.Text = " " .. (product.Name or "Unknown")
+    name.TextTruncate = Enum.TextTruncate.AtEnd
+    name.Font = Enum.Font.GothamBold
+    name.TextColor3 = theme.text
+    name.TextSize = 15
+    name.Position = UDim2.new(0, 12, 0, 8)
+    name.Size = UDim2.new(1, -140, 0, 22)
+    name.BackgroundTransparency = 1
+    name.Parent = frame
+
+    local id = Instance.new("TextLabel")
+    id.Name = "IDLabel"
+    id.Text = "ID: " .. product.ProductId
+    id.Font = Enum.Font.Code
+    id.TextColor3 = theme.subText
+    id.TextSize = 13
+    id.Position = UDim2.new(0, 12, 0, 30)
+    id.Size = UDim2.new(0, 200, 0, 18)
+    id.BackgroundTransparency = 1
+    id.Parent = frame
+
+    local price = Instance.new("TextLabel")
+    price.Name = "PriceLabel"
+    price.Text = (product.PriceInRobux or 0) .. " R$"
+    price.Font = Enum.Font.GothamBold
+    price.TextColor3 = theme.priceText
+    price.TextSize = 14
+    price.Position = UDim2.new(0, 12, 0, 52)
+    price.Size = UDim2.new(0, 100, 0, 20)
+    price.BackgroundTransparency = 1
+    price.Parent = frame
+
+    local buyBtn = Instance.new("TextButton")
+    buyBtn.Name = "BuyBtn"
+    buyBtn.Text = lang.buy
+    buyBtn.Font = Enum.Font.GothamBold
+    buyBtn.TextColor3 = theme.text
+    buyBtn.BackgroundColor3 = theme.buyBg
+    buyBtn.Position = UDim2.new(1, -100, 0, 15)
+    buyBtn.Size = UDim2.new(0, 85, 0, 28)
+    buyBtn.AutoButtonColor = false
+    buyBtn.BackgroundTransparency = 0
+    buyBtn.Parent = frame
+
+    local buyCorner = Instance.new("UICorner")
+    buyCorner.CornerRadius = UDim.new(0, 6)
+    buyCorner.Parent = buyBtn
+
+    local copyBtn = Instance.new("TextButton")
+    copyBtn.Name = "CopyBtn"
+    copyBtn.Text = lang.copy
+    copyBtn.Font = Enum.Font.GothamBold
+    copyBtn.TextSize = 11
+    copyBtn.TextColor3 = theme.text
+    copyBtn.BackgroundColor3 = theme.copyBg
+    copyBtn.Position = UDim2.new(1, -100, 0, 50)
+    copyBtn.Size = UDim2.new(0, 55, 0, 22)
+    copyBtn.AutoButtonColor = false
+    copyBtn.BackgroundTransparency = 0
+    copyBtn.Parent = frame
+
+    local copyCorner = Instance.new("UICorner")
+    copyCorner.CornerRadius = UDim.new(0, 5)
+    copyCorner.Parent = copyBtn
+
+    local allBtn = Instance.new("TextButton")
+    allBtn.Name = "AllBtn"
+    allBtn.Text = lang.all
+    allBtn.Font = Enum.Font.GothamBold
+    allBtn.TextSize = 11
+    allBtn.TextColor3 = theme.text
+    allBtn.BackgroundColor3 = theme.allBg
+    allBtn.Position = UDim2.new(1, -40, 0, 50)
+    allBtn.Size = UDim2.new(0, 35, 0, 22)
+    allBtn.AutoButtonColor = false
+    allBtn.BackgroundTransparency = 0
+    allBtn.Parent = frame
+
+    local allCorner = Instance.new("UICorner")
+    allCorner.CornerRadius = UDim.new(0, 5)
+    allCorner.Parent = allBtn
+
+    frame.InputBegan:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseMovement or i.UserInputType == Enum.UserInputType.Touch then TweenService:Create(hover, TweenInfo.new(0.25), {BackgroundTransparency = 0.7}):Play() end end)
+    frame.InputEnded:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseMovement or i.UserInputType == Enum.UserInputType.Touch then TweenService:Create(hover, TweenInfo.new(0.25), {BackgroundTransparency = 1}):Play() end end)
+
+    buyBtn.MouseButton1Click:Connect(function()
+        animateButtonPress(buyBtn, theme.buyBg:lerp(Color3.new(1,1,1), 0.3))
+        MarketplaceService:SignalPromptProductPurchaseFinished(player.UserId, product.ProductId, true)
+    end)
+
+    copyBtn.MouseButton1Click:Connect(function()
+        animateButtonPress(copyBtn, theme.buyBg)
+        setclipboard(tostring(product.ProductId))
+        copyBtn.Text = lang.ok
+        copyBtn.BackgroundColor3 = theme.buyBg
+        task.delay(1, function()
+            if copyBtn and copyBtn.Parent then
+                copyBtn.Text = lang.copy
+                copyBtn.BackgroundColor3 = theme.copyBg
+            end
+        end)
+    end)
+
+    allBtn.MouseButton1Click:Connect(function()
+        animateButtonPress(allBtn, Color3.fromRGB(200, 120, 0))
+        allBtn.Text = lang.processing
+        allBtn.BackgroundColor3 = Color3.fromRGB(200, 120, 0)
+        task.spawn(function()
+            local origSubject = camera.CameraSubject
+            local origCFrame = camera.CFrame
+            for _, plr in Players:GetPlayers() do
+                if plr.Character and plr.Character:FindFirstChild("Humanoid") then
+                    camera.CameraSubject = plr.Character.Humanoid
+                    MarketplaceService:SignalPromptProductPurchaseFinished(player.UserId, product.ProductId, true)
+                    task.wait(0.001)
+                end
+            end
+            camera.CameraSubject = origSubject
+            camera.CFrame = origCFrame
+            if allBtn and allBtn.Parent then
+                allBtn.Text = lang.ok
+                allBtn.BackgroundColor3 = theme.buyBg
+                task.delay(1.5, function()
+                    if allBtn and allBtn.Parent then
+                        allBtn.Text = lang.all
+                        allBtn.BackgroundColor3 = theme.allBg
+                    end
+                end)
+            end
+        end)
+    end)
+
+    return frame
+end
+
+local allProducts = {}
+
+local function loadAllProducts()
+    for _, child in ScrollingFrame:GetChildren() do
+        if child:IsA("Frame") and child.Name ~= "NoResults" then
+            child:Destroy()
+        end
+    end
+    allProducts = {}
+
+    local enum = MarketplaceService:GetDeveloperProductsAsync()
+    while true do
+        local page = enum:GetCurrentPage()
+        for _, prod in page do
+            local frame = createProductFrame(prod)
+            table.insert(allProducts, {product = prod, frame = frame, order = #allProducts + 1})
+        end
+        if enum.IsFinished then break end
+        enum:AdvanceToNextPageAsync()
+    end
+
+    table.sort(allProducts, function(a, b)
+        if SortButton.Text:find("Price") or SortButton.Text:find("Цена") then
+            return (a.product.PriceInRobux or 0) < (b.product.PriceInRobux or 0)
+        else
+            return (a.product.Name or ""):lower() < (b.product.Name or ""):lower()
+        end
+    end)
+
+    for i, entry in ipairs(allProducts) do
+        entry.frame.LayoutOrder = i
+        entry.frame.Visible = true
+    end
+end
+
+local function updateSearch()
+    local query = SearchBox.Text:lower()
+    local lang = languages[currentLanguage]
+    local theme = themes[currentTheme]
+    local found = 0
+
+    NoResultsLabel.Visible = false
+    ClearButton.Visible = (query ~= "")
+
+    if query == "" then
+        for i, entry in ipairs(allProducts) do
+            entry.frame.Visible = true
+            entry.frame.LayoutOrder = i
+        end
+        ScrollingFrame.CanvasPosition = Vector2.new(0, 0)
+        return
+    end
+
+    for _, entry in ipairs(allProducts) do
+        entry.frame.Visible = false
+    end
+
+    for i, entry in ipairs(allProducts) do
+        local name = entry.product.Name or ""
+        if name:lower():find(query, 1, true) then
+            entry.frame.Visible = true
+            entry.frame.LayoutOrder = found + 1
+            found += 1
+        end
+    end
+
+    if found == 0 then
+        NoResultsLabel.Text = lang.noResults
+        NoResultsLabel.TextColor3 = theme.subText
+        NoResultsLabel.Visible = true
+    end
+end
+
+SearchBox:GetPropertyChangedSignal("Text"):Connect(updateSearch)
+
+ClearButton.MouseButton1Click:Connect(function()
+    SearchBox.Text = ""
+    updateSearch()
+end)
+
+ClearButton.InputBegan:Connect(function(i)
+    if i.UserInputType == Enum.UserInputType.MouseMovement then
+        TweenService:Create(ClearHover, TweenInfo.new(0.2), {BackgroundTransparency = 0.9}):Play()
+        TweenService:Create(ClearButton, TweenInfo.new(0.2), {TextColor3 = theme.text}):Play()
+    end
+end)
+ClearButton.InputEnded:Connect(function(i)
+    if i.UserInputType == Enum.UserInputType.MouseMovement then
+        TweenService:Create(ClearHover, TweenInfo.new(0.2), {BackgroundTransparency = 1}):Play()
+        TweenService:Create(ClearButton, TweenInfo.new(0.2), {TextColor3 = theme.subText}):Play()
+    end
+end)
+
+task.spawn(function()
+    for i = 0, 100 do
+        ProgressLabel.Text = i .. "%"
+        TweenService:Create(ProgressBar, TweenInfo.new(0.025, Enum.EasingStyle.Linear), {Size = UDim2.new(i/100, 0, 1, 0)}):Play()
+        task.wait(0.025)
+    end
+
+    loadAllProducts()
+
+    local sound = Instance.new("Sound")
+    sound.SoundId = "rbxassetid://9119702742"
+    sound.Volume = 0.8
+    sound.Parent = SoundService
+    sound:Play()
+    sound.Ended:Connect(function() sound:Destroy() end)
+
+    TweenService:Create(LoaderFrame, TweenInfo.new(0.4), {BackgroundTransparency = 1}):Play()
+    TweenService:Create(LoaderStroke, TweenInfo.new(0.4), {Transparency = 1}):Play()
+    task.delay(0.4, function()
+        LoaderFrame:Destroy()
+        Window.Visible = true
+        TweenService:Create(Window, TweenInfo.new(0.4), {BackgroundTransparency = 0}):Play()
+        TweenService:Create(WindowStroke, TweenInfo.new(0.4), {Transparency = 0}):Play()
+        TweenService:Create(Shadow, TweenInfo.new(0.5), {ImageTransparency = 0.5}):Play()
+        updateSearch()
+    end)
+end)
+
+local isMinimized = false
+local minimizedSize = UDim2.new(0, 380, 0, 45)
+local fullSize = Window.Size
+local fullPos = Window.Position
+
+MinimizeButton.MouseButton1Click:Connect(function()
+    animateButtonPress(MinimizeButton, Color3.fromRGB(120, 180, 240))
+    isMinimized = not isMinimized
+    MinimizeButton.Text = isMinimized and "+" or "-"
+
+    if isMinimized then
+        fullSize = Window.Size
+        fullPos = Window.Position
+        TweenService:Create(Window, TweenInfo.new(0.35, Enum.EasingStyle.Quint), {Size = minimizedSize}):Play()
+        for _, child in pairs(Window:GetChildren()) do
+            if child ~= TitleBar and child ~= Shadow then
+                TweenService:Create(child, TweenInfo.new(0.3), {BackgroundTransparency = 1}):Play()
+            end
+        end
+    else
+        TweenService:Create(Window, TweenInfo.new(0.35, Enum.EasingStyle.Quint), {Size = fullSize, Position = fullPos}):Play()
+        for _, child in pairs(Window:GetChildren()) do
+            if child ~= TitleBar and child ~= Shadow then
+                TweenService:Create(child, TweenInfo.new(0.3), {BackgroundTransparency = 0}):Play()
+            end
+        end
+    end
+end)
+
+SortButton.MouseButton1Click:Connect(function()
+    animateButtonPress(SortButton, themes[currentTheme].hoverBg)
+    local lang = languages[currentLanguage]
+    SortButton.Text = (SortButton.Text == lang.sortName) and lang.sortPrice or lang.sortName
+    loadAllProducts()
+    updateSearch()
+end)
+
+LangButton.MouseButton1Click:Connect(function()
+    animateButtonPress(LangButton, themes[currentTheme].hoverBg)
+    currentLanguage = currentLanguage == "ENG" and "RU" or "ENG"
+    smoothUpdate()
+    updateSearch()
+end)
+
+ThemeButton.MouseButton1Click:Connect(function()
+    animateButtonPress(ThemeButton, themes[currentTheme].hoverBg)
+    currentTheme = currentTheme == "Dark" and "Light" or "Dark"
+    smoothUpdate()
+    updateSearch()
+end)
+
+CloseButton.MouseButton1Click:Connect(function()
+    animateButtonPress(CloseButton, Color3.fromRGB(255, 100, 100))
+    TweenService:Create(Window, TweenInfo.new(0.3), {BackgroundTransparency = 1}):Play()
+    TweenService:Create(WindowStroke, TweenInfo.new(0.3), {Transparency = 1}):Play()
+    TweenService:Create(Shadow, TweenInfo.new(0.3), {ImageTransparency = 1}):Play()
+    task.delay(0.3, function() ScreenGui:Destroy() end)
+end)
+
+function smoothUpdate()
+    local lang = languages[currentLanguage]
+    local theme = themes[currentTheme]
+
+    TweenService:Create(Window, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {BackgroundColor3 = theme.windowBg}):Play()
+    TweenService:Create(TitleBar, TweenInfo.new(0.4), {BackgroundColor3 = theme.titleBg}):Play()
+    TweenService:Create(WindowStroke, TweenInfo.new(0.4), {Color = theme.stroke}):Play()
+
+    TitleLabel.Text = lang.title
+    TweenService:Create(TitleLabel, TweenInfo.new(0.3), {TextColor3 = theme.text}):Play()
+
+    TweenService:Create(SearchContainer, TweenInfo.new(0.4), {BackgroundColor3 = theme.searchBg}):Play()
+    TweenService:Create(SearchBox, TweenInfo.new(0.4), {TextColor3 = theme.text, PlaceholderColor3 = theme.subText}):Play()
+    SearchBox.PlaceholderText = lang.search
+
+    TweenService:Create(SearchIcon, TweenInfo.new(0.3), {TextColor3 = theme.subText}):Play()
+    TweenService:Create(ClearButton, TweenInfo.new(0.3), {TextColor3 = theme.subText}):Play()
+    TweenService:Create(SortButton, TweenInfo.new(0.4), {TextColor3 = theme.text, BackgroundColor3 = theme.sortBg}):Play()
+    TweenService:Create(LangButton, TweenInfo.new(0.4), {TextColor3 = theme.text, BackgroundColor3 = theme.sortBg}):Play()
+    TweenService:Create(ThemeButton, TweenInfo.new(0.4), {TextColor3 = theme.text, BackgroundColor3 = theme.sortBg}):Play()
+    TweenService:Create(CloseButton, TweenInfo.new(0.4), {BackgroundColor3 = theme.closeBg, TextColor3 = theme.text}):Play()
+    TweenService:Create(MinimizeButton, TweenInfo.new(0.4), {BackgroundColor3 = theme.minimizeBg, TextColor3 = theme.text}):Play()
+    TweenService:Create(ResizeHandle, TweenInfo.new(0.4), {BackgroundColor3 = theme.resizeBg}):Play()
+    TweenService:Create(ResizeIcon, TweenInfo.new(0.3), {TextColor3 = theme.text}):Play()
+
+    LangButton.Text = currentLanguage == "ENG" and "RU" or "ENG"
+    ThemeButton.Text = currentTheme == "Dark" and "Light" or "Dark"
+
+    for _, entry in ipairs(allProducts) do
+        if entry.frame.Visible then
+            local frame = entry.frame
+            TweenService:Create(frame, TweenInfo.new(0.3), {BackgroundColor3 = theme.frameBg}):Play()
+            local hover = frame:FindFirstChild("HoverBg")
+            if hover then hover.BackgroundColor3 = theme.hoverBg end
+
+            local name = frame:FindFirstChild("NameLabel")
+            local id = frame:FindFirstChild("IDLabel")
+            local price = frame:FindFirstChild("PriceLabel")
+            local buy = frame:FindFirstChild("BuyBtn")
+            local copy = frame:FindFirstChild("CopyBtn")
+            local all = frame:FindFirstChild("AllBtn")
+
+            if name then TweenService:Create(name, TweenInfo.new(0.3), {TextColor3 = theme.text}):Play() end
+            if id then TweenService:Create(id, TweenInfo.new(0.3), {TextColor3 = theme.subText}):Play() end
+            if price then TweenService:Create(price, TweenInfo.new(0.3), {TextColor3 = theme.priceText}):Play() end
+            if buy then TweenService:Create(buy, TweenInfo.new(0.4), {BackgroundColor3 = theme.buyBg, TextColor3 = theme.text}):Play(); buy.Text = lang.buy end
+            if copy then TweenService:Create(copy, TweenInfo.new(0.4), {BackgroundColor3 = theme.copyBg, TextColor3 = theme.text}):Play(); copy.Text = lang.copy end
+            if all then TweenService:Create(all, TweenInfo.new(0.4), {BackgroundColor3 = theme.allBg, TextColor3 = theme.text}):Play(); all.Text = lang.all end
+        end
+    end
+
+    NoResultsLabel.TextColor3 = theme.subText
+end
+
+local dragging = false
+local dragStart, startPos
+TitleBar.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = Window.Position
+    end
+end)
+UserInputService.InputChanged:Connect(function(input)
+    if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+        local delta = input.Position - dragStart
+        Window.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    end
+end)
+UserInputService.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = false
+    end
+end)
+
+local resizing = false
+local resizeStart, startSize
+ResizeHandle.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        resizing = true
+        resizeStart = input.Position
+        startSize = Window.Size
+    end
+end)
+UserInputService.InputChanged:Connect(function(input)
+    if resizing and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+        local delta = input.Position - resizeStart
+        local newSize = UDim2.new(startSize.X.Scale, math.max(300, startSize.X.Offset + delta.X), startSize.Y.Scale, math.max(400, startSize.Y.Offset + delta.Y))
+        Window.Size = newSize
+    end
+end)
+UserInputService.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        resizing = false
+    end
+end)
+
+smoothUpdate()
