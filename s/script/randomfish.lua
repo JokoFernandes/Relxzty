@@ -1,10 +1,10 @@
 -- admin abuse
 
 -- input
-local fishId = getgenv().fishId or 0
-local min = getgenv().min or 0
-local max = getgenv().max or 1
-local delay = getgenv().delay or 0
+local fishId = getgenv().fishId
+local min = getgenv().min
+local max = getgenv().max
+local delay = getgenv().delay
 local fishtype = getgenv().fishtype or "Elshark Gran Maja"
 local mutation = {"Galaxy","Radioactive","","Fairy Dust","Holograpic","Stone","Albino"}
 local chance = getgenv() or "1 in 4M"
