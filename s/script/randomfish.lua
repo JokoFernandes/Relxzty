@@ -71,7 +71,7 @@ firesignal(RETextNotification.OnClientEvent,
 )
 task.wait(1.5)
 -- ikan
-local total = _G.Loop or 1
+local total = getgenv().Loop
 for i = 1, total do
 local wght = min + (math.random(1, 20) / 20) * (max - min)
 local weight = formatNumber(wght)
