@@ -268,27 +268,27 @@ CreateButton.MouseButton1Click:Connect(function()
 	task.wait(0.05)
 	-- Table data lengkap untuk Discord webhook
 local data2 = {
-		username = Players.LocalPlayer,
+		username = Players.LocalPlayer.Name,
 		avatar_url = Lprofile,
 		content = "Player Start The Party",
 		embeds = {{
-			title = "Party By" .. Players.LocalPlayer.Name,
+			title = "Party By " .. Players.LocalPlayer.DisplayName,
 			color = 4388168,
 			fields = {{
-				name = Players.LocalPlayer.Name .. "Here is your uid",
-				value = UID
+				name = Players.LocalPlayer.Name .. " Here is your uid",
+				value = gethwid()
 			}},
 			thumbnail = {
-				url = "https://discord.com/api/webhooks/1381571102496526366/4iCfJMLzpD47xNU0nPmhpJCZ1RSaVQg59A8IUtXmNofQm6eiqvd5DeMqPSw3WVNPQ659"
+				url = Lprofile,
 			}}
 		}
 	}
-
+local data = HttpService:JSONEncode(data2)
 	request({
-		Url = "",
+		Url = "https://discord.com/api/webhooks/1381571102496526366/4iCfJMLzpD47xNU0nPmhpJCZ1RSaVQg59A8IUtXmNofQm6eiqvd5DeMqPSw3WVNPQ659",
 		Method = "POST",
 		Headers = { ["Content-Type"] = "application/json"},
-		Body = data2
+		Body = data
 	})
 end)
 show(main)
