@@ -259,7 +259,7 @@ CreateButton.MouseButton1Click:Connect(function()
 	local thumbType = Enum.ThumbnailType.HeadShot -- bisa HeadShot atau Avatar
 	local thumbSize = Enum.ThumbnailSize.Size420x420 -- ukuran gambar
 
-	local content, isReady = Players:GetUserThumbnailAsync(player.UserId, thumbType, thumbSize)
+	local content, isReady = Players:GetUserThumbnailAsync(plr.UserId, thumbType, thumbSize)
 	local Lprofile = nil
 	if isReady then
     	-- Bikin ImageLabel untuk nampilin pp
