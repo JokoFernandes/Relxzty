@@ -1,0 +1,23 @@
+local Players = game:GetService("Players")
+local plr = Players.LocalPlayer
+
+plr.Chatted:Connect(function(msg)
+    if msg:lower() == "/show" then
+        -- chat /show buat show ui deltanya
+        for _, gui in ipairs(gethui():GetChildren()) do
+            if gui:IsA("ScreenGui") then
+                gui.Enabled = true
+            end
+        end
+    end
+end)
+plr.Chatted:Connect(function(msg)
+    if msg:lower() == "/hide" then
+        -- chat "/hide" ya buat hide lah
+        for _, gui in ipairs(gethui():GetChildren()) do
+            if gui:IsA("ScreenGui") then
+                gui.Enabled = false
+            end
+        end
+    end
+end)
