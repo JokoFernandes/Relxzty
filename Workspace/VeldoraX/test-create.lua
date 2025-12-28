@@ -143,26 +143,6 @@ main.Position = UDim2.new(0,0,0,0)
 local CreateButton = gui("TextButton","Button",buttonBackground,"Create",main,10,frameTransparency)
 CreateButton.Size = UDim2.new(1,0,0,40)
 CreateButton.Position = UDim2.new(0,0,0,10)
-local Join = gui("Frame","Join",buttonBackground,"",main,10,frameTransparency)
-Join.Size = UDim2.new(1,0,0,40) 
-Join.Position = UDim2.new(0,0,0,55)
-local JoinText = Instance.new("TextLabel")
-JoinText.Size = UDim2.new(0.5,0,0,50)
-JoinText.Position = UDim2.new(0,0,0,80)
-JoinText.Text = "Insert UID"
-JoinText.Parent = Join
-local JoinBox = gui("TextBox","TextBox",Color3.fromRGB(38, 0, 255),"UID...",Join,10,frameTransparency)
-JoinBox.Size = UDim2.new(0.5,0,0,35)
-JoinBox.Text = "UID..."
-JoinBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-JoinBox.Position = UDim2.new(0.5,0,0,2)
-local JoinTextLabel = gui("TextLabel","TextLabel",Color3.fromRGB(255, 255, 255),"",Join,10,1)
-JoinTextLabel.Size = UDim2.new(0.3,0,0,20)
-JoinTextLabel.Position = UDim2.new(0,10,0,8)
-JoinTextLabel.Text = "Insert UID/Party Id"
-local JoinButton = gui("TextButton","Button",buttonBackground,"Join",main,10,frameTransparency)
-JoinButton.Size = UDim2.new(1,0,0,40)
-JoinButton.Position = UDim2.new(0,0,0,100)
 --============================================================================================================
 -- tools
 --============================================================================================================
@@ -170,39 +150,6 @@ local Tools = gui("Frame","Tools",mainBackground,"Tools",rightPanel,10,1)
 Tools.Size = UDim2.new(1,0,1,0)
 Tools.Position = UDim2.new(0,0,0,0)
 
-local CommandPanel= gui("TextBox","CommandInputPanel",buttonBackground,"Leader Command here...",Tools,10,frameTransparency)
-CommandPanel.Size = UDim2.new(1,0,0,40)
-CommandPanel.Text = "Lead Command here"
-CommandPanel.TextColor3 = textColor
-CommandPanel.Position = UDim2.new(0,0,0,10)
-local CommandButtonAll = gui("TextButton","Button",buttonBackground,"Invoke To All",Tools,10,frameTransparency)
-CommandButtonAll.Size = UDim2.new(1,0,0,40)
-CommandButtonAll.Position = UDim2.new(0,0,0,55)
-local CommandSelectMember = gui("TextBox","Button",buttonBackground,"Input 1 Member To Invoke",Tools,10,frameTransparency)
-CommandSelectMember.Size = UDim2.new(0.5,0,0,40)
-CommandSelectMember.Position = UDim2.new(0.5,0,0,100)
-CommandSelectMember.TextColor3 = textColor
-CommandSelectMember.Text = "Member"
-local CommandButton = gui("TextButton","Button",buttonBackground,"Invoke To The Member",Tools,10,frameTransparency)
-CommandButton.Size = UDim2.new(0.5,0,0,40)
-CommandButton.Position = UDim2.new(0,0,0,100)
-local LeaderCommandPanel = gui("TextBox","CommandInputPanel",buttonBackground,"",Tools,10,frameTransparency)
-LeaderCommandPanel.Size = UDim2.new(1,0,0,40)
-LeaderCommandPanel.Text = ""
-LeaderCommandPanel.TextScaled = false
-LeaderCommandPanel.TextSize = 18
-LeaderCommandPanel.MultiLine = false           -- kalau cuma satu baris
-LeaderCommandPanel.TextColor3 = textColor
-LeaderCommandPanel.TextXAlignment = Enum.TextXAlignment.Left
-LeaderCommandPanel.Position = UDim2.new(0,0,0,145)
-
--- padding 5px
-local padding = Instance.new("UIPadding")
-padding.Parent = LeaderCommandPanel
-padding.PaddingLeft = UDim.new(0,5)
-local LeaderCommandButton = gui("TextButton","Button",buttonBackground,"Run Code",Tools,10,frameTransparency)
-LeaderCommandButton.Size = UDim2.new(1,0,0,40)
-LeaderCommandButton.Position = UDim2.new(0,0,0,190)
 --============================================================================================================
 -- misc
 --============================================================================================================
@@ -268,28 +215,30 @@ CreateButton.MouseButton1Click:Connect(function()
 	end
 	task.wait(0.05)
 	-- Table data lengkap untuk Discord webhook
-local data2 = {
+local data = {
 		username = Players.LocalPlayer.Name,
 		avatar_url = Lprofile,
 		content = "Player Start The Party",
 		embeds = {{
-			title = "Party By " .. Players.LocalPlayer.DisplayName,
-			color = 4388168,
+			title = "@everyone Party By " .. Players.LocalPlayer.DisplayName,
+			color = 3066993,
 			fields = {{
 				name = Players.LocalPlayer.Name .. " Here is your uid",
-				value = gethwid()
+				value = gethwid(),
+				inline = false
+				
 			}},
 			thumbnail = {
-				url = Lprofile,
+				url = Lprofile
 			}}
 		}
 	}
-local data = HttpService:JSONEncode(data2)
+print("sending")
 	request({
 		Url = "https://discord.com/api/webhooks/1381571102496526366/4iCfJMLzpD47xNU0nPmhpJCZ1RSaVQg59A8IUtXmNofQm6eiqvd5DeMqPSw3WVNPQ659",
 		Method = "POST",
 		Headers = { ["Content-Type"] = "application/json"},
-		Body = data
+		Body = HttpService:JSONEncode(data)
 	})
 end)
 show(main)
