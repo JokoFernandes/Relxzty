@@ -8,7 +8,6 @@ local camera = workspace.CurrentCamera
 
 local freecam = false
 local speed = 2
-local sensitivity = 0.25
 
 local move = {W = 0, A = 0, S = 0, D = 0}
 
@@ -81,22 +80,16 @@ UserInputService.InputEnded:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.D then move.D = 0 end
 end)
 
--- ✅ ROTASI MOUSE 360 DERAJAT
-UserInputService.InputChanged:Connect(function(input)
-	if not freecam then return end
-	if input.UserInputType == Enum.UserInputType.MouseMovement then
-		yaw = yaw - input.Delta.X * sensitivity
-		pitch = math.clamp(pitch - input.Delta.Y * sensitivity, -89, 89)
-	end
-end)
+-- ❌ ROTASI MOUSE DIHAPUS / DIMATIKAN
+-- (tidak ada InputChanged untuk MouseMovement)
 
--- ✅ UPDATE KAMERA (FULL IKUT MOUSE)
+-- ✅ UPDATE KAMERA (ROTASI FIXED, TIDAK IKUT MOUSE)
 RunService.RenderStepped:Connect(function()
 	if not freecam then return end
 
 	local rotation =
-		CFrame.Angles(0, math.rad(yaw), 0)
-		* CFrame.Angles(math.rad(pitch), 0, 0)
+		CFrame.Angles(0, math.rad(yaw), 0) *
+		CFrame.Angles(math.rad(pitch), 0, 0)
 
 	local direction =
 		(camera.CFrame.LookVector * (move.W - move.S)) +
