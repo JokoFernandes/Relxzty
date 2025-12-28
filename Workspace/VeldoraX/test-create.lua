@@ -195,36 +195,45 @@ iconButton.MouseButton1Click:Connect(function()
 	end
 end)
 CreateButton.MouseButton1Click:Connect(function()
-	local HttpService = game:GetService("HttpService")
-	local Players = game:GetService("Players")
-	local plr = Players.LocalPlayer
-	local char = plr.Character or plr.CharacterAdded:Wait()
-	local hrp = char:WaitForChild("HumanoidRootPart")
-	local humanoid = char:WaitForChild("Humanoid")
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local plr = Players.LocalPlayer
+
+local char = plr.Character or plr.CharacterAdded:Wait()
+local hrp = char:WaitForChild("HumanoidRootPart")
+local humanoid = char:WaitForChild("Humanoid")
+
+-- thumbnail
+local thumbType = Enum.ThumbnailType.HeadShot
+local thumbSize = Enum.ThumbnailSize.Size420x420
+
+local content, isReady = Players:GetUserThumbnailAsync(plr.UserId, thumbType, thumbSize)
+local Lprofile = isReady and content or ""
+local request = req or http_request or syn.request
+
 local data = {
-		username = Players.LocalPlayer.Name,
-		avatar_url = "https://i.pinimg.com/736x/b7/44/26/b74426929b2eddad6a805cb0ca0298ee.jpg",
-		content = "Player Start The Party",
-		embeds = {{
-			title = "@everyone Party By " .. Players.LocalPlayer.DisplayName,
-			color = 3066993,
-			fields = {{
-				name = Players.LocalPlayer.Name .. " Here is your uid",
-				value = gethwid(),
-				inline = false
-				
-			}},
-			thumbnail = {
-				url = "https://i.pinimg.com/736x/b7/44/26/b74426929b2eddad6a805cb0ca0298ee.jpg"
-			}
-		}}
-	}
-print("sending")
-	request({
-		Url = "https://discord.com/api/webhooks/1381571102496526366/4iCfJMLzpD47xNU0nPmhpJCZ1RSaVQg59A8IUtXmNofQm6eiqvd5DeMqPSw3WVNPQ659",
-		Method = "POST",
-		Headers = { ["Content-Type"] = "application/json"},
-		Body = HttpService:JSONEncode(data)
-	})
+    username = plr.DisplayName,
+    content = "Player Start The Party",
+    embeds = {{
+        title = "Party By " .. plr.Name,
+        color = 3066993,
+        fields = {{
+            name = plr.Name .. " Here is your uid",
+            value = gethwid() .. "\n ||@here||",
+            inline = false
+        }},
+		thumbnail = {
+			url = "https://i.pinimg.com/1200x/ed/ac/53/edac531cbbfb02404cc94365909516f5.jpg"
+    }}
+}
+		}
+
+request({
+    Url = "https://discord.com/api/webhooks/1381571102496526366/4iCfJMLzpD47xNU0nPmhpJCZ1RSaVQg59A8IUtXmNofQm6eiqvd5DeMqPSw3WVNPQ659",
+    Method = "POST",
+    Headers = { ["Content-Type"] = "application/json" },
+    Body = HttpService:JSONEncode(data)
+})
+setclipboard(gethwid())
 end)
 show(main)
