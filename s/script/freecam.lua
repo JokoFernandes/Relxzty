@@ -8,6 +8,7 @@ local camera = workspace.CurrentCamera
 
 local freecam = false
 local speed = 2
+local sensitivity = 0.25
 
 local move = {W = 0, A = 0, S = 0, D = 0}
 
@@ -16,35 +17,34 @@ local pitch = 0
 local camPos
 local startCFrame
 
--- ✅ BLOK KONTROL PLAYER AGAR W TIDAK GERAKKAN HUMANOID
+-- fallback kalau InputChanged tidak kebaca (executor tertentu)
+local useMouseDeltaFallback = false
+
 local function blockPlayerMovement(_, inputState)
 	if inputState == Enum.UserInputState.Begin then
 		return Enum.ContextActionResult.Sink
 	end
 end
 
--- ✅ TOGGLE FREECAM (F)
+-- Toggle Freecam (F)
 UserInputService.InputBegan:Connect(function(input, gp)
 	if gp then return end
 	if input.KeyCode == Enum.KeyCode.F then
 		freecam = not freecam
 
 		if freecam then
-			-- simpan posisi awal
 			startCFrame = camera.CFrame
-			camPos = camera.CFrame.Position
+			camPos = startCFrame.Position
 
 			-- ambil rotasi awal kamera
-			local x, y, _ = camera.CFrame:ToOrientation()
-			pitch = math.deg(x)
-			yaw = math.deg(y)
+			local rx, ry, _ = startCFrame:ToOrientation()
+			pitch = math.deg(rx)
+			yaw = math.deg(ry)
 
-			-- kunci kamera & mouse
 			camera.CameraType = Enum.CameraType.Scriptable
 			UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
 			UserInputService.MouseIconEnabled = false
 
-			-- 🔒 BLOK SEMUA KONTROL GERAK PLAYER
 			ContextActionService:BindAction("BlockMove", blockPlayerMovement, false,
 				Enum.PlayerActions.CharacterForward,
 				Enum.PlayerActions.CharacterBackward,
@@ -53,7 +53,6 @@ UserInputService.InputBegan:Connect(function(input, gp)
 				Enum.PlayerActions.CharacterJump
 			)
 		else
-			-- kembalikan kamera & kontrol normal
 			camera.CameraType = Enum.CameraType.Custom
 			camera.CFrame = startCFrame
 			UserInputService.MouseBehavior = Enum.MouseBehavior.Default
@@ -64,7 +63,7 @@ UserInputService.InputBegan:Connect(function(input, gp)
 	end
 end)
 
--- ✅ INPUT W A S D KHUSUS FREECAM
+-- Input WASD
 UserInputService.InputBegan:Connect(function(input)
 	if not freecam then return end
 	if input.KeyCode == Enum.KeyCode.W then move.W = 1 end
@@ -80,25 +79,53 @@ UserInputService.InputEnded:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.D then move.D = 0 end
 end)
 
--- ❌ ROTASI MOUSE DIHAPUS / DIMATIKAN
--- (tidak ada InputChanged untuk MouseMovement)
+-- Rotasi mouse (event-based). Jika event ini tidak pernah jalan, kita aktifkan fallback.
+UserInputService.InputChanged:Connect(function(input)
+	if not freecam then return end
+	if input.UserInputType == Enum.UserInputType.MouseMovement then
+		-- kanan = deltaX+, yaw berkurang → putar ke kanan (feel FPS umum)
+		yaw = yaw - input.Delta.X * sensitivity
+		-- atas = deltaY-, pitch naik → menengadah
+		pitch = math.clamp(pitch - input.Delta.Y * sensitivity, -89, 89)
+		useMouseDeltaFallback = false
+	end
+end)
 
--- ✅ UPDATE KAMERA (ROTASI FIXED, TIDAK IKUT MOUSE)
-RunService.RenderStepped:Connect(function()
+-- Update kamera
+RunService.RenderStepped:Connect(function(dt)
 	if not freecam then return end
 
+	-- Fallback: beberapa executor tidak mem-forward event MouseMovement
+	if useMouseDeltaFallback then
+		local dx, dy = UserInputService:GetMouseDelta().X, UserInputService:GetMouseDelta().Y
+		yaw = yaw - dx * sensitivity
+		pitch = math.clamp(pitch - dy * sensitivity, -89, 89)
+	end
+
+	-- Bangun rotasi dari yaw/pitch
 	local rotation =
 		CFrame.Angles(0, math.rad(yaw), 0) *
 		CFrame.Angles(math.rad(pitch), 0, 0)
 
-	local direction =
-		(camera.CFrame.LookVector * (move.W - move.S)) +
-		(camera.CFrame.RightVector * (move.D - move.A))
+	-- Gerak menggunakan basis rotasi (LookVector/RightVector dari 'rotation'),
+	-- bukan dari camera.CFrame supaya sinkron sama arah pandang.
+	local forward = rotation.LookVector
+	local right = rotation.RightVector
 
+	local direction = (forward * (move.W - move.S)) + (right * (move.D - move.A))
 	if direction.Magnitude > 0 then
 		direction = direction.Unit
 	end
 
-	camPos += direction * speed
+	camPos += direction * speed * (dt > 0 and (dt * 60/60) or 1) -- skala ringan sesuai framerate
 	camera.CFrame = CFrame.new(camPos) * rotation
+end)
+
+-- Jika dalam ~0.25 detik tidak ada event MouseMovement, nyalakan fallback
+task.defer(function()
+	task.wait(0.25)
+	if freecam and yaw == yaw and pitch == pitch then
+		-- Tidak ada update dari InputChanged sejak toggle → coba fallback
+		useMouseDeltaFallback = true
+	end
 end)
