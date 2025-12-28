@@ -1,5 +1,3 @@
--- Freecam Full Script (toggle dengan F, WASD + mouse rotate)
-
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
@@ -16,17 +14,16 @@ local move = {W = 0, A = 0, S = 0, D = 0}
 local yaw, pitch = 0, 0
 local camPos, startCFrame
 
--- blok kontrol humanoid
 local function blockPlayerMovement(_, inputState)
 	if inputState == Enum.UserInputState.Begin then
 		return Enum.ContextActionResult.Sink
 	end
 end
 
--- toggle freecam (F)
+-- toggle freecam (H)
 UserInputService.InputBegan:Connect(function(input, gp)
 	if gp then return end
-	if input.KeyCode == Enum.KeyCode.F then
+	if input.KeyCode == Enum.KeyCode.H then
 		freecam = not freecam
 
 		if freecam then
@@ -87,7 +84,6 @@ end)
 RunService.RenderStepped:Connect(function(dt)
 	if not freecam then return end
 
-	-- paksa mouse tetap lock center (biar klik kanan tidak reset)
 	UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
 
 	local rotation = CFrame.Angles(0, math.rad(yaw), 0) * CFrame.Angles(math.rad(pitch), 0, 0)
