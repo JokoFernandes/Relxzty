@@ -1,4 +1,4 @@
-local maxcam= _G.maxcam
+local maxcam= getgenv().max
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 
