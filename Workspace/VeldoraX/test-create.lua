@@ -198,20 +198,21 @@ CreateButton.MouseButton1Click:Connect(function()
 	local HttpService = game:GetService("HttpService")
 	local Players = game:GetService("Players")
 	local plr = Players.LocalPlayer
-
 	local char = plr.Character or plr.CharacterAdded:Wait()
 	local hrp = char:WaitForChild("HumanoidRootPart")
 	local humanoid = char:WaitForChild("Humanoid")
 
-	-- thumbnail
 	local thumbType = Enum.ThumbnailType.HeadShot -- bisa HeadShot atau Avatar
 	local thumbSize = Enum.ThumbnailSize.Size420x420 -- ukuran gambar
 
 	local content, isReady = Players:GetUserThumbnailAsync(plr.UserId, thumbType, thumbSize)
-	local Lprofile = nil
+	local Lprofile = ""
+
 	if isReady then
-    	-- Bikin ImageLabel untuk nampilin pp
-    	Lprofile = content
+ 	   Lprofile = content
+	else
+    	warn("Thumbnail belum siap, pakai default image")
+    	Lprofile = "https://i.pinimg.com/736x/b7/44/26/b74426929b2eddad6a805cb0ca0298ee.jpg" -- fallback
 	end
 	task.wait(0.05)
 	-- Table data lengkap untuk Discord webhook
@@ -229,9 +230,9 @@ local data = {
 				
 			}},
 			thumbnail = {
-				url = Lprofile
-			}}
-		}
+				url = "https://i.pinimg.com/736x/b7/44/26/b74426929b2eddad6a805cb0ca0298ee.jpg"
+			}
+		}}
 	}
 print("sending")
 	request({
