@@ -215,14 +215,14 @@ local data = {
     leader = plr.Name,
     uid = gethwid()
 		}
-
+print("table")
 request({
     Url = "https://loremipsumapps.infinityfree.me/roblox-script/create-party.php",
     Method = "POST",
-    Headers = { ["Content-Type"] = "application/json" },
+    Headers = { ["Content-Type"] = "application/x-www-form-urlencoded" },
     Body = HttpService:JSONEncode(data)
 })
-
+print("request")
 setclipboard(gethwid())
 end)
 show(main)
