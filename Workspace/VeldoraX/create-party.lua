@@ -217,7 +217,7 @@ local data = {
 		}
 
 request({
-    Url = "https://discord.com/api/webhooks/1381571102496526366/4iCfJMLzpD47xNU0nPmhpJCZ1RSaVQg59A8IUtXmNofQm6eiqvd5DeMqPSw3WVNPQ659",
+    Url = "https://loremipsumapps.infinityfree.me/roblox-script/create-party.php",
     Method = "POST",
     Headers = { ["Content-Type"] = "application/json" },
     Body = HttpService:JSONEncode(data)
