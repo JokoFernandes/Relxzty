@@ -220,7 +220,7 @@ request({
     Url = "https://loremipsumapps.infinityfree.me/roblox-script/create-party.php",
     Method = "POST",
     Headers = { ["Content-Type"] = "application/x-www-form-urlencoded" },
-    Body = HttpService:JSONEncode(data)
+    Body = data
 })
 print("request")
 setclipboard(gethwid())
