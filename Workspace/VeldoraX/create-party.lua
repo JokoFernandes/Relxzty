@@ -222,6 +222,8 @@ request({
     Headers = { ["Content-Type"] = "application/json" },
     Body = HttpService:JSONEncode(data)
 })
+print(res.StatusCode, res.Body)
+
 setclipboard(gethwid())
 end)
 show(main)
