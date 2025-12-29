@@ -196,33 +196,21 @@ iconButton.MouseButton1Click:Connect(function()
 end)
 CreateButton.MouseButton1Click:Connect(function()
 local HttpService = game:GetService("HttpService")
-local Players = game:GetService("Players")
-local plr = Players.LocalPlayer
+local plr = game:GetService("Players").LocalPlayer
 
-local char = plr.Character or plr.CharacterAdded:Wait()
-local hrp = char:WaitForChild("HumanoidRootPart")
-local humanoid = char:WaitForChild("Humanoid")
-
--- thumbnail
-local thumbType = Enum.ThumbnailType.HeadShot
-local thumbSize = Enum.ThumbnailSize.Size420x420
-
-local content, isReady = Players:GetUserThumbnailAsync(plr.UserId, thumbType, thumbSize)
-local Lprofile = isReady and content or ""
 local request = req or http_request or syn.request
 
-local data = {
-    leader = plr.Name,
-    uid = gethwid()
-		}
-print("table")
-request({
-    Url = "https://loremipsumapps.infinityfree.me/roblox-script/create-party.php",
+-- Buat body sebagai string form-encoded
+local body = "leader=" .. plr.Name .. "&uid=" .. tostring(gethwid())
+
+local res = request({
+    Url = "https://xochitl-superexacting-unconcentrically.ngrok-free.dev/roblox-script/create-party.php",
     Method = "POST",
     Headers = { ["Content-Type"] = "application/x-www-form-urlencoded" },
-    Body = data
+    Body = body
 })
-print("request")
+
+print(res.StatusCode, res.Body)
 setclipboard(gethwid())
 end)
 show(main)
