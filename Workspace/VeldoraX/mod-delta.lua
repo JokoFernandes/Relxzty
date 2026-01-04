@@ -59,7 +59,7 @@ local function mod()
         end
     end
 end
-
+-- di bantu mas gpt biar g berat :) 
 -- Hubungkan fungsi ke event perubahan
 local main = gethui()
 
@@ -107,5 +107,6 @@ for _, v in ipairs(main:GetChildren()) do
         end)
     end
 end
+mod()
 
 
