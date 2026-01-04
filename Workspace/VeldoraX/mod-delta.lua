@@ -1,6 +1,7 @@
-local buttonColor = Color3.fromRGB(50,10,100)
-local bgColor = Color3.fromRGB(25,5,50)
-local borderColor = Color3.fromRGB(100,15,150)
+local buttonColor = getgenv().ButtonColor or Color3.fromRGB(50,10,100)
+local bgColor = getgenv().bgColor or Color3.fromRGB(25,5,50)
+local placeHolder = getgenv().placeHolder or "Welcome Place Your Script Here Dont Forget To Join Our Community at https://discord.gg/SshP7wVS - Mod By CecepLoremIpsum"
+local borderColor = getgenv().borderColor or Color3.fromRGB(100,15,150)
 local function mod()
     local main = gethui()
 
@@ -27,7 +28,7 @@ local function mod()
             var2.Script.BackgroundColor3 = bgColor
 
             for _, code in ipairs(var:GetChildren()) do
-                code.PlaceholderText = "Welcome Place Your Script Here Dont Forget To Join Our Community at https://discord.gg/SshP7wVS - Mod By CecepLoremIpsum"
+                code.PlaceholderText = placeHolder
             end
             for _, exe in ipairs(var1:GetChildren()) do
                 if exe:IsA("ImageButton") then
