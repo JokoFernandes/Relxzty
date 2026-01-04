@@ -1,8 +1,8 @@
+local buttonColor = Color3.fromRGB(50,10,100)
+local bgColor = Color3.fromRGB(25,5,50)
+local borderColor = Color3.fromRGB(100,15,150)
 local function mod()
     local main = gethui()
-    local buttonColor = Color3.fromRGB(50,10,100)
-    local bgColor = Color3.fromRGB(25,5,50)
-    local borderColor = Color3.fromRGB(100,15,150)
 
     for i, v in pairs(main:GetChildren()) do
         -- side bar
@@ -23,11 +23,8 @@ local function mod()
             local var = executor.Executor.Overlay.Code
             local var1 = executor.Executor.Overlay.Buttons
             local var2 = executor.Sidemenu
-
-            if var2 then
-                var2.Network.BackgroundColor3 = bgColor
-                var2.Script.BackgroundColor3 = bgColor
-            end
+            var2.Network.BackgroundColor3 = bgColor
+            var2.Script.BackgroundColor3 = bgColor
 
             for _, code in ipairs(var:GetChildren()) do
                 code.PlaceholderText = "Welcome"
@@ -45,10 +42,9 @@ local function mod()
         if home then
             local var3 = home.Holder
             local var4 = home.Searchbar
-            if var4 then
-                var4.Button.BackgroundColor3 = buttonColor
-                var4.BackgroundColor3 = bgColor
-            end
+            var4.Button.BackgroundColor3 = buttonColor
+            var4.BackgroundColor3 = bgColor
+            
             for _, sc in ipairs(var3:GetChildren()) do
                 if sc:IsA("ImageLabel") then
                     sc.BackgroundColor3 = bgColor
@@ -81,3 +77,35 @@ end)
 main.DescendantRemoving:Connect(function()
     mod()
 end)
+
+-- fungsi untuk set warna tombol
+local function fixButton(btn)
+    if btn:IsA("ImageButton") then
+        btn.BackgroundColor3 = buttonColor
+
+        -- pantau perubahan warna tombol
+        btn.Changed:Connect(function(property)
+            if property == "BackgroundColor3" then
+                btn.BackgroundColor3 = buttonColor
+            end
+        end)
+    end
+end
+
+-- cek semua Sidebar yang sudah ada
+for _, v in ipairs(main:GetChildren()) do
+    local sidebar = v:FindFirstChild("Sidebar")
+    if sidebar then
+        -- set semua ImageButton di dalam Sidebar
+        for _, child in ipairs(sidebar:GetDescendants()) do
+            fixButton(child)
+        end
+
+        -- kalau ada ImageButton baru masuk ke Sidebar
+        sidebar.DescendantAdded:Connect(function(obj)
+            fixButton(obj)
+        end)
+    end
+end
+
+
