@@ -63,7 +63,18 @@ end
 -- di bantu mas gpt biar g berat :) 
 -- Hubungkan fungsi ke event perubahan
 local main = gethui()
+local function fixButton(btn)
+    if btn:IsA("ImageButton") then
+        btn.BackgroundColor3 = buttonColor
 
+        -- pantau perubahan warna tombol
+        btn.Changed:Connect(function(property)
+            if property == "BackgroundColor3" then
+                btn.BackgroundColor3 = buttonColor
+            end
+        end)
+    end
+end
 -- loop semua ScreenGui
 for _, gui in ipairs(main:GetChildren()) do
     if gui:IsA("ScreenGui") then
@@ -99,12 +110,12 @@ for _, v in ipairs(main:GetChildren()) do
     if sidebar then
         -- set semua ImageButton di dalam Sidebar
         for _, child in ipairs(sidebar:GetDescendants()) do
-            mod()
+            fixButton(obj)
         end
 
         -- kalau ada ImageButton baru masuk ke Sidebar
         sidebar.DescendantAdded:Connect(function(obj)
-            mod()
+            fixButton(obj)
         end)
     end
 end
