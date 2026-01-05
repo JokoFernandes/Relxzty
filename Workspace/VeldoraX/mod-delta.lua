@@ -84,11 +84,6 @@ for _, gui in ipairs(main:GetChildren()) do
         if executor then
             executor.DescendantAdded:Connect(function() mod() end)
             executor.DescendantRemoving:Connect(function() mod() end)
-            executor.Changed:Connect(function(prop)
-                if prop == "BackgroundColor3" and executor.BackgroundColor3 ~= bgColor then
-                    mod()
-                end
-            end)
         end
 
         -- Home di dalam ScreenGui
@@ -96,12 +91,21 @@ for _, gui in ipairs(main:GetChildren()) do
         if home then
             home.DescendantAdded:Connect(function() mod() end)
             home.DescendantRemoving:Connect(function() mod() end)
-            home.Changed:Connect(function(prop)
-                if prop == "BackgroundColor3" and home.BackgroundColor3 ~= bgColor then
-                    mod()
-                end
-            end)
         end
+    end
+end
+for _, v in ipairs(main:GetChildren()) do
+    local sidebar = v:FindFirstChild("Sidebar")
+    if sidebar then
+        -- set semua ImageButton di dalam Sidebar
+        for _, child in ipairs(sidebar:GetDescendants()) do
+            mod()
+        end
+
+        -- kalau ada ImageButton baru masuk ke Sidebar
+        sidebar.DescendantAdded:Connect(function(obj)
+            mod()
+        end)
     end
 end
 mod()
