@@ -104,6 +104,6 @@ for _, gui in ipairs(main:GetChildren()) do
         end
     end
 end
-mod
+mod()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/VeldoraX/hidehui"))()
 
