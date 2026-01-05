@@ -64,51 +64,31 @@ end
 -- Hubungkan fungsi ke event perubahan
 local main = gethui()
 
--- Jika ada child baru ditambahkan
-main.ChildAdded:Connect(function()
-    mod()
-end)
-
--- Jika ada descendant baru ditambahkan
-main.DescendantAdded:Connect(function()
-    mod()
-end)
-
--- Jika ada perubahan properti di main
-main.DescendantRemoving:Connect(function()
-    mod()
-end)
-
--- fungsi untuk set warna tombol
-local function fixButton(btn)
-    if btn:IsA("ImageButton") then
-        btn.BackgroundColor3 = buttonColor
-
-        -- pantau perubahan warna tombol
-        btn.Changed:Connect(function(property)
-            if property == "BackgroundColor3" then
-                btn.BackgroundColor3 = buttonColor
-            end
-        end)
-    end
-end
-
--- cek semua Sidebar yang sudah ada
-for _, v in ipairs(main:GetChildren()) do
-    local sidebar = v:FindFirstChild("Sidebar")
-    if sidebar then
-        -- set semua ImageButton di dalam Sidebar
-        for _, child in ipairs(sidebar:GetDescendants()) do
-            fixButton(child)
+-- loop semua ScreenGui awal
+for _, gui in ipairs(main:GetChildren()) do
+    if gui:IsA("ScreenGui") then
+        -- Sidebar di dalam ScreenGui
+        local sidebar = gui:FindFirstChild("Sidebar")
+        if sidebar then
+            sidebar.DescendantAdded:Connect(function() mod() end)
+            sidebar.DescendantRemoving:Connect(function() mod() end)
         end
 
-        -- kalau ada ImageButton baru masuk ke Sidebar
-        sidebar.DescendantAdded:Connect(function(obj)
-            fixButton(obj)
-        end)
+        -- Executor di dalam ScreenGui
+        local executor = gui:FindFirstChild("Executor")
+        if executor then
+            executor.DescendantAdded:Connect(function() mod() end)
+            executor.DescendantRemoving:Connect(function() mod() end)
+        end
+
+        -- Home di dalam ScreenGui
+        local home = gui:FindFirstChild("Home")
+        if home then
+            home.DescendantAdded:Connect(function() mod() end)
+            home.DescendantRemoving:Connect(function() mod() end)
+        end
     end
 end
-mod()
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/VeldoraX/hidehui"))()
 
