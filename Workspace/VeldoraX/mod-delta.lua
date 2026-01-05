@@ -73,7 +73,7 @@ for _, gui in ipairs(main:GetChildren()) do
             sidebar.DescendantAdded:Connect(function() mod() end)
             sidebar.DescendantRemoving:Connect(function() mod() end)
             sidebar.Changed:Connect(function(prop)
-                if prop == "BackgroundColor3" then
+                if prop == "BackgroundColor3" and sidebar.BackgroundColor3 ~= bgColor then
                     mod()
                 end
             end)
@@ -85,7 +85,7 @@ for _, gui in ipairs(main:GetChildren()) do
             executor.DescendantAdded:Connect(function() mod() end)
             executor.DescendantRemoving:Connect(function() mod() end)
             executor.Changed:Connect(function(prop)
-                if prop == "BackgroundColor3" then
+                if prop == "BackgroundColor3" and executor.BackgroundColor3 ~= bgColor then
                     mod()
                 end
             end)
@@ -97,7 +97,7 @@ for _, gui in ipairs(main:GetChildren()) do
             home.DescendantAdded:Connect(function() mod() end)
             home.DescendantRemoving:Connect(function() mod() end)
             home.Changed:Connect(function(prop)
-                if prop == "BackgroundColor3" then
+                if prop == "BackgroundColor3" and home.BackgroundColor3 ~= bgColor then
                     mod()
                 end
             end)
