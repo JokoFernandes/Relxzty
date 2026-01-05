@@ -64,7 +64,7 @@ end
 -- Hubungkan fungsi ke event perubahan
 local main = gethui()
 
--- loop semua ScreenGui awal
+-- loop semua ScreenGui
 for _, gui in ipairs(main:GetChildren()) do
     if gui:IsA("ScreenGui") then
         -- Sidebar di dalam ScreenGui
@@ -72,6 +72,11 @@ for _, gui in ipairs(main:GetChildren()) do
         if sidebar then
             sidebar.DescendantAdded:Connect(function() mod() end)
             sidebar.DescendantRemoving:Connect(function() mod() end)
+            sidebar.Changed:Connect(function(prop)
+                if prop == "BackgroundColor3" then
+                    mod()
+                end
+            end)
         end
 
         -- Executor di dalam ScreenGui
@@ -79,6 +84,11 @@ for _, gui in ipairs(main:GetChildren()) do
         if executor then
             executor.DescendantAdded:Connect(function() mod() end)
             executor.DescendantRemoving:Connect(function() mod() end)
+            executor.Changed:Connect(function(prop)
+                if prop == "BackgroundColor3" then
+                    mod()
+                end
+            end)
         end
 
         -- Home di dalam ScreenGui
@@ -86,9 +96,14 @@ for _, gui in ipairs(main:GetChildren()) do
         if home then
             home.DescendantAdded:Connect(function() mod() end)
             home.DescendantRemoving:Connect(function() mod() end)
+            home.Changed:Connect(function(prop)
+                if prop == "BackgroundColor3" then
+                    mod()
+                end
+            end)
         end
     end
 end
-
+mod
 loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/VeldoraX/hidehui"))()
 
