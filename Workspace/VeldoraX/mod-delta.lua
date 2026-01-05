@@ -109,8 +109,6 @@ for _, v in ipairs(main:GetChildren()) do
     end
 end
 mod()
-function loadhttpscript(script)
-    loadstring(game:HttpGet(script))()
-end
-loadhttpscript("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/VeldoraX/hidehui")
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/VeldoraX/hidehui"))()
 
