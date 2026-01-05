@@ -66,7 +66,7 @@ local icon = Instance.new("ImageLabel")
 icon.Size = UDim2.new(1, 0, 1, 0) -- isi penuh button
 icon.Position = UDim2.new(0, 0, 0, 0)
 icon.BackgroundTransparency = 1
-icon.Image = "rbxassetid://83078126930016" -- ganti dengan ID gambar kamu
+icon.Image = "rbxassetid://126569944133822" -- ganti dengan ID gambar kamu
 icon.Parent = iconButton
 
 -- sudut rounded
