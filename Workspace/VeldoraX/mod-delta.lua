@@ -96,7 +96,7 @@ local function fixButton(btn)
 end
 
 local main = gethui()
-local screengui = nil
+local screenguis = nil
 -- loop semua ScreenGui awal
 for _, gui in ipairs(main:GetChildren()) do
     if gui:IsA("ScreenGui") then
@@ -120,14 +120,12 @@ for _, gui in ipairs(main:GetChildren()) do
         -- Executor
         local executor = gui:FindFirstChild("Executor")
         if executor then
-            screengui = executor.Parent
+            screenguis = executor.Parent
             executor.DescendantAdded:Connect(function(obj) mod() end)
             executor.DescendantRemoving:Connect(function(obj) mod() end)
         end
-        if executor then
-        local place = executor.Parent
-        local setting = place.Settings
-        if setting then
+        if screenguis then
+            local setting = screenguis:FindFirstChild("Settings")
             setting.DescendantAdded:Connect(function(obj) mod() end)
             setting.DescendantRemoving:Connect(function(obj) mod() end)
             if setting:IsA("Frame") then
@@ -143,7 +141,6 @@ for _, gui in ipairs(main:GetChildren()) do
                 fixButton(child)
             end
             setting.DescendantAdded:Connect(function(obj) fixButton(obj) end)
-        end
         -- Home
         local home = gui:FindFirstChild("Home")
         if home then
@@ -154,23 +151,5 @@ for _, gui in ipairs(main:GetChildren()) do
 end
 -- jalankan sekali di awal
 mod()
-local consolelog = screengui.Console.RobloxConsole.Console
-plr.Chatted:Connect(function(msg)
-    if msg:lower() == "/clearconsole" then
-        -- chat /clearConsole remove semua log
-        for i,v in ipairs(consolelog:GetChildren()) do
-            if v:IsA("Frame") then
-                v:Destroy()
-                print(v)
-            end
-        end
-    end
-end)
-for i,v in ipairs(consolelog:GetChildren()) do
-    if v:IsA("Frame") then
-        print(v)
-    end
-end
-print(screengui)
 -- hidehui loader
 loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/VeldoraX/hidehui"))()
