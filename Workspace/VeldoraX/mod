@@ -1,0 +1,155 @@
+local buttonColor = getgenv().ButtonColor or Color3.fromRGB(50,10,100)
+local bgColor = getgenv().bgColor or Color3.fromRGB(25,5,50)
+local placeHolder = getgenv().placeHolder or "Welcome Place Your Script Here Dont Forget To Join Our Community at https://discord.gg/SshP7wVS - Mod By CecepLoremIpsum"
+local borderColor = getgenv().borderColor or Color3.fromRGB(100,15,150)
+local imageColor = getgenv().imageColor or Color3.fromRGB(255,255,255)
+-- clear console
+local Players = game:GetService("Players")
+local plr = Players.LocalPlayer
+
+-- fungsi utama untuk set warna dll
+local function mod()
+    local main = gethui()
+    for _, v in pairs(main:GetChildren()) do
+        -- Sidebar
+        local sidebar = v:FindFirstChild("Sidebar")
+        if sidebar then
+            sidebar.BackgroundColor3 = bgColor
+            for _, icon in ipairs(sidebar:GetChildren()) do
+                if icon:IsA("ImageButton") then
+                    icon.BackgroundColor3 = buttonColor
+                end
+            end
+        end
+
+        -- Executor
+        local executor = v:FindFirstChild("Executor")
+        if executor and executor:FindFirstChild("Executor") then
+            executor.Executor.Image = getcustomasset("background.png")
+            executor.Executor.ImageColor3 = imageColor
+            executor.Executor.Overlay.Menu.BackgroundColor3 = buttonColor
+            executor.Executor.Overlay.Image = "rbxasset://669f6047d7ef752dacfb0bc2192f8e50/"
+            executor.Executor.Overlay.Tabs.BackgroundColor3 = bgColor
+            local var = executor.Executor.Overlay.Code
+            local var1 = executor.Executor.Overlay.Buttons
+            local var2 = executor.Sidemenu
+            var2.Network.BackgroundColor3 = bgColor
+            var2.Script.BackgroundColor3 = bgColor
+            for _, code in ipairs(var:GetChildren()) do
+                code.PlaceholderText = placeHolder
+            end
+            for _, exe in ipairs(var1:GetChildren()) do
+                if exe:IsA("ImageButton") then
+                    exe.BackgroundColor3 = bgColor
+                    exe.BackgroundTransparency = 0
+                end
+            end
+        end
+        -- settings
+        if executor then
+            local place = executor.Parent
+            local stng = place.Settings
+            local holder = place.Settings.Holder
+            for _, v in ipairs(holder:GetChildren()) do
+                if v:IsA("Frame") then
+                    v.BackgroundColor3 = bgColor
+                    for i, t in ipairs(v:GetChildren()) do
+                        if t:IsA("ImageButton") then
+                            t.BackgroundColor3 = buttonColor
+                        end
+                        if t:IsA("Frame") then
+                            t.BackgroundColor3 = bgColor
+                        end
+                    end
+                end
+            end
+        end
+
+        -- Home
+        local home = v:FindFirstChild("Home")
+        if home then
+            local var3 = home.Holder
+            local var4 = home.Searchbar
+            var4.Button.BackgroundColor3 = buttonColor
+            var4.BackgroundColor3 = bgColor
+            for _, sc in ipairs(var3:GetChildren()) do
+                if sc:IsA("ImageLabel") then
+                    sc.BackgroundColor3 = bgColor
+                    if sc:FindFirstChild("Button") then sc.Button.BackgroundColor3 = buttonColor end
+                    if sc:FindFirstChild("Button1") then sc.Button1.BackgroundColor3 = buttonColor end
+                end
+            end
+        end
+    end
+end
+
+-- fungsi bantu untuk tombol
+local function fixButton(btn)
+    if btn:IsA("ImageButton") then
+        btn.BackgroundColor3 = buttonColor
+        btn.Changed:Connect(function(prop)
+            if prop == "BackgroundColor3" and btn.BackgroundColor3 ~= buttonColor then
+                btn.BackgroundColor3 = buttonColor
+            end
+        end)
+    end
+end
+
+local main = gethui()
+local screenguis = nil
+-- loop semua ScreenGui awal
+for _, gui in ipairs(main:GetChildren()) do
+    if gui:IsA("ScreenGui") then
+        -- Sidebar
+        local sidebar = gui:FindFirstChild("Sidebar")
+        if sidebar then
+            sidebar.DescendantAdded:Connect(function(obj) mod() end)
+            sidebar.DescendantRemoving:Connect(function(obj) mod() end)
+            sidebar.Changed:Connect(function(prop)
+                if prop == "BackgroundColor3" and sidebar.BackgroundColor3 ~= bgColor then
+                    mod()
+                end
+            end)
+            -- set semua ImageButton di dalam Sidebar
+            for _, child in ipairs(sidebar:GetDescendants()) do
+                fixButton(child)
+            end
+            sidebar.DescendantAdded:Connect(function(obj) fixButton(obj) end)
+        end
+
+        -- Executor
+        local executor = gui:FindFirstChild("Executor")
+        if executor then
+            screenguis = executor.Parent
+            executor.DescendantAdded:Connect(function(obj) mod() end)
+            executor.DescendantRemoving:Connect(function(obj) mod() end)
+        end
+        if executor then
+            local setting = executor.Parent.Settings
+            setting.DescendantAdded:Connect(function(obj) mod() end)
+            setting.DescendantRemoving:Connect(function(obj) mod() end)
+            if setting:IsA("Frame") then
+                setting.Changed:Connect(function(prop)
+                    if prop == "BackgroundColor3" and setting.BackgroundColor3 ~= bgColor then
+                    mod()
+                    end
+                end)
+            end
+        end          
+            -- set semua Frame di dalam setting
+            for _, child in ipairs(setting:GetDescendants()) do
+                fixButton(child)
+            end
+            setting.DescendantAdded:Connect(function(obj) fixButton(obj) end)
+        -- Home
+        local home = gui:FindFirstChild("Home")
+        if home then
+            home.DescendantAdded:Connect(function(obj) mod() end)
+            home.DescendantRemoving:Connect(function(obj) mod() end)
+        end
+    end
+end
+-- jalankan sekali di awal
+mod()
+-- hidehui loader
+loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/VeldoraX/hidehui"))()
