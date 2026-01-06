@@ -120,6 +120,7 @@ for _, gui in ipairs(main:GetChildren()) do
             executor.DescendantAdded:Connect(function(obj) mod() end)
             executor.DescendantRemoving:Connect(function(obj) mod() end)
         end
+        if executor then
         local place = executor.Parent
         local setting = place.Settings
         if setting then
@@ -132,7 +133,7 @@ for _, gui in ipairs(main:GetChildren()) do
         end
     end)
 end
-
+end          
             -- set semua Frame di dalam setting
             for _, child in ipairs(setting:GetDescendants()) do
                 fixButton(child)
