@@ -3,7 +3,7 @@ local bgColor = getgenv().bgColor or Color3.fromRGB(25,5,50)
 local placeHolder = getgenv().placeHolder or "Welcome Place Your Script Here Dont Forget To Join Our Community at https://discord.gg/SshP7wVS - Mod By CecepLoremIpsum"
 local borderColor = getgenv().borderColor or Color3.fromRGB(100,15,150)
 local imageColor = getgenv().imageColor or Color3.fromRGB(255,255,255)
-
+task.wait(0.1)
 -- fungsi utama untuk set warna dll
 local function mod()
     local main = gethui()
@@ -45,6 +45,7 @@ local function mod()
         -- settings
         if executor then
             local place = executor.Parent
+            local stng = place.Settings
             local holder = place.Settings.Holder
             for _, v in ipairs(holder:GetChildren()) do
                 if v:IsA("Frame") then
