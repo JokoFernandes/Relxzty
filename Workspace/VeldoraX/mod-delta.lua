@@ -124,11 +124,14 @@ for _, gui in ipairs(main:GetChildren()) do
         if setting then
             setting.DescendantAdded:Connect(function(obj) mod() end)
             setting.DescendantRemoving:Connect(function(obj) mod() end)
-            setting.Changed:Connect(function(prop)
-                if prop == "BackgroundColor3" and setting.BackgroundColor3 ~= bgColor then
-                    mod()
-                end
-            end)
+            if setting:IsA("Frame") then
+    setting.Changed:Connect(function(prop)
+        if prop == "BackgroundColor3" and setting.BackgroundColor3 ~= bgColor then
+            mod()
+        end
+    end)
+end
+
             -- set semua Frame di dalam setting
             for _, child in ipairs(setting:GetDescendants()) do
                 fixButton(child)
