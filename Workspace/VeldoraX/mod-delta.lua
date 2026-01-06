@@ -154,10 +154,11 @@ for _, gui in ipairs(main:GetChildren()) do
 end
 -- jalankan sekali di awal
 mod()
+local consolelog = screengui.Console.RobloxConsole.Console
 plr.Chatted:Connect(function(msg)
     if msg:lower() == "/clearconsole" then
         -- chat /clearConsole remove semua log
-        for i,v in ipairs(console:GetChildren()) do
+        for i,v in ipairs(consolelog:GetChildren()) do
             if v:IsA("Frame") then
                 v:Destroy()
             end
