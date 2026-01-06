@@ -2,7 +2,7 @@ local buttonColor = getgenv().ButtonColor or Color3.fromRGB(50,10,100)
 local bgColor = getgenv().bgColor or Color3.fromRGB(25,5,50)
 local placeHolder = getgenv().placeHolder or "Welcome Place Your Script Here Dont Forget To Join Our Community at https://discord.gg/SshP7wVS - Mod By CecepLoremIpsum"
 local borderColor = getgenv().borderColor or Color3.fromRGB(100,15,150)
-local imageColor = getgenv().imageColor or Color3.fromtRGB(255,255,255)
+local imageColor = getgenv().imageColor or Color3.fromRGB(255,255,255)
 
 -- fungsi utama untuk set warna dll
 local function mod()
