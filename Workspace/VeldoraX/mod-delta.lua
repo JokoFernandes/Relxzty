@@ -3,7 +3,7 @@ local bgColor = getgenv().bgColor or Color3.fromRGB(25,5,50)
 local placeHolder = getgenv().placeHolder or "Welcome Place Your Script Here Dont Forget To Join Our Community at https://discord.gg/SshP7wVS - Mod By CecepLoremIpsum"
 local borderColor = getgenv().borderColor or Color3.fromRGB(100,15,150)
 local imageColor = getgenv().imageColor or Color3.fromRGB(255,255,255)
-task.wait(0.1)
+
 -- fungsi utama untuk set warna dll
 local function mod()
     local main = gethui()
@@ -127,13 +127,13 @@ for _, gui in ipairs(main:GetChildren()) do
             setting.DescendantAdded:Connect(function(obj) mod() end)
             setting.DescendantRemoving:Connect(function(obj) mod() end)
             if setting:IsA("Frame") then
-    setting.Changed:Connect(function(prop)
-        if prop == "BackgroundColor3" and setting.BackgroundColor3 ~= bgColor then
-            mod()
-        end
-    end)
-end
-end          
+                setting.Changed:Connect(function(prop)
+                    if prop == "BackgroundColor3" and setting.BackgroundColor3 ~= bgColor then
+                    mod()
+                    end
+                end)
+            end
+        end          
             -- set semua Frame di dalam setting
             for _, child in ipairs(setting:GetDescendants()) do
                 fixButton(child)
