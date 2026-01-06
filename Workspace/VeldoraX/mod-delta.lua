@@ -24,9 +24,9 @@ local function mod()
         if executor and executor:FindFirstChild("Executor") then
             executor.Executor.Image = getcustomasset("background.png")
             executor.Executor.ImageColor3 = imageColor
-            executor.Executor.Overlay.Menu.Color3 = buttonColor
+            executor.Executor.Overlay.Menu.BackgroundColor3 = buttonColor
             executor.Executor.Overlay.Image = "rbxasset://669f6047d7ef752dacfb0bc2192f8e50/"
-            executor.Executor.Overlay.Tabs.Color3 = bgColor
+            executor.Executor.Overlay.Tabs.BackgroundColor3 = bgColor
             local var = executor.Executor.Overlay.Code
             local var1 = executor.Executor.Overlay.Buttons
             local var2 = executor.Sidemenu
@@ -44,8 +44,8 @@ local function mod()
         end
         -- settings
         if executor then
-            local parent = executor.Parent
-            local holder = parent.Settings.Holder
+            local place = executor.Parent
+            local holder = place.Settings.Holder
             for _, v in ipairs(holder:GetChildren()) do
                 if v:IsA("Frame") then
                     v.BackgroundColor3 = bgColor
