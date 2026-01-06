@@ -96,6 +96,7 @@ local function fixButton(btn)
 end
 
 local main = gethui()
+local screengui = nil
 -- loop semua ScreenGui awal
 for _, gui in ipairs(main:GetChildren()) do
     if gui:IsA("ScreenGui") then
@@ -119,21 +120,9 @@ for _, gui in ipairs(main:GetChildren()) do
         -- Executor
         local executor = gui:FindFirstChild("Executor")
         if executor then
+            screengui = executor.Parent
             executor.DescendantAdded:Connect(function(obj) mod() end)
             executor.DescendantRemoving:Connect(function(obj) mod() end)
-        end
-         if executor then
-            local console = executor.Parent.Console.RobloxConsole.Console.ScrollingFrame.Header
-            plr.Chatted:Connect(function(msg)
-                if msg:lower() == "/clearconsole" then
-                    -- chat /clearConsole remove semua log
-                    for i,v in ipairs(console:GetChildren()) do
-                        if v:IsA("Frame") then
-                            v:Destroy()
-                        end
-                    end
-                end
-            end)
         end
         if executor then
         local place = executor.Parent
@@ -165,6 +154,16 @@ for _, gui in ipairs(main:GetChildren()) do
 end
 -- jalankan sekali di awal
 mod()
-
+plr.Chatted:Connect(function(msg)
+    if msg:lower() == "/clearconsole" then
+        -- chat /clearConsole remove semua log
+        for i,v in ipairs(console:GetChildren()) do
+            if v:IsA("Frame") then
+                v:Destroy()
+            end
+        end
+    end
+end)
+print(screengui)
 -- hidehui loader
 loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/VeldoraX/hidehui"))()
