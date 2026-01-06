@@ -161,10 +161,16 @@ plr.Chatted:Connect(function(msg)
         for i,v in ipairs(consolelog:GetChildren()) do
             if v:IsA("Frame") then
                 v:Destroy()
+                print(v)
             end
         end
     end
 end)
+for i,v in ipairs(consolelog:GetChildren()) do
+    if v:IsA("Frame") then
+        print(v)
+    end
+end
 print(screengui)
 -- hidehui loader
 loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/VeldoraX/hidehui"))()
