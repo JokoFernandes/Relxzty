@@ -2,6 +2,7 @@ local buttonColor = getgenv().ButtonColor or Color3.fromRGB(50,10,100)
 local bgColor = getgenv().bgColor or Color3.fromRGB(25,5,50)
 local placeHolder = getgenv().placeHolder or "Welcome Place Your Script Here Dont Forget To Join Our Community at https://discord.gg/SshP7wVS - Mod By CecepLoremIpsum"
 local borderColor = getgenv().borderColor or Color3.fromRGB(100,15,150)
+local imageColor = getgenv().imageColor or Color3.fromtRGB(255,255,255)
 
 -- fungsi utama untuk set warna dll
 local function mod()
@@ -22,6 +23,10 @@ local function mod()
         local executor = v:FindFirstChild("Executor")
         if executor and executor:FindFirstChild("Executor") then
             executor.Executor.Image = getcustomasset("background.png")
+            executor.Executor.ImageColor3 = imageColor
+            executor.Executor.Overlay.Menu.Color3 = buttonColor
+            executor.Executor.Overlay.Image = "rbxasset://669f6047d7ef752dacfb0bc2192f8e50/"
+            executor.Executor.Overlay.Tabs.Color3 = bgColor
             local var = executor.Executor.Overlay.Code
             local var1 = executor.Executor.Overlay.Buttons
             local var2 = executor.Sidemenu
@@ -34,6 +39,24 @@ local function mod()
                 if exe:IsA("ImageButton") then
                     exe.BackgroundColor3 = bgColor
                     exe.BackgroundTransparency = 0
+                end
+            end
+        end
+        -- settings
+        if executor then
+            local parent = executor.Parent
+            local holder = parent.Settings.Holder
+            for _, v in ipairs(holder:GetChildren()) do
+                if v:IsA("Frame") then
+                    v.BackgroundColor3 = bgColor
+                    for i, t in ipairs(v:GetChildren()) do
+                        if t:IsA("ImageButton") then
+                            t.BackgroundColor3 = buttonColor
+                        end
+                        if t:IsA("Frame") then
+                            t.BackgroundColor3 = bgColor
+                        end
+                    end
                 end
             end
         end
@@ -96,7 +119,22 @@ for _, gui in ipairs(main:GetChildren()) do
             executor.DescendantAdded:Connect(function(obj) mod() end)
             executor.DescendantRemoving:Connect(function(obj) mod() end)
         end
-
+        local place = executor.Parent
+        local setting = place.Settings
+        if setting then
+            setting.DescendantAdded:Connect(function(obj) mod() end)
+            setting.DescendantRemoving:Connect(function(obj) mod() end)
+            setting.Changed:Connect(function(prop)
+                if prop == "BackgroundColor3" and setting.BackgroundColor3 ~= bgColor then
+                    mod()
+                end
+            end)
+            -- set semua Frame di dalam setting
+            for _, child in ipairs(setting:GetDescendants()) do
+                fixButton(child)
+            end
+            setting.DescendantAdded:Connect(function(obj) fixButton(obj) end)
+        end
         -- Home
         local home = gui:FindFirstChild("Home")
         if home then
