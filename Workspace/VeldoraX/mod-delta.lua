@@ -125,7 +125,7 @@ for _, gui in ipairs(main:GetChildren()) do
             executor.DescendantRemoving:Connect(function(obj) mod() end)
         end
         if screenguis then
-            local setting = screenguis:FindFirstChild("Settings")
+            local setting = screenguis.Settings
             setting.DescendantAdded:Connect(function(obj) mod() end)
             setting.DescendantRemoving:Connect(function(obj) mod() end)
             if setting:IsA("Frame") then
