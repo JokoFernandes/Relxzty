@@ -3,6 +3,9 @@ local bgColor = getgenv().bgColor or Color3.fromRGB(25,5,50)
 local placeHolder = getgenv().placeHolder or "Welcome Place Your Script Here Dont Forget To Join Our Community at https://discord.gg/SshP7wVS - Mod By CecepLoremIpsum"
 local borderColor = getgenv().borderColor or Color3.fromRGB(100,15,150)
 local imageColor = getgenv().imageColor or Color3.fromRGB(255,255,255)
+-- clear console
+local Players = game:GetService("Players")
+local plr = Players.LocalPlayer
 
 -- fungsi utama untuk set warna dll
 local function mod()
@@ -93,7 +96,6 @@ local function fixButton(btn)
 end
 
 local main = gethui()
-
 -- loop semua ScreenGui awal
 for _, gui in ipairs(main:GetChildren()) do
     if gui:IsA("ScreenGui") then
@@ -119,6 +121,19 @@ for _, gui in ipairs(main:GetChildren()) do
         if executor then
             executor.DescendantAdded:Connect(function(obj) mod() end)
             executor.DescendantRemoving:Connect(function(obj) mod() end)
+        end
+         if executor then
+            local console = executor.Parent.Console.RobloxConsole.Console.ScrollingFrame.Header
+            plr.Chatted:Connect(function(msg)
+                if msg:lower() == "/clearconsole" then
+                    -- chat /clearConsole remove semua log
+                    for i,v in ipairs(console:GetChildren()) do
+                        if v:IsA("Frame") then
+                            v:Destroy()
+                        end
+                    end
+                end
+            end)
         end
         if executor then
         local place = executor.Parent
@@ -148,7 +163,6 @@ for _, gui in ipairs(main:GetChildren()) do
         end
     end
 end
-
 -- jalankan sekali di awal
 mod()
 
