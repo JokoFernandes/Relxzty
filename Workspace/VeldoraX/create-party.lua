@@ -231,6 +231,7 @@ local cosmeticControler = gui("TextBox","Input",buttonBackground,"Cosmetic",Misc
 cosmeticControler.Size = UDim2.new(1,0,0,40)
 cosmeticControler.Position = UDim2.new(0,0,0,10)
 cosmeticControler.TextColor3 = textColor
+cosmeticControler.Text = "Aura ex: Fire Head 5 0,255,255"
 cosmeticControler.PlaceholderColor3 = textColor
 local cosmeticButton = gui("TextButton","Button",buttonBackground,"Apply",Misc,10,frameTransparency)
 cosmeticButton.Size = UDim2.new(1,0,0,40)
@@ -306,6 +307,7 @@ end)
 local delayGet = 2
 -- request
 show(main)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/VeldoraX/announce-message.lua"))()
 task.spawn(function()
 while true do
 	if partyServer then
