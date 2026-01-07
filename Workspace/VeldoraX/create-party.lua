@@ -306,7 +306,7 @@ local delayGet = 2
 while true do
 	if partyServer then
 		local url = "https://loremipsumapps.infinityfree.me/roblox-script/users/" 
-			.. tostring(partyServer) .. "/script.lua"
+			.. tostring(partyServer)
 		task.wait(delayGet)
 		print(url)
 	else
