@@ -66,7 +66,7 @@ local icon = Instance.new("ImageLabel")
 icon.Size = UDim2.new(1, 0, 1, 0) -- isi penuh button
 icon.Position = UDim2.new(0, 0, 0, 0)
 icon.BackgroundTransparency = 1
-icon.Image = "rbxassetid://83078126930016" -- ganti dengan ID gambar kamu
+icon.Image = "rbxassetid://126569944133822" -- ganti dengan ID gambar kamu
 icon.Parent = iconButton
 
 -- sudut rounded
@@ -196,44 +196,21 @@ iconButton.MouseButton1Click:Connect(function()
 end)
 CreateButton.MouseButton1Click:Connect(function()
 local HttpService = game:GetService("HttpService")
-local Players = game:GetService("Players")
-local plr = Players.LocalPlayer
+local plr = game:GetService("Players").LocalPlayer
 
-local char = plr.Character or plr.CharacterAdded:Wait()
-local hrp = char:WaitForChild("HumanoidRootPart")
-local humanoid = char:WaitForChild("Humanoid")
-
--- thumbnail
-local thumbType = Enum.ThumbnailType.HeadShot
-local thumbSize = Enum.ThumbnailSize.Size420x420
-
-local content, isReady = Players:GetUserThumbnailAsync(plr.UserId, thumbType, thumbSize)
-local Lprofile = isReady and content or ""
 local request = req or http_request or syn.request
 
-local data = {
-    username = plr.DisplayName,
-    content = "Player Start The Party",
-    embeds = {{
-        title = "Party By " .. plr.Name,
-        color = 3066993,
-        fields = {{
-            name = plr.Name .. " Here is your uid",
-            value = gethwid() .. "\n ||@here||",
-            inline = false
-        }},
-		thumbnail = {
-			url = "https://i.pinimg.com/1200x/ed/ac/53/edac531cbbfb02404cc94365909516f5.jpg"
-    }}
-}
-		}
+-- Buat body sebagai string form-encoded
+local body = "leader=" .. plr.Name .. "&uid=" .. tostring(gethwid())
 
-request({
-    Url = "https://discord.com/api/webhooks/1381571102496526366/4iCfJMLzpD47xNU0nPmhpJCZ1RSaVQg59A8IUtXmNofQm6eiqvd5DeMqPSw3WVNPQ659",
+local res = request({
+    Url = "https://xochitl-superexacting-unconcentrically.ngrok-free.dev/roblox-script/create-party.php",
     Method = "POST",
-    Headers = { ["Content-Type"] = "application/json" },
-    Body = HttpService:JSONEncode(data)
+    Headers = { ["Content-Type"] = "application/x-www-form-urlencoded" },
+    Body = body
 })
+
+print(res.StatusCode, res.Body)
 setclipboard(gethwid())
 end)
 show(main)
