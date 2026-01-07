@@ -230,9 +230,11 @@ end
 local cosmeticControler = gui("TextBox","Input",buttonBackground,"Cosmetic",Misc,10,frameTransparency)
 cosmeticControler.Size = UDim2.new(1,0,0,40)
 cosmeticControler.Position = UDim2.new(0,0,0,10)
+cosmeticControler.TextColor3 = textColor
+cosmeticControler.PlaceholderColor3 = textColor
 local cosmeticButton = gui("TextButton","Button",buttonBackground,"Apply",Misc,10,frameTransparency)
 cosmeticButton.Size = UDim2.new(1,0,0,40)
-cosmeticButton.Position = UDim2.new(0,0,0,50)
+cosmeticButton.Position = UDim2.new(0,0,0,55)
 cosmeticButton.MouseButton1Click:Connect(function()
 	local args = string.split(cosmeticControler.Text," ")
 	local type = args[1]
