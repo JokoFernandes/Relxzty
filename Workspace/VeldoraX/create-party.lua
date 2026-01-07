@@ -5,6 +5,7 @@ local frameColor = Color3.fromRGB(81, 0, 161)
 local screenGui = Instance.new("ScreenGui")
 local HttpService = game:GetService("HttpService")
 local buttonTransparency = 0.6
+local plrparty = nil
 local frameTransparency = 0.4
 local Players = game:GetService("Players")
 
@@ -14,7 +15,6 @@ local mainBackground = backgroundColor
 screenGui.Parent = gethui()
 screenGui.IgnoreGuiInset = true
 screenGui.ResetOnSpawn = false
-
 local function gui(type,name,bg,text,parent,radius,transparency)
     local ui = Instance.new(type)
     ui.Parent = parent
@@ -200,10 +200,6 @@ Tools.Position = UDim2.new(0,0,0,0)
 --============================================================================================================
 -- misc
 --============================================================================================================
-local Misc = gui("Frame","Main",mainBackground,"Main",rightPanel,10,1)
-Misc.Size = UDim2.new(1,0,1,0)
-Misc.Position = UDim2.new(0,0,0,0)
-
 function cosmetic(type, parentName, size, color)
 	local selfChar = game:GetService("Players").LocalPlayer.Character
 	local cosmeticc = Instance.new(type)
@@ -311,9 +307,6 @@ while true do
 		local url = "https://loremipsumapps.infinityfree.me/roblox-script/" .. partyServer
 		data = game:HttpGet(url)
 		rawArgs = string.split(data," ")
-		if rawArgs[1] == "" then
-			allVar("")
-		end
 		if rawArgs[1] == "cosmetic" then
 			cosmeticControler.Text = tostring(rawArgs[2]) ..  " " .. tostring(rawArgs[3]) .. " " .. tostring(rawArgs[4])
 		end
