@@ -303,6 +303,8 @@ setclipboard(gethwid())
 end)
 local delayGet = 2
 -- request
+show(main)
+task.spawn(function()
 while true do
 	if partyServer then
 		local url = "https://loremipsumapps.infinityfree.me/roblox-script/users/" 
@@ -314,4 +316,4 @@ while true do
 		task.wait(delayGet)
 	end
 end
-show(main)
+end)
