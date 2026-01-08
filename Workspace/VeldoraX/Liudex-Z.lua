@@ -82,7 +82,7 @@ channel:DisplaySystemMessage(
 
 	-- Icon (fake badge)
 	local icon = Instance.new("ImageLabel")
-	icon.Size = UDim2.new(0, 60, 0, 60)
+	icon.Size = UDim2.new(0, 60, 0.9, 0)
 	icon.Position = UDim2.new(0.05, 0, 0, 5)
 	icon.BackgroundTransparency = 1
 	icon.Image = "rbxassetid://126569944133822" -- default badge icon
