@@ -181,4 +181,3 @@ channel:DisplaySystemMessage(
 	-- Kalau mau test manual:
 	-- task.wait(5)
 	-- ShowLevelComplete(2)
-end
