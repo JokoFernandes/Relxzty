@@ -92,11 +92,26 @@ firesignal(RETextNotification.OnClientEvent,
         }
     }
 )
-task.wait(2)
+task.wait(5)
 firesignal(RETextNotification.OnClientEvent, 
     {
         CustomDuration = 8,
         Text = "We walk the talk, not only talk the talk",
+		AdminId= 8651913431,
+        Type = "AdminText",
+        AdminName = "Tubers93",
+        TextColor = {
+            B = 0,
+            G = 0,
+            R = 0
+        }
+    }
+)
+task.wait(2)
+firesignal(RETextNotification.OnClientEvent, 
+    {
+        CustomDuration = 8,
+        Text = "He Deop Jokowi",
 		AdminId= 8651913431,
         Type = "AdminText",
         AdminName = "Tubers93",
