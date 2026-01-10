@@ -66,7 +66,7 @@ task.wait(5)
 task.spawn(function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/El%20Konten/You-Are-And-IDIOT-Remix-Accompaniment-Instrumental-Accelerando%20OST%20.lua"))()
 end)
-task.wait(8)
+task.wait(3)
 function decal(texture, enum, parent)
     local decal = Instance.new("Decal")
     decal.Texture = texture
