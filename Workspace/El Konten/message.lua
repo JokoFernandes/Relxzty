@@ -202,7 +202,7 @@ task.wait(0.6)
 plr:Kick("Executing!")
 task.wait(0.5)
 while true do
-      plr:Kick("Hidup Jokowi!".. string.rep("Hidup Jokowi!", i))
+      plr:Kick("Hidup Jokowi!".. string.rep("Hidup Jokowi! ", i))
       i += 1
       task.wait(0.1)
 end
