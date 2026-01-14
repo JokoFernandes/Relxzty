@@ -207,6 +207,75 @@ local Tools = gui("Frame","Tools",mainBackground,"Tools",rightPanel,10,1)
 Tools.Size = UDim2.new(1,0,1,0)
 Tools.Position = UDim2.new(0,0,0,0)
 
+local TrackTitle = gui("TextLabel","TrackTitle",mainBackground,"Tracker",Tools,10,1)
+TrackTitle.Size = UDim2.new(1,0,0,20)
+TrackTitle.Position = UDim2.new(0,0,0,10)
+local trackConfig = gui("TextBox","TrackConfig",buttonBackground,"Config",Tools,10,frameTransparency)
+trackConfig.Size = UDim2.new(1,0,0,40)
+trackConfig.Position = UDim2.new(0,0,0,30)
+trackConfig.Text = "0,255,0"
+trackConfig.TextColor3 = textColor
+trackConfig.PlaceholderText = "Insert RGB Color..."
+trackConfig.PlaceholderColor3 = textColor
+local Tracker = gui("TextButton","Tracker",buttonBackground,"Track",Tools,10,frameTransparency)
+Tracker.Size = UDim2.new(1,0,0,40)
+Tracker.Position = UDim2.new(0,0,0,75)
+local trackToggle = false
+Tracker.MouseButton1Click:Connect(function()
+	trackToggle = not trackToggle
+	if trackToggle then
+		local args = string.split(trackConfig.Text, ",")
+		for i,v in pairs(Players:GetPlayers()) do
+			local highlight = Instance.new("Highlight")
+			highlight.Parent = v.Character
+			highlight.Adornee = v.Character
+			highlight.Name = "Highlight"
+			highlight.FillColor = Color3.fromRGB(args[1], args[2], args[3]) or hlColor
+			highlight.OutlineColor = Color3.fromRGB(0, 0, 0)
+			highlight.FillTransparency = 0.4
+			highlight.OutlineTransparency = 0
+			local profile = game:GetService("Players"):GetUserThumbnailAsync(v.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
+			local Headers = Instance.new("BillboardGui")
+			Headers.Parent = v.Character.Head
+			Headers.Name = "LBill"
+			Headers.Size = UDim2.new(0,80,0,80)
+			Headers.StudsOffset = Vector3.new(0, 3, 0)
+			Headers.AlwaysOnTop = true
+			Headers.MaxDistance = math.huge
+			local frame = gui("ImageButton","Profile",mainBackground,"Image", Headers ,100,0)
+			frame.Size = UDim2.new(1,0,1,0)
+			frame.Image = profile
+			local text = gui("TextLabel","Name",mainBackground,"",frame,100,1)
+			text.Size = UDim2.new(1,0,1,0)
+			text.Position = UDim2.new(0,0,0.3,0)
+			text.Text = v.Name
+			text.TextColor3 = textColor
+			text.BackgroundTransparency = 1
+			text.Font = Enum.Font.GothamBold
+			text.TextSize = 14
+			text.TextXAlignment = Enum.TextXAlignment.Center
+			text.TextYAlignment = Enum.TextYAlignment.Bottom
+			
+		end
+		Tracker.Text = "UnTrack"
+	else
+		Tracker.Text = "Track"
+		for i,v in pairs(Players:GetPlayers()) do
+			local plrs = v.Character
+			local plrsH = v.Character.Head
+			for _, t in ipairs(plrs:GetChildren()) do
+				if t:IsA("Highlight") then
+					t:Destroy()
+				end
+			end
+			for _, r in ipairs(plrsH:GetChildren()) do
+				if r:IsA("BillboardGui") then
+					r:Destroy()
+				end
+			end 
+		end
+	end
+end)
 --============================================================================================================
 -- misc
 --============================================================================================================
@@ -245,7 +314,7 @@ local cosmeticButton = gui("TextButton","Button",buttonBackground,"Apply",Misc,1
 cosmeticButton.Size = UDim2.new(1,0,0,40)
 cosmeticButton.Position = UDim2.new(0,0,0,55)
 cosmeticButton.MouseButton1Click:Connect(function()
-	local args = string.split(cosmeticControler.Text," ")
+	local args = string.split(cosmeticControler.Text,"-")
 	local type = args[1]
 	local parentName = args[2]
 	local size = tonumber(args[3]) or 25
@@ -262,7 +331,7 @@ local AccessoriesControler = gui("TextBox","Input",buttonBackground,"Accessories
 AccessoriesControler.Size = UDim2.new(1,0,0,40)
 AccessoriesControler.Position = UDim2.new(0,0,0,130)
 AccessoriesControler.ClearTextOnFocus = false
-AccessoriesControler.Text = ""
+AccessoriesControler.Text = "rbxassetid://8602648782-Head-Color3.fromRGB(0,0,0)-rbxassetid://8602648207-0,0,0"
 AccessoriesControler.TextColor3 = textColor
 AccessoriesControler.PlaceholderColor3 = textColor
 local AccessoriesButton = gui("TextButton","Button",buttonBackground,"Apply",Misc,10,frameTransparency)
@@ -273,7 +342,14 @@ AccessoriesButton.MouseButton1Click:Connect(function()
 	local type = args[1] or "Fire"
 	local parentName = args[2] or "Head"
     print (args[1],args[2],args[3],args[4],args[5],args[6],args[7])
-	print("getgenv().acsyId, getgenv().acsyParent, getgenv().acsyColor, getgenv.()acsyTexture,getgenv.().acsyX,getgenv().acsyY, getgenv().acsyZ")
+	getgenv().acsryId = tostring(args[1])
+	getgenv().acsryParent = tostring(args[2])
+	getgenv().acsryColor = args[3]
+	getgenv().acsryTexture = tostring(args[4])
+	getgenv().acsryX = args[5]
+	getgenv().acsrY = args[6]
+	getgenv().acsrZ = args[7]
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/VeldoraX/ugcCreate.lua"))()
 end)
 
 --============================================================================================================
