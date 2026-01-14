@@ -16,7 +16,7 @@ local keywords = {
     "Crustacean",
     "Carvern Dweller",
     "Scare",
-    "Narwhal",
+    "Skeleton Narwhal",
     "Worm",
     "Megalodon",
     "Orca",
