@@ -1,21 +1,29 @@
 local textColor = Color3.fromRGB(255,255,255)
 local backgroundColor = Color3.fromRGB(0, 0, 0)
 local buttonBackground = Color3.fromRGB(56, 0, 154)
+local Camera = workspace.CurrentCamera
+local workspace = game:GetService("Workspace")
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local frameColor = Color3.fromRGB(81, 0, 161)
+---------------------------------------------------------------
 local screenGui = Instance.new("ScreenGui")
 local HttpService = game:GetService("HttpService")
 local buttonTransparency = 0.6
 local plrparty = nil
 local frameTransparency = 0.4
 local Players = game:GetService("Players")
-
 local UserInputService = game:GetService("UserInputService")
 local borderColor = Color3.fromRGB(0, 0, 4) 
 local mainBackground = backgroundColor
 screenGui.Parent = gethui()
 screenGui.IgnoreGuiInset = true
 screenGui.ResetOnSpawn = false
-
+--==============================================================
+--script attr
+--==============================================================
+local hlColor = Color3.fromRGB(0, 255, 0)
 local function gui(type,name,bg,text,parent,radius,transparency)
     local ui = Instance.new(type)
     ui.Parent = parent
@@ -246,20 +254,132 @@ cosmeticButton.MouseButton1Click:Connect(function()
 	local color = Color3.fromRGB(tonumber(rgb[1]), tonumber(rgb[2]), tonumber(rgb[3]))
 
 	cosmetic(type, parentName, size, color)
+end)local Accessories = gui("TextLabel","Accessories",buttonBackground,"Accessories",Misc,10,1)
+Accessories.Size = UDim2.new(1,0,0,20)
+Accessories.Position = UDim2.new(0,0,0,110)
+Accessories.Text = "Accessories"
+local AccessoriesControler = gui("TextBox","Input",buttonBackground,"Accessories",Misc,10,frameTransparency)
+AccessoriesControler.Size = UDim2.new(1,0,0,40)
+AccessoriesControler.Position = UDim2.new(0,0,0,130)
+AccessoriesControler.ClearTextOnFocus = false
+AccessoriesControler.Text = ""
+AccessoriesControler.TextColor3 = textColor
+AccessoriesControler.PlaceholderColor3 = textColor
+local AccessoriesButton = gui("TextButton","Button",buttonBackground,"Apply",Misc,10,frameTransparency)
+AccessoriesButton.Size = UDim2.new(1,0,0,40)
+AccessoriesButton.Position = UDim2.new(0,0,0,175)
+AccessoriesButton.MouseButton1Click:Connect(function()
+	local args = string.split(AccessoriesControler.Text,"-")
+	local type = args[1] or "Fire"
+	local parentName = args[2] or "Head"
+    print (args[1],args[2],args[3],args[4],args[5],args[6],args[7])
+	print("getgenv().acsyId, getgenv().acsyParent, getgenv().acsyColor, getgenv.()acsyTexture,getgenv.().acsyX,getgenv().acsyY, getgenv().acsyZ")
 end)
+
 --============================================================================================================
 -- settings
 --============================================================================================================
-local Settings = gui("Frame","Main",mainBackground,"Main",rightPanel,10,1)
+local Settings = gui("ScrollingFrame","Settings",mainBackground,"Settings",rightPanel,10,1)
 Settings.Size = UDim2.new(1,0,1,0)
+Settings.CanvasSize = UDim2.new(0, 0, 0, 1000)
+Settings.ScrollBarThickness = 8
 Settings.Position = UDim2.new(0,0,0,0)
+
+local NoParticle = gui("TextButton","Button",buttonBackground,"NoParticle",Settings,10,frameTransparency)
+NoParticle.Size = UDim2.new(1,0,0,40)
+NoParticle.Position = UDim2.new(0,0,0,10)
+NoParticle.MouseButton1Click:Connect(function()
+	local workspace = game:GetService("Workspace")
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	for _, v in ipairs(workspace:GetDescendants()) do
+		if v:IsA("ParticleEmitter") or v:IsA("Trail") or v:IsA("Beam") or v:IsA("Sparkles") or v:IsA("") then
+			v.Enabled = false
+		end
+	end
+	for i,v in ipairs(ReplicatedStorage:GetDescendants()) do
+		if v:IsA("ParticleEmitter") or v:IsA("Trail") or v:IsA("Beam") then
+			v.Enabled = false
+		end
+	end
+end)
+local NoShaders = gui("TextButton","Button",buttonBackground,"NoShaders",Settings,10,frameTransparency)
+NoShaders.Size = UDim2.new(1,0,0,40)
+NoShaders.Position = UDim2.new(0,0,0,55)
+NoShaders.MouseButton1Click:Connect(function()
+	local Lighting = game:GetService("Lighting")
+
+	-- Matikan shadow
+	Lighting.GlobalShadows = false
+	Lighting.Brightness = 2
+	Lighting.EnvironmentDiffuseScale = 0
+	Lighting.EnvironmentSpecularScale = 0
+
+	-- Fog biar ringan
+	Lighting.FogStart = 0
+	Lighting.FogEnd = 100000
+end)
+local renderDistace = gui("TextBox","Input",buttonBackground,"RenderDistance",Settings,10,frameTransparency)
+renderDistace.Size = UDim2.new(1,0,0,40)
+renderDistace.Position = UDim2.new(0,0,0,145)
+renderDistace.Text = "256"
+renderDistace.TextColor3 = textColor
+renderDistace.PlaceholderColor3 = textColor
+renderDistace.PlaceholderText = "Max Distace"
+local minRender = gui("TextBox","Input",buttonBackground,"MinRender",Settings,10,frameTransparency)
+minRender.Size = UDim2.new(1,0,0,40)
+minRender.PlaceholderText = "Min Distace"
+minRender.Position = UDim2.new(0,0,0,100)
+minRender.PlaceholderColor3 = textColor
+minRender.TextColor3 = textColor
+minRender.Text = "64"
+local DisableMaterial = gui("TextButton","Button",buttonBackground,"DisableMaterial",Settings,10,frameTransparency)
+DisableMaterial.Size = UDim2.new(1,0,0,40)
+DisableMaterial.Position = UDim2.new(0,0,0,190)
+DisableMaterial.MouseButton1Click:Connect(function()
+	local workspace = game:GetService("Workspace")
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	for _, v in ipairs(workspace:GetDescendants()) do
+		if v:IsA("BasePart") or v:IsA("MeshPart") then
+			v.Material = Enum.Material.Plastic
+		end
+	end
+	for i,v in ipairs(ReplicatedStorage:GetDescendants()) do
+		if v:IsA("BasePart") or v:IsA("MeshPart") then
+			v.Material = Enum.Material.Plastic
+		end	
+	end
+end)
+DisableMesh = gui("TextButton","Button",buttonBackground,"DisableMesh",Settings,10,frameTransparency)
+DisableMesh.Size = UDim2.new(1,0,0,40)
+DisableMesh.Position = UDim2.new(0,0,0,235)
+DisableMesh.MouseButton1Click:Connect(function()
+	local workspace = game:GetService("Workspace")
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	for _, v in ipairs(workspace:GetDescendants()) do
+		if v:IsA("MeshPart") then
+			v.MeshId = "rbxassetid://0"
+			v.TextureID = ""
+		end
+	end
+	for i,v in ipairs(ReplicatedStorage:GetDescendants()) do
+		if v:IsA("MeshPart") then
+			v.MeshId = "rbxassetid://0"
+			v.TextureID = ""
+		end
+	end
+end)
 -- function
 local function show(ui)
 	main.Visible = false
 	Tools.Visible = false
 	Misc.Visible = false
 	Settings.Visible = false
+	main.Active = false
+	Tools.Active = false
+	Misc.Active = false
+	Settings.Active = false
 	task.wait()
+	ui.Active = true
 	ui.Visible = true
 end
 -- click event
@@ -273,7 +393,7 @@ MiscButton.MouseButton1Click:Connect(function()
 	show(Misc)
 end)
 SettingsButton.MouseButton1Click:Connect(function()
-	print("Settings")
+	show(Settings)
 end)
 local toggle = false -- mulai dari OFF
 
