@@ -13,10 +13,10 @@ end
 TextChatService.MessageReceived:Connect(function(msg)
     local rawText = msg.Text or msg.TextSource or tostring(msg)
     local cleanedText = removeMarkup(rawText)
-
+    table.insert(keywords,"Script")
     for _, key in ipairs(keywords) do
         -- cari pola chance: "with a 1 in 100M chance"
-        local chanceMatch = cleanedText:match("with a%s+(.-)%s+chance")
+        local chanceMatch = cleanedText:match("with a%s+(.-)%s+chance!")
 
         -- cek apakah keyword ada di pesan
         if cleanedText:lower():find(key:lower()) then
@@ -29,8 +29,8 @@ TextChatService.MessageReceived:Connect(function(msg)
                 ["content"] = cleanedText,
                 ["embeds"] = {
                     {
-                        ["title"] = "Title Embed",
-                        ["description"] = "Deskripsi konten di sini",
+                        ["title"] = player.DisplayName,
+                        ["description"] = "||@here||",
                         ["color"] = 16711680,
                         ["thumbnail"] = {
                             ["url"] = "https://tr.rbxcdn.com/180DAY-768363145abfc634e1b026bdb214fbef/150/150/Image/Png/noFilter"
@@ -49,6 +49,11 @@ TextChatService.MessageReceived:Connect(function(msg)
                             {
                                 ["name"] = "Chance",
                                 ["value"] = chanceMatch or "N/A",
+                                ["inline"] = true
+                            },
+                            {
+                                ["name"] = "Message",
+                                ["value"] = cleanedText,
                                 ["inline"] = true
                             }
                         },
@@ -75,6 +80,6 @@ TextChatService.MessageReceived:Connect(function(msg)
 end)
 
 -- contoh system message
-local msg = "<font color='rgb(255, 215, 105)'>Shark</font>"
+local msg = "<font color='rgb(255, 215, 105)'>Script Loaded with a 1 in 5T chance!</font>"
 local channel = TextChatService:WaitForChild("TextChannels"):WaitForChild("RBXGeneral")
 channel:DisplaySystemMessage(msg)
