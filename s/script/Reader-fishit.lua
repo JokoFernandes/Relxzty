@@ -31,7 +31,7 @@ TextChatService.MessageReceived:Connect(function(msg)
                 ["embeds"] = {
                     {
                         ["title"] = playerName,
-                        ["description"] = "||@here||",
+                        ["description"] = "||@here|| <:shut:1432612191064031252>",
                         ["color"] = 16711680,
                         ["thumbnail"] = {
                             ["url"] = "https://tr.rbxcdn.com/180DAY-768363145abfc634e1b026bdb214fbef/150/150/Image/Png/noFilter"
