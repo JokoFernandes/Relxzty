@@ -1,4 +1,4 @@
-local getgenv().accIndex = getgenv().accIndex + 1 or 0
+
 local function customAccessory(acsyId, acsyParent, acsyColor, acsyTexture,x,y,z)
     local rot = CFrame.Angles(math.rad(x), math.rad(y), math.rad(z))
     local Players = game:GetService("Players")
