@@ -26,7 +26,7 @@ TextChatService.MessageReceived:Connect(function(msg)
             end
 
             local datawh = {
-                ["content"] = cleanedText,
+                ["content"] = player.DisplayName .. "caught" .. key,
                 ["embeds"] = {
                     {
                         ["title"] = player.DisplayName,
@@ -53,8 +53,8 @@ TextChatService.MessageReceived:Connect(function(msg)
                             },
                             {
                                 ["name"] = "Message",
-                                ["value"] = cleanedText,
-                                ["inline"] = true
+                                ["value"] = "```" .. cleanedText .. "```",
+                                ["inline"] = false
                             }
                         },
                         ["footer"] = {
