@@ -17,7 +17,7 @@ TextChatService.MessageReceived:Connect(function(msg)
     for _, key in ipairs(keywords) do
         -- cari pola chance: "with a 1 in 100M chance"
         local chanceMatch = cleanedText:match("with a%s+(.-)%s+chance!")
-        local args = string.split(chanceMatch," ")
+        local playerName = cleanedText:match("%[server%]%:%s+(%w+)")
         -- cek apakah keyword ada di pesan
         if cleanedText:lower():find(key:lower()) then
             print("Keyword terdeteksi → " .. key)
@@ -26,10 +26,10 @@ TextChatService.MessageReceived:Connect(function(msg)
             end
 
             local datawh = {
-                ["content"] = args[2] .. "caught" .. key,
+                ["content"] = playerName .. "caught" .. key,
                 ["embeds"] = {
                     {
-                        ["title"] = player.DisplayName,
+                        ["title"] = playerName,
                         ["description"] = "||@here||",
                         ["color"] = 16711680,
                         ["thumbnail"] = {
@@ -38,7 +38,7 @@ TextChatService.MessageReceived:Connect(function(msg)
                         ["fields"] = {
                             {
                                 ["name"] = "Name",
-                                ["value"] = args[2],
+                                ["value"] = playerName,
                                 ["inline"] = true
                             },
                             {
