@@ -27,7 +27,6 @@ TextChatService.MessageReceived:Connect(function(msg)
             end
 
             local datawh = {
-                ["content"] = playerName .. " caught " .. key,
                 ["embeds"] = {
                     {
                         ["title"] = playerName,
