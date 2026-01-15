@@ -339,16 +339,15 @@ AccessoriesButton.Size = UDim2.new(1,0,0,40)
 AccessoriesButton.Position = UDim2.new(0,0,0,175)
 AccessoriesButton.MouseButton1Click:Connect(function()
 	local args = string.split(AccessoriesControler.Text,"-")
-	local type = args[1] or "Fire"
-	local parentName = args[2] or "Head"
+	local rgb = string.split(args[3],",")
     print (args[1],args[2],args[3],args[4],args[5],args[6],args[7])
-	getgenv().acsryId = "rbxassetid://8602648782"
-	getgenv().acsryParent = "Head"
-	getgenv().acsryColor = Color3.fromRGB(0,0,0)
-	getgenv().acsryTexture = "rbxassetid://8602648207"
-	getgenv().acsryX = 0
-	getgenv().acsrY = 0
-	getgenv().acsrZ = 0
+	getgenv().acsryId = args[1] or "rbxassetid://8602648782"
+	getgenv().acsryParent = args[2] or "Head"
+	getgenv().acsryColor = Color3(tonumber(rgb[1]),tonumber(rgb[2]),tonumber(rgb[3])) or Color3.fromRGB(0,0,0)
+	getgenv().acsryTexture = args[4] or "rbxassetid://8602648207"
+	getgenv().acsryX = tonumber(args[5]) or 0
+	getgenv().acsrY = tonumber(args[6]) or 0
+	getgenv().acsrZ = tonumber(args[7]) or 0
     loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/VeldoraX/ugcCreate.lua"))()
 end)
 
