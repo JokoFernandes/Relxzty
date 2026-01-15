@@ -17,7 +17,7 @@ TextChatService.MessageReceived:Connect(function(msg)
     for _, key in ipairs(keywords) do
         -- cari pola chance: "with a 1 in 100M chance"
         local chanceMatch = cleanedText:match("with a%s+(.-)%s+chance!")
-        local playerName = cleanedText:match("%[server%]%:%s+(%w+)")
+        local playerName = cleanedText:match("%[server%]%:%s+(%w+)") or player.DisplayName
         -- cek apakah keyword ada di pesan
         if cleanedText:lower():find(key:lower()) then
             print("Keyword terdeteksi → " .. key)
