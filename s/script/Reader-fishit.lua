@@ -1,8 +1,8 @@
 local HttpService = game:GetService("HttpService")
 local TextChatService = game:GetService("TextChatService")
 local player = game:GetService("Players").LocalPlayer
-local WEBHOOK = "https://discord.com/api/webhooks/1441305375574851635/YV0xu1N8-KCGr1WV9x0RwsWiQD48Kxlg3qKd5C1DvS-K1ejfgKGYNY3NE_zQGcx_Bj8G"
 
+local WEBHOOK = "https://discord.com/api/webhooks/1441305375574851635/YV0xu1N8-KCGr1WV9x0RwsWiQD48Kxlg3qKd5C1DvS-K1ejfgKGYNY3NE_zQGcx_Bj8G"
 local keywords = getgenv().listToRead
 
 local function removeMarkup(str)
@@ -11,62 +11,57 @@ local function removeMarkup(str)
 end
 
 TextChatService.MessageReceived:Connect(function(msg)
-    -- Ambil text aman dari pesan
     local rawText = msg.Text or msg.TextSource or tostring(msg)
-
-    -- bersihkan markup
     local cleanedText = removeMarkup(rawText)
-    -- Cek keyword
+
     for _, key in ipairs(keywords) do
-         -- cari pola chance (contoh: "chance 1 in 100M")
-         local chanceMatch = cleanedText:match("with a%s+(.-)%s+chance")
+        -- cari pola chance: "with a 1 in 100M chance"
+        local chanceMatch = cleanedText:match("with a%s+(.-)%s+chance")
 
-        print("Keyword terdeteksi → " .. matchedWord)
-        if chanceMatch then
-            print("Chance terdeteksi → " .. chanceMatch)
-        end
-        local datawh = {
-            ["content"] = cleanedText,
-            ["embeds"] = {
-                {
-                    ["title"] = "Tittle Embed",
-                    ["description"] = "Deskripsi konten di sini",
-                    ["color"] = 16711680, -- Warna (Decimal) atau hex
+        -- cek apakah keyword ada di pesan
+        if cleanedText:lower():find(key:lower()) then
+            print("Keyword terdeteksi → " .. key)
+            if chanceMatch then
+                print("Chance terdeteksi → " .. chanceMatch)
+            end
 
-                    ["thumbnail"] = {
-                        ["url"] = "https://tr.rbxcdn.com/180DAY-768363145abfc634e1b026bdb214fbef/150/150/Image/Png/noFilter"
-                    }, -- koma di sini
-
-                    ["fields"] = {
-                        {
-                            ["name"] = "Name",
-                            ["value"] = player.DisplayName,
-                            ["inline"] = true
+            local datawh = {
+                ["content"] = cleanedText,
+                ["embeds"] = {
+                    {
+                        ["title"] = "Title Embed",
+                        ["description"] = "Deskripsi konten di sini",
+                        ["color"] = 16711680,
+                        ["thumbnail"] = {
+                            ["url"] = "https://tr.rbxcdn.com/180DAY-768363145abfc634e1b026bdb214fbef/150/150/Image/Png/noFilter"
                         },
-                        {
-                            ["name"] = "Caught",
-                            ["value"] = key,
-                            ["inline"] = true
+                        ["fields"] = {
+                            {
+                                ["name"] = "Name",
+                                ["value"] = player.DisplayName,
+                                ["inline"] = true
+                            },
+                            {
+                                ["name"] = "Caught",
+                                ["value"] = key,
+                                ["inline"] = true
+                            },
+                            {
+                                ["name"] = "Chance",
+                                ["value"] = chanceMatch or "N/A",
+                                ["inline"] = true
+                            }
                         },
-                        {
-                            ["name"] = "Chance",
-                            ["value"] = chanceMatch,
-                            ["inline"] = true
-                        }
-                    }, -- koma di sini
-
-                    ["footer"] = {
-                        ["text"] = "footer text",
-                        ["icon-url"] = "https://tr.rbxcdn.com/180DAY-768363145abfc634e1b026bdb214fbef/150/150/Image/Png/noFilter"
-                    }, -- koma di sini
-
-                    ["timestamp"] = os.date("!%Y-%m-%dT%H:%M:%SZ")
+                        ["footer"] = {
+                            ["text"] = "footer text",
+                            ["icon_url"] = "https://tr.rbxcdn.com/180DAY-768363145abfc634e1b026bdb214fbef/150/150/Image/Png/noFilter"
+                        },
+                        ["timestamp"] = os.date("!%Y-%m-%dT%H:%M:%SZ")
+                    }
                 }
             }
-        }
-        if cleanedText:lower():find(key:lower()) then
 
-            request({
+            (syn and syn.request or request)({
                 Url = WEBHOOK,
                 Method = "POST",
                 Headers = { ["Content-Type"] = "application/json" },
@@ -79,7 +74,7 @@ TextChatService.MessageReceived:Connect(function(msg)
     end
 end)
 
-local Players = game:GetService("Players")
+-- contoh system message
 local msg = "<font color='rgb(255, 215, 105)'>Shark</font>"
 local channel = TextChatService:WaitForChild("TextChannels"):WaitForChild("RBXGeneral")
 channel:DisplaySystemMessage(msg)
