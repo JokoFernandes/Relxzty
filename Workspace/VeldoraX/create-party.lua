@@ -331,7 +331,7 @@ local AccessoriesControler = gui("TextBox","Input",buttonBackground,"Accessories
 AccessoriesControler.Size = UDim2.new(1,0,0,40)
 AccessoriesControler.Position = UDim2.new(0,0,0,130)
 AccessoriesControler.ClearTextOnFocus = false
-AccessoriesControler.Text = "rbxassetid://8602648782-Head-Color3.fromRGB(0,0,0)-rbxassetid://8602648207-0,0,0"
+AccessoriesControler.Text = "rbxassetid://8602648782-Head-0,0,0-rbxassetid://8602648207-0-0-0"
 AccessoriesControler.TextColor3 = textColor
 AccessoriesControler.PlaceholderColor3 = textColor
 local AccessoriesButton = gui("TextButton","Button",buttonBackground,"Apply",Misc,10,frameTransparency)
@@ -343,7 +343,7 @@ AccessoriesButton.MouseButton1Click:Connect(function()
     print (args[1],args[2],args[3],args[4],args[5],args[6],args[7])
 	getgenv().acsryId = args[1] or "rbxassetid://8602648782"
 	getgenv().acsryParent = args[2] or "Head"
-	getgenv().acsryColor = Color3(tonumber(rgb[1]),tonumber(rgb[2]),tonumber(rgb[3])) or Color3.fromRGB(0,0,0)
+	getgenv().acsryColor = Color3.fromRGB(tonumber(rgb[1]),tonumber(rgb[2]),tonumber(rgb[3])) or Color3.fromRGB(0,0,0)
 	getgenv().acsryTexture = args[4] or "rbxassetid://8602648207"
 	getgenv().acsryX = tonumber(args[5]) or 0
 	getgenv().acsrY = tonumber(args[6]) or 0
