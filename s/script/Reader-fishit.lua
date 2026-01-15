@@ -35,3 +35,8 @@ TextChatService.MessageReceived:Connect(function(msg)
         end
     end
 end)
+
+local Players = game:GetService("Players")
+local msg = "<font color='rgb(255, 215, 105)'>Shark</font>"
+local channel = TextChatService:WaitForChild("TextChannels"):WaitForChild("RBXGeneral")
+channel:DisplaySystemMessage(msg)
