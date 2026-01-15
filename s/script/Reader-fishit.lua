@@ -51,8 +51,7 @@ TextChatService.MessageReceived:Connect(function(msg)
                 }
             }
 
-            local httpRequest = syn and syn.request or http_request or request
-            httpRequest({
+            request({
                 Url = WEBHOOK,
                 Method = "POST",
                 Headers = { ["Content-Type"] = "application/json" },
