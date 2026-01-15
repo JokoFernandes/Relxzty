@@ -2,7 +2,7 @@ local HttpService = game:GetService("HttpService")
 local TextChatService = game:GetService("TextChatService")
 local player = game:GetService("Players").LocalPlayer
 
-local WEBHOOK = "https://discord.com/api/webhooks/..."
+local WEBHOOK = "https://discord.com/api/webhooks/1441305375574851635/YV0xu1N8-KCGr1WV9x0RwsWiQD48Kxlg3qKd5C1DvS-K1ejfgKGYNY3NE_zQGcx_Bj8G"
 local keywords = getgenv().listToRead
 
 local function removeMarkup(str)
