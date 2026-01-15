@@ -13,7 +13,7 @@ end
 TextChatService.MessageReceived:Connect(function(msg)
     local rawText = msg.Text or msg.TextSource or tostring(msg)
     local cleanedText = removeMarkup(rawText)
-    table.insert(keywords,"Script")
+    table.insert(keywords,"Nieagalodon")
     for _, key in ipairs(keywords) do
         -- cari pola chance: "with a 1 in 100M chance"
         local chanceMatch = cleanedText:match("with a%s+(.-)%s+chance!")
@@ -80,6 +80,6 @@ TextChatService.MessageReceived:Connect(function(msg)
 end)
 
 -- contoh system message
-local msg = "<font color='rgb(255, 215, 105)'>Script Loaded with a 1 in 5T chance!</font>"
+local msg = "<b><font size="18">[Server]:</font></b> Jokowi obtained a <b><font color="rgb(24, 255, 152)">Nieagalodon (450K kg)</font></b> with a 1 in 1Sx chance!"
 local channel = TextChatService:WaitForChild("TextChannels"):WaitForChild("RBXGeneral")
 channel:DisplaySystemMessage(msg)
