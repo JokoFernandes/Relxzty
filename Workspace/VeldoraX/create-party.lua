@@ -344,11 +344,11 @@ AccessoriesButton.MouseButton1Click:Connect(function()
     print (args[1],args[2],args[3],args[4],args[5],args[6],args[7])
 	getgenv().acsryId = tostring(args[1])
 	getgenv().acsryParent = tostring(args[2])
-	getgenv().acsryColor = args[3]
+	getgenv().acsryColor = args[3] or Color3.fromRGB(0,0,0)
 	getgenv().acsryTexture = tostring(args[4])
-	getgenv().acsryX = args[5]
-	getgenv().acsrY = args[6]
-	getgenv().acsrZ = args[7]
+	getgenv().acsryX = args[5] or 0
+	getgenv().acsrY = args[6] or 0
+	getgenv().acsrZ = args[7] or 0
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/VeldoraX/ugcCreate.lua"))()
 end)
 
