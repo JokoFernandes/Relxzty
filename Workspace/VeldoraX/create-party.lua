@@ -203,8 +203,10 @@ end)
 --============================================================================================================
 -- tools
 --============================================================================================================
-local Tools = gui("Frame","Tools",mainBackground,"Tools",rightPanel,10,1)
+local Tools = gui("ScrollingFrame","Tools",mainBackground,"Tools",rightPanel,10,1)
 Tools.Size = UDim2.new(1,0,1,0)
+Tools.CanvasSize = UDim2.new(0,0,0,900)
+Tools.ScrollBarThickness = 8
 Tools.Position = UDim2.new(0,0,0,0)
 
 local TrackTitle = gui("TextLabel","TrackTitle",mainBackground,"Tracker",Tools,10,1)
@@ -275,6 +277,28 @@ Tracker.MouseButton1Click:Connect(function()
 			end 
 		end
 	end
+end)
+
+local TextBox = gui("TextBox","TextBox",buttonBackground,"",Tools,10,frameTransparency)
+TextBox.Size = UDim2.new(1,0,0,430)
+TextBox.Position = UDim2.new(0,0,0,400)
+TextBox.MultiLine = true
+TextBox.Text = ""
+TextBox.ClearTextOnFocus = false
+TextBox.TextScaled = false
+TextBox.TextColor3 = textColor
+TextBox.TextSize = 18
+TextBox.PlaceholderText = "Script Here...."
+TextBox.TextXAlignment = Enum.TextXAlignment.Left
+TextBox.TextYAlignment = Enum.TextYAlignment.Top
+TextBox.TextWrapped = true
+local execute = gui("TextButton","Execute",buttonBackground,"Execute",Tools,10,frameTransparency)
+execute.Size = UDim2.new(1,0,0,40)
+execute.Position = UDim2.new(0,0,0,840)
+execute.MouseButton1Click:Connect(function()
+	task.spawn(function()
+		print(TextBox.Text)
+	end)
 end)
 --============================================================================================================
 -- misc
@@ -351,6 +375,166 @@ AccessoriesButton.MouseButton1Click:Connect(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/VeldoraX/ugcCreate.lua"))()
 end)
 
+local shaders = gui("TextLabel","Shaders",buttonBackground,"Shaders",Misc,10,1)
+shaders.Size = UDim2.new(1,0,0,20)
+shaders.Position = UDim2.new(0,0,0,215)
+shaders.Text = "Shaders"
+local bloom = gui("TextLabel","Bloom",buttonBackground,"Bloom",Misc,10,1)
+bloom.Size = UDim2.new(1,0,0,20)
+bloom.Position = UDim2.new(0,0,0,230)
+bloom.Text = "Bloom"
+local bloomControler = gui("TextBox","Input",buttonBackground,"Shaders",Misc,10,frameTransparency)
+bloomControler.Size = UDim2.new(0.32,0,0,40)
+bloomControler.Position = UDim2.new(0,0,0,250)
+bloomControler.ClearTextOnFocus = false
+bloomControler.PlaceholderText = "Intensity"
+bloomControler.Text = ""
+bloomControler.TextColor3 = textColor
+bloomControler.PlaceholderColor3 = textColor
+local bloomControler1 = gui("TextBox","Input",buttonBackground,"Shaders",Misc,10,frameTransparency)
+bloomControler1.Size = UDim2.new(0.32,0,0,40)
+bloomControler1.Position = UDim2.new(0.33,0,0,250)
+bloomControler1.ClearTextOnFocus = false
+bloomControler1.Text = ""
+bloomControler1.PlaceholderText = "Size"
+bloomControler1.TextColor3 = textColor
+bloomControler1.PlaceholderColor3 = textColor
+local bloomControler2 = gui("TextBox","Input",buttonBackground,"Shaders",Misc,10,frameTransparency)
+bloomControler2.Size = UDim2.new(0.32,0,0,40)
+bloomControler2.Position = UDim2.new(0.66,0,0,250)
+bloomControler2.ClearTextOnFocus = false
+bloomControler2.Text = ""
+bloomControler1.PlaceholderText = "Treshold"
+bloomControler2.TextColor3 = textColor
+bloomControler2.PlaceholderColor3 = textColor
+local bloomButton = gui("TextButton","Button",buttonBackground,"Apply",Misc,10,frameTransparency)
+bloomButton.Size = UDim2.new(1,0,0,40)
+bloomButton.Position = UDim2.new(0,0,0,300)
+bloomButton.MouseButton1Click:Connect(function()
+	local Lighting = game:GetService("Lighting")
+	for i,v in ipairs(Lighting:GetChildren()) do
+		if v:IsA("BloomEffect") then
+			v:Destroy()
+		end
+	end
+	task.wait()
+	local newBloom = Instance.new("BloomEffect")
+	newBloom.Intensity = tonumber(bloomControler.Text) or 0
+	newBloom.Size = tonumber(bloomControler1.Text) or 0	
+	newBloom.Threshold = tonumber(bloomControler2.Text) or 0
+	newBloom.Parent = Lighting
+	print("Create")
+end)
+local atmosphere = gui("TextLabel","Atmosphere",buttonBackground,"Atmosphere",Misc,10,1)
+atmosphere.Size = UDim2.new(1,0,0,20)
+atmosphere.Position = UDim2.new(0,0,0,340)
+atmosphere.Text = "Atmosphere"
+local atmosphereControler = gui("TextBox","Input",buttonBackground,"Atmosphere",Misc,10,frameTransparency)
+atmosphereControler.Size = UDim2.new(0.32,0,0,40)
+atmosphereControler.Position = UDim2.new(0,0,0,365)
+atmosphereControler.ClearTextOnFocus = false
+atmosphereControler.Text = ""
+atmosphereControler.PlaceholderText = "Density"
+atmosphereControler.TextColor3 = textColor
+atmosphereControler.PlaceholderColor3 = textColor
+local atmosphereControler1 = gui("TextBox","Input",buttonBackground,"Atmosphere",Misc,10,frameTransparency)
+atmosphereControler1.Size = UDim2.new(0.32,0,0,40)
+atmosphereControler1.Position = UDim2.new(0.33,0,0,365)
+atmosphereControler1.ClearTextOnFocus = false
+atmosphereControler1.Text = ""
+atmosphereControler1.PlaceholderText = "Offset"
+atmosphereControler1.TextColor3 = textColor
+atmosphereControler1.PlaceholderColor3 = textColor
+local atmosphereControler2 = gui("TextBox","Input",buttonBackground,"Atmosphere",Misc,10,frameTransparency)
+atmosphereControler2.Size = UDim2.new(0.32,0,0,40)
+atmosphereControler2.Position = UDim2.new(0.66,0,0,365)
+atmosphereControler2.ClearTextOnFocus = false
+atmosphereControler2.Text = ""
+atmosphereControler2.PlaceholderText = "Color"
+atmosphereControler2.TextColor3 = textColor
+atmosphereControler2.PlaceholderColor3 = textColor
+local atmosphereControler3 = gui("TextBox","Input",buttonBackground,"Atmosphere",Misc,10,frameTransparency)
+atmosphereControler3.Size = UDim2.new(0.32,0,0,40)
+atmosphereControler3.Position = UDim2.new(0.33,0,0,410)
+atmosphereControler3.ClearTextOnFocus = false
+atmosphereControler3.Text = ""
+atmosphereControler3.PlaceholderText = "Decay"
+atmosphereControler3.TextColor3 = textColor
+atmosphereControler3.PlaceholderColor3 = textColor
+local athmosphereControler4 = gui("TextBox","Input",buttonBackground,"Atmosphere",Misc,10,frameTransparency)
+athmosphereControler4.Size = UDim2.new(0.32,0,0,40)
+athmosphereControler4.Position = UDim2.new(0.66,0,0,410)
+athmosphereControler4.ClearTextOnFocus = false
+athmosphereControler4.Text = ""
+athmosphereControler4.PlaceholderText = "Glare"
+athmosphereControler4.TextColor3 = textColor
+athmosphereControler4.PlaceholderColor3 = textColor
+local athmosphereControler5 = gui("TextBox","Input",buttonBackground,"Atmosphere",Misc,10,frameTransparency)
+athmosphereControler5.Size = UDim2.new(0.32,0,0,40)
+athmosphereControler5.Position = UDim2.new(0,0,0,410)
+athmosphereControler5.ClearTextOnFocus = false
+athmosphereControler5.Text = ""
+athmosphereControler5.PlaceholderText = "Haze"
+athmosphereControler5.TextColor3 = textColor
+athmosphereControler5.PlaceholderColor3 = textColor	
+local atmosphereButton = gui("TextButton","Button",buttonBackground,"Apply",Misc,10,frameTransparency)
+atmosphereButton.Size = UDim2.new(1,0,0,40)
+atmosphereButton.Position = UDim2.new(0,0,0,460)
+atmosphereButton.MouseButton1Click:Connect(function()
+	local Lighting = game:GetService("Lighting")
+
+	for _, v in ipairs(Lighting:GetChildren()) do
+		if v:IsA("Atmosphere") then
+			v:Destroy()
+		end
+	end
+
+	local color = string.split(atmosphereControler2.Text, ",")
+	local color2 = string.split(atmosphereControler3.Text, ",")
+
+	local newAthmosphere = Instance.new("Atmosphere")
+	newAthmosphere.Parent = Lighting
+
+	newAthmosphere.Density = tonumber(atmosphereControler.Text) or 0
+	newAthmosphere.Offset = tonumber(atmosphereControler1.Text) or 0
+	newAthmosphere.Haze = tonumber(athmosphereControler5.Text) or 0
+	newAthmosphere.Glare = tonumber(athmosphereControler4.Text) or 0
+
+	newAthmosphere.Color = Color3.fromRGB(tonumber(color[1]) or 0,tonumber(color[2]) or 0,tonumber(color[3]) or 0)
+
+	newAthmosphere.Decay = Color3.fromRGB(tonumber(color2[1]) or 0,tonumber(color2[2]) or 0,tonumber(color2[3]) or 0)
+end)
+local blur = gui("TextLabel","Atmosphere",buttonBackground,"Atmosphere",Misc,10,1)
+blur.Size = UDim2.new(1,0,0,20)
+blur.Position = UDim2.new(0,0,0,500)
+blur.Text = "Blur"
+blur.TextColor3 = textColor
+local blurControler = gui("TextBox","Input",buttonBackground,"Atmosphere",Misc,10,frameTransparency)
+blurControler.Size = UDim2.new(1,0,0,40)
+blurControler.Position = UDim2.new(0,0,0,520)
+blurControler.ClearTextOnFocus = false
+blurControler.Text = ""
+blurControler.PlaceholderText = "Blur"
+blurControler.TextColor3 = textColor
+blurControler.PlaceholderColor3 = textColor
+blurControler.FocusLost:Connect(function(enterPressed)
+	if enterPressed then
+		local Lighting = game:GetService("Lighting")
+		-- hapus blur lama
+		for _, v in ipairs(Lighting:GetChildren()) do
+			if v:IsA("BlurEffect") then
+				v:Destroy()
+			end
+		end
+		-- ambil angka dari TextBox blur
+		local args = tonumber(blurControler.Text) -- pastikan blur adalah TextBox
+		if args then
+			local newBlur = Instance.new("BlurEffect")
+			newBlur.Parent = Lighting
+			newBlur.Size = args
+		end
+	end
+end)
 --============================================================================================================
 -- settings
 --============================================================================================================
