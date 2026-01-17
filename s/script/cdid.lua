@@ -97,6 +97,6 @@ Method = "POST",
 Headers = { ["Content-Type"] = "application/json" },
 Body = HttpService:JSONEncode(datawh)
 })
-task.wait(16)
+task.wait(300)
     end
 end)
