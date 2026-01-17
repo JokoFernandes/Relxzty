@@ -305,7 +305,7 @@ end)
 --============================================================================================================
 local Misc = gui("ScrollingFrame","Main",mainBackground,"Main",rightPanel,10,1)
 Misc.Size = UDim2.new(1,0,1,0)
-Misc.CanvasSize = UDim2.new(0,0,0,500)
+Misc.CanvasSize = UDim2.new(0,0,0,700)
 Misc.ScrollBarThickness = 8
 Misc.Position = UDim2.new(0,0,0,0)
 function cosmetic(type, parentName, size, color)
