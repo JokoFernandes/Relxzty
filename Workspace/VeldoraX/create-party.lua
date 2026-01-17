@@ -292,6 +292,13 @@ TextBox.PlaceholderText = "Script Here...."
 TextBox.TextXAlignment = Enum.TextXAlignment.Left
 TextBox.TextYAlignment = Enum.TextYAlignment.Top
 TextBox.TextWrapped = true
+local padding = Instance.new("UIPadding")
+padding.PaddingLeft = UDim.new(0, 10)
+padding.PaddingRight = UDim.new(0, 10)
+padding.PaddingTop = UDim.new(0, 5)
+padding.PaddingBottom = UDim.new(0, 5)
+padding.Parent = TextBox
+
 local execute = gui("TextButton","Execute",buttonBackground,"Execute",Tools,10,frameTransparency)
 execute.Size = UDim2.new(1,0,0,40)
 execute.Position = UDim2.new(0,0,0,840)
@@ -350,7 +357,9 @@ cosmeticButton.MouseButton1Click:Connect(function()
 	local color = Color3.fromRGB(tonumber(rgb[1]), tonumber(rgb[2]), tonumber(rgb[3]))
 
 	cosmetic(type, parentName, size, color)
-end)local Accessories = gui("TextLabel","Accessories",buttonBackground,"Accessories",Misc,10,1)
+end)
+
+local Accessories = gui("TextLabel","Accessories",buttonBackground,"Accessories",Misc,10,1)
 Accessories.Size = UDim2.new(1,0,0,20)
 Accessories.Position = UDim2.new(0,0,0,110)
 Accessories.Text = "Accessories"
