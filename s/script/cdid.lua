@@ -1,8 +1,9 @@
+-- get job
 local args = {
     "JanjiJiwa"
 }
 game:GetService("ReplicatedStorage"):WaitForChild("NetworkContainer"):WaitForChild("RemoteEvents"):WaitForChild("Job"):FireServer(unpack(args))
-task.wait(1)
+task.wait(2)
 local Players = game:GetService("Players")
 
 local function goto(target)
@@ -20,12 +21,12 @@ local tweenInfo = TweenInfo.new(
     Enum.EasingDirection.Out
 )
 
--- Goal: terbang ke target
+-- Goal
 local goal = {
     CFrame = target.CFrame + Vector3.new(0, 10, 0) -- misalnya agak di atas target
 }
 
--- Buat tween
+-- Tween
 local tween = TweenService:Create(root, tweenInfo, goal)
 
 -- Supaya player bisa gerak lagi setelah tween selesai
@@ -33,7 +34,7 @@ tween.Completed:Connect(function()
     root.Anchored = false
 end)
 
--- Anchor dulu biar tween nggak bentrok sama physics
+-- Anchor
 root.Anchored = true
 tween:Play()
 end
@@ -41,6 +42,7 @@ end
 goto(workspace.Etc.Waypoint.Waypoint)
 task.wait(11)
 local delay = getgenv().delay
+-- work
 task.spawn(function()
 while true do
 -- make
@@ -62,4 +64,39 @@ end
 end
 task.wait(delay)
 end
+end)
+-- webhook
+task.spawn(function()
+while true do 
+local player = game:GetService("Players").LocalPlayer
+local HttpService = game:GetService("HttpService")
+local money = player.PlayerGui.Main.Container.Hub.CashFrame.Frame.TextLabel
+local datawh = {
+        ["embeds"] = {
+            {
+                ["title"] = player.Name,
+                ["description"] = "||@here|| <:shut:1432612191064031252>",
+                ["color"] = 16711680,
+                ["thumbnail"] = {
+                    ["url"] = "https://tr.rbxcdn.com/180DAY-768363145abfc634e1b026bdb214fbef/150/150/Image/Png/noFilter"
+                },
+                ["fields"] = {
+                    {["name"]="Name",["value"]=player.Name,["inline"]=false},
+                    {["name"]="Cash",["value"]=money.Text,["inline"]=false}
+                },
+                ["footer"] = {
+                    ["text"] = "Place: " .. game.JobId,
+                    ["icon_url"] = "https://tr.rbxcdn.com/180DAY-768363145abfc634e1b026bdb214fbef/150/150/Image/Png/noFilter"
+                },
+                ["timestamp"] = os.date("!%Y-%m-%dT%H:%M:%SZ")
+            }
+        }
+    }
+request({
+Url = "https://discord.com/api/webhooks/1459077076324712479/EAIZaYWZ8567D0bka29vwTdwqemyMAJCo1CgIJDCBDqI3iezItYzr6z3r2lVzOIzkTap",
+Method = "POST",
+Headers = { ["Content-Type"] = "application/json" },
+Body = HttpService:JSONEncode(datawh)
+})
+task.wait(16)
 end)
