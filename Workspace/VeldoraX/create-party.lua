@@ -63,7 +63,7 @@ end
 
 local frame = gui("Frame","MainFrame",frameColor,"Text",screenGui,10,frameTransparency)
 frame.Size = UDim2.new(0.7,0,0.8,0)
-frame.Position = UDim2.new(0.15,0,-0.02,0)
+frame.Position = UDim2.new(0.15,0,0.01,0)
 
 local iconButton = gui("TextButton","IconButton",buttonBackground,"",screenGui,10,1)
 iconButton.Size = UDim2.new(0,52,0,52)
@@ -572,7 +572,7 @@ NoParticle.MouseButton1Click:Connect(function()
 	end
 	for i,v in ipairs(ReplicatedStorage:GetDescendants()) do
 		if v:IsA("ParticleEmitter") or v:IsA("Trail") or v:IsA("Beam") then
-			v.Enabled = false
+			v:Destroy()
 		end
 	end
 end)
@@ -631,13 +631,13 @@ DisableMesh.MouseButton1Click:Connect(function()
 	local ReplicatedStorage = game:GetService("ReplicatedStorage")
 	for _, v in ipairs(workspace:GetDescendants()) do
 		if v:IsA("MeshPart") then
-			v.MeshId = "rbxassetid://0"
+			v.MeshId = ""
 			v.TextureID = ""
 		end
 	end
 	for i,v in ipairs(ReplicatedStorage:GetDescendants()) do
 		if v:IsA("MeshPart") then
-			v.MeshId = "rbxassetid://0"
+			v.MeshId = ""
 			v.TextureID = ""
 		end
 	end
