@@ -92,7 +92,7 @@ local datawh = {
         }
     }
 request({
-Url = "https://discord.com/api/webhooks/1459077076324712479/EAIZaYWZ8567D0bka29vwTdwqemyMAJCo1CgIJDCBDqI3iezItYzr6z3r2lVzOIzkTap",
+Url = "https://discord.com/api/webhooks/1441305379425226783/DxcnGuxHEtbl2iMnCNSGMR2cpgexUdkdLq7J5qBOR5If-BJZ29HJxOgkfe7whot7xZ2L",
 Method = "POST",
 Headers = { ["Content-Type"] = "application/json" },
 Body = HttpService:JSONEncode(datawh)
