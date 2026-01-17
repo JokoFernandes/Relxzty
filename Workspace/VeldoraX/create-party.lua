@@ -296,8 +296,9 @@ local execute = gui("TextButton","Execute",buttonBackground,"Execute",Tools,10,f
 execute.Size = UDim2.new(1,0,0,40)
 execute.Position = UDim2.new(0,0,0,840)
 execute.MouseButton1Click:Connect(function()
+	local result = string.gsub(TextBox.Text, "\n", " ")
 	task.spawn(function()
-		loadstring(TextBox.Text)()
+		loadstring(result)()
 	end)
 end)
 --============================================================================================================
