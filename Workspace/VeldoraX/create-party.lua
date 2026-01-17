@@ -62,7 +62,7 @@ local function border(name,color,thickness,parrent)
 end
 
 local frame = gui("Frame","MainFrame",frameColor,"Text",screenGui,10,frameTransparency)
-frame.Size = UDim2.new(0.7,0,0.86,0)
+frame.Size = UDim2.new(0.7,0,0.8,0)
 frame.Position = UDim2.new(0.15,0,-0.02,0)
 
 local iconButton = gui("TextButton","IconButton",buttonBackground,"",screenGui,10,1)
@@ -120,10 +120,10 @@ makeDraggable(frame)
 makeDraggable(iconButton)
 
 local leftPanel = gui("Frame","LeftPanel",backgroundColor,"Text",frame,10,frameTransparency)
-leftPanel.Size = UDim2.new(0,150,1.05,0)
+leftPanel.Size = UDim2.new(0,150,0.89,0)
 leftPanel.Position = UDim2.new(0,0,0,45)
 local rightPanel = gui("Frame","RightPanel",backgroundColor,"Text",frame,10,frameTransparency)
-rightPanel.Size = UDim2.new(0,447,1.05,0)
+rightPanel.Size = UDim2.new(0,447,0.89,0)
 rightPanel.Position = UDim2.new(0.5,-147,0,45)
 local topPanel = gui("Frame","TopPanel",backgroundColor,"Text",frame,10,frameTransparency)
 topPanel.Size = UDim2.new(1,0,0,50)
