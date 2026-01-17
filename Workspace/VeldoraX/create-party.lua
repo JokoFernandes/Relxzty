@@ -62,8 +62,8 @@ local function border(name,color,thickness,parrent)
 end
 
 local frame = gui("Frame","MainFrame",frameColor,"Text",screenGui,10,frameTransparency)
-frame.Size = UDim2.new(0,600,0,350)
-frame.Position = UDim2.new(0.5, -400, 0.5, -150)
+frame.Size = UDim2.new(0.7,0,0.9,0)
+frame.Position = UDim2.new(0.15,0,-0.02,0)
 
 local iconButton = gui("TextButton","IconButton",buttonBackground,"",screenGui,10,1)
 iconButton.Size = UDim2.new(0,52,0,52)
