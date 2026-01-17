@@ -40,7 +40,7 @@ end
 
 goto(workspace.Etc.Waypoint.Waypoint)
 task.wait(11)
-local delay = getgenv().delay or 0.01
+local delay = getgenv().delay
 -- work
 task.spawn(function()
 while true do
