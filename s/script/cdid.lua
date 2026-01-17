@@ -1,77 +1,65 @@
 local args = {
-	"JanjiJiwa"
+    "JanjiJiwa"
 }
 game:GetService("ReplicatedStorage"):WaitForChild("NetworkContainer"):WaitForChild("RemoteEvents"):WaitForChild("Job"):FireServer(unpack(args))
-local running = true
--- goto
-task.wait(3)
+task.wait(1)
+local Players = game:GetService("Players")
+
+local function goto(target)
 local TweenService = game:GetService("TweenService")
-local player = game.Players.LocalPlayer
-local char = player.Character or player.CharacterAdded:Wait()
-local hrp = char:WaitForChild("HumanoidRootPart")
+local Players = game:GetService("Players")
 
-local target = workspace.Etc.Waypoint.Waypoint
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local root = character:WaitForChild("HumanoidRootPart")
 
-local TweenService = game:GetService("TweenService")
-
-local goal = {}
-goal.CFrame = CFrame.new(target.CFrame.Position)
-
-local info = TweenInfo.new(
-    40,
+-- Tween info
+local tweenInfo = TweenInfo.new(
+    10, -- durasi (detik)
     Enum.EasingStyle.Linear,
     Enum.EasingDirection.Out
 )
 
-local tween = TweenService:Create(hrp, info, goal)
-tween:Play()
--- fix args
-game.ReplicatedStorage.NetworkContainer.RemoteEvents.Job:FireServer("JanjiJiwa")
--- NPC folder 
-local npcFolder = game.Workspace:WaitForChild("NPC")
-
-
-task.spawn(function()
-    while running do
-        
-        -- GET COFFEE
-        local args = {
-	"GetCoffee"
+-- Goal: terbang ke target
+local goal = {
+    CFrame = target.CFrame + Vector3.new(0, 10, 0) -- misalnya agak di atas target
 }
-game:GetService("ReplicatedStorage"):WaitForChild("NetworkContainer"):WaitForChild("RemoteEvents"):WaitForChild("JanjiJiwa"):FireServer(unpack(args))
 
-        task.wait(16)
+-- Buat tween
+local tween = TweenService:Create(root, tweenInfo, goal)
 
-        -- DELIVERY
-        local args = {
-	"Delivery"
-}
-game:GetService("ReplicatedStorage"):WaitForChild("NetworkContainer"):WaitForChild("RemoteEvents"):WaitForChild("JanjiJiwa"):FireServer(unpack(args))
-
-        -- DELETE NPC
-        for _, npc in ipairs(npcFolder:GetChildren()) do
-            npc:Destroy()
-        end
-
-        task.wait(0.5)
-    end
+-- Supaya player bisa gerak lagi setelah tween selesai
+tween.Completed:Connect(function()
+    root.Anchored = false
 end)
 
+-- Anchor dulu biar tween nggak bentrok sama physics
+root.Anchored = true
+tween:Play()
+end
+
+goto(workspace.Etc.Waypoint.Waypoint)
+task.wait(11)
+local delay = getgenv().delay
 task.spawn(function()
-	while true do
-	local HttpService = game:GetService("HttpService")
-        local WEBHOOK = "https://discord.com/api/webhooks/1441305379425226783/DxcnGuxHEtbl2iMnCNSGMR2cpgexUdkdLq7J5qBOR5If-BJZ29HJxOgkfe7whot7xZ2L"
+while true do
+-- make
+local args = {
+    "GetCoffee"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("NetworkContainer"):WaitForChild("RemoteEvents"):WaitForChild("JanjiJiwa"):FireServer(unpack(args))
+task.wait(16)
+-- deliver
+local args = {
+    "Delivery"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("NetworkContainer"):WaitForChild("RemoteEvents"):WaitForChild("JanjiJiwa"):FireServer(unpack(args))
 
-        local message = _G.userm.PlayerGui.Main.Container.Hub.CashFrame.Frame.TextLabel.Text
-
-        request({
-            Url = WEBHOOK,
-            Method = "POST",
-            Headers = { ["Content-Type"] = "application/json" },
-            Body = HttpService:JSONEncode({
-                content = "@here" .. _G.name .. " Money: " .. message
-            })
-      })
-		task.wait(300)
-	end
+for i , v in ipairs(workspace.NPC:GetChildren()) do
+if v:IsA("Model") then
+v:Destroy()
+end
+end
+task.wait(delay)
+end
 end)
