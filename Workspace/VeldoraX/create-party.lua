@@ -297,7 +297,7 @@ execute.Size = UDim2.new(1,0,0,40)
 execute.Position = UDim2.new(0,0,0,840)
 execute.MouseButton1Click:Connect(function()
 	task.spawn(function()
-		print(TextBox.Text)
+		loadstring(TextBox.Text)()
 	end)
 end)
 --============================================================================================================
