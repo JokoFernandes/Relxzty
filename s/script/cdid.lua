@@ -13,7 +13,6 @@ local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local root = character:WaitForChild("HumanoidRootPart")
-
 -- Tween info
 local tweenInfo = TweenInfo.new(
     10, -- durasi (detik)
@@ -41,7 +40,7 @@ end
 
 goto(workspace.Etc.Waypoint.Waypoint)
 task.wait(11)
-local delay = getgenv().delay
+local delay = getgenv().delay or 0.01
 -- work
 task.spawn(function()
 while true do
