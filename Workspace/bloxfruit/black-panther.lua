@@ -3,6 +3,13 @@
 local location = game:GetService("Players").LocalPlayer:WaitForChild("LeopardFruitVFXColor")
 local fruit = location:WaitForChild("Default")
 local shifted = location:WaitForChild("Shifted")
+local tigerM = game:GetService("ReplicatedStorage").Util.Anims.Storage["2"].Tiger.Transformed.Movement
+local tigerIdle = tigerM.TigerTransformed_Idle
+local tigerMovement = tigerM.TigerTransformed_Movement
+local tigerBackR = tigerM.TigerTransformed_BackR
+local tigerBackL = tigerM.TigerTransformed_BackL
+local tigerM4 = tigetM.Parent.M1s.TigerM1_4
+local tigerM3 = tigerM.Parent.M1s.TigerM1_3
 local a,b,c = 0,0,250
 local d,e,f = 0,25,0
 local color2 = Color3.fromRGB(a,b,c)
@@ -23,10 +30,12 @@ recolor(shifted,"Shifted_Color4",color)
 -- Transform
 local player = game:GetService("Players").LocalPlayer
 local char = player.Character or player.CharacterAdded:Wait()
-local tigerIdle = game:GetService("ReplicatedStorage").Util.Anims.Storage["2"].Tiger.Transformed.Movement.TigerTransformed_Idle
-local tigerMovement = game:GetService("ReplicatedStorage").Util.Anims.Storage["2"].Tiger.Transformed.Movement.TigerTransformed_Movement
-tigerMovement = "rbxassetid://124379749442847"
+tigerMovement.AnimationId = "rbxassetid://124379749442847"
 tigerIdle.AnimationId = "rbxassetid://73861360346938"
+tigerBackR.AnimationId = "rbxassetid://140122562850398"
+tigerBackR.AnimationId = "rbxassetid://105746370380417"
+tigerM4.AnimationId = "rbxassetid://121749335304244"
+tigerM3.AnimationId = "rbxassetid://108553668358051"
 char.ChildAdded:Connect(function(obj)
     if obj.Name == "TigerRig" then
         task.wait(0.5)
