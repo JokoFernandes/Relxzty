@@ -21,9 +21,13 @@ end
 
 -- Ambil Nama dari chat
 local function getName(text)
-    -- Ambil nama setelah rank (jika ada) sampai sebelum ":"
-    local name = text:match("^%s*(%b[])?.-?%s*(.-)%s*:")
-    return name or "-"
+    -- Coba ambil nama setelah "] " jika ada
+    local name = text:match("%] %s*(.-)%s*:")  
+    if name then
+        return name
+    end
+    -- Kalau tidak ada "]", ambil dari awal sampai ":"
+    return text:match("^%s*(.-)%s*:") or "-"
 end
 TextChatService.MessageReceived:Connect(function(msg)
     local rawText = msg.Text or msg.TextSource or tostring(msg)
