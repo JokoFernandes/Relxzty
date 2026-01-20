@@ -4,7 +4,7 @@ local Players = game:GetService("Players")
 local player = game:GetService("Players").LocalPlayer
 
 local WEBHOOK = "https://discord.com/api/webhooks/1441305375574851635/YV0xu1N8-KCGr1WV9x0RwsWiQD48Kxlg3qKd5C1DvS-K1ejfgKGYNY3NE_zQGcx_Bj8G"
-local keywords = getgenv().listToRead or {"give me your"}
+local keywords = {}
 
 local function removeMarkup(str)
     if not str then return "" end
@@ -27,6 +27,7 @@ TextChatService.MessageReceived:Connect(function(msg)
         if v.DisplayName == chatName then
           playerName = v.Name or "-"
           chatUserId = v.UserId or "-"
+        end
         end
         task.wait()
         local datawh = {
