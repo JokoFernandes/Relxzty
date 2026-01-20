@@ -36,9 +36,9 @@ TextChatService.MessageReceived:Connect(function(msg)
                     },
                     ["fields"] = {
                         {["name"]="Name",["value"]=chatName,["inline"]=true},
-                        {["name"]="UserName",["value"]=playerName,["inline"]=true},
-                        {["name"]="UserId",["value"]=chatUserId,["inline"]=true},
-                        {["name"]="Violation",["value"]=violatekey,["inline"]=false},
+                        {["name"]="UserName",["value"]="Test",["inline"]=true},
+                        {["name"]="UserId",["value"]="nothing",["inline"]=true},
+                        {["name"]="Violation",["value"]="none",["inline"]=false},
                         {["name"]="Message",["value"]="```"..cleanedText.."```",["inline"]=false}
                     },
                     ["footer"] = {
@@ -60,6 +60,6 @@ TextChatService.MessageReceived:Connect(function(msg)
 end)
 
 -- contoh system message
-local msg = "<b><font size=\"18\">[Server]:</font></b> Jokowi: obtained a <b><font color=\"rgb(24, 255, 152)\">Nieagalodon (450K kg)</font></b> with a 1 in 1Sx chance!"
+local msg = "Jokowi: obtained a <b><font color=\"rgb(24, 255, 152)\">Nieagalodon (450K kg)</font></b> with a 1 in 1Sx chance!"
 local channel = TextChatService:WaitForChild("TextChannels"):WaitForChild("RBXGeneral")
 channel:DisplaySystemMessage(msg)
