@@ -38,7 +38,7 @@ tigerM4.AnimationId = "rbxassetid://121749335304244"
 tigerM3.AnimationId = "rbxassetid://108553668358051"
 char.ChildAdded:Connect(function(obj)
     if obj.Name == "TigerRig" then
-        task.wait(0.5)
+        task.wait(0.2)
         print("change")
 
         local tigerRig = obj
