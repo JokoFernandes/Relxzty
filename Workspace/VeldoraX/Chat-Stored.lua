@@ -18,6 +18,7 @@ TextChatService.MessageReceived:Connect(function(msg)
     
     for _, key in ipairs(keywords) do
         violatekey = key or "-"
+        break
     end
         local rank, chatName = cleanedText:match("^%s*(%b[])?.-?%s*(.-)%s*:")
         local chatUserId = nil
@@ -31,7 +32,7 @@ TextChatService.MessageReceived:Connect(function(msg)
         local datawh = {
             ["embeds"] = {
                 {
-                    ["title"] = LIUDEX Z,
+                    ["title"] = "LIUDEX Z",
                     ["description"] = "||@here|| <:shut:1432612191064031252>",
                     ["color"] = 16711680,
                     ["thumbnail"] = {
