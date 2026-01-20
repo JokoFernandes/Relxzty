@@ -18,17 +18,12 @@ TextChatService.MessageReceived:Connect(function(msg)
     
     for _, key in ipairs(keywords) do
         violatekey = key or "-"
+        print(violatekey)
         break
     end
         local rank, chatName = cleanedText:match("^%s*(%b[])?.-?%s*(.-)%s*:")
-        local chatUserId = nil
-        local playerName = nil
-        for i, v in ipairs (Players:GetChildren()) do
-        if v.DisplayName == chatName then
-          playerName = v.Name or "-"
-          chatUserId = v.UserId or "-"
-        end
-        end
+        local chatUserId = "-"
+        local playerName = "-"
         task.wait()
         local datawh = {
             ["embeds"] = {
