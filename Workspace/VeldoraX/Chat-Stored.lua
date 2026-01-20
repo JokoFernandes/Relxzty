@@ -15,7 +15,7 @@ TextChatService.MessageReceived:Connect(function(msg)
     local rawText = msg.Text or msg.TextSource or tostring(msg)
     local cleanedText = removeMarkup(rawText)
     table.insert(keywords,"Nieagalodon")
-    
+    local violatekey = "-"
     for _, key in ipairs(keywords) do
         violatekey = key or "-"
         print(violatekey)
