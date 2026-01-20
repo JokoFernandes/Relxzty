@@ -8,8 +8,10 @@ local tigerIdle = tigerM.TigerTransformed_Idle
 local tigerMovement = tigerM.TigerTransformed_Movement
 local tigerBackR = tigerM.TigerTransformed_BackR
 local tigerBackL = tigerM.TigerTransformed_BackL
+local tigerFrontR = tigerM.TigerTransformed_FrontR
+local tigerFrontL = tigerM.TigerTransformed_FrontL
 local tigerM4 = tigerM.Parent.M1s.TigerM1_4
-local tigerM3 = tigerM.Parent.M1s.TigerM1_3
+local tigerZ = tigerM.Parent.Z.TigerTransformedZ_Loop
 local a,b,c = 0,0,250
 local d,e,f = 0,25,0
 local color2 = Color3.fromRGB(a,b,c)
@@ -33,9 +35,11 @@ local char = player.Character or player.CharacterAdded:Wait()
 tigerMovement.AnimationId = "rbxassetid://124379749442847"
 tigerIdle.AnimationId = "rbxassetid://73861360346938"
 tigerBackR.AnimationId = "rbxassetid://140122562850398"
-tigerBackR.AnimationId = "rbxassetid://105746370380417"
+tigerBackL.AnimationId = "rbxassetid://105746370380417"
 tigerM4.AnimationId = "rbxassetid://121749335304244"
-tigerM3.AnimationId = "rbxassetid://108553668358051"
+tigerZ.AnimationId = "rbxassetid://140124634948034"
+tigerFrontR.AnimationId = "rbxassetid://87417508667430"
+tigerFrontL.AnimationId = "rbxassetid://87417508667430" 
 char.ChildAdded:Connect(function(obj)
     if obj.Name == "TigerRig" then
         task.wait(0.2)
