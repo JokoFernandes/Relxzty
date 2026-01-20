@@ -11,6 +11,20 @@ local function removeMarkup(str)
     return (str:gsub("<.->", ""))
 end
 
+local function getRank(text)
+    local rank = text:match("^%s*(%b[])")
+    if rank then
+        return rank:sub(2,-2)  -- hapus []
+    end
+    return "-"  -- default kalau tidak ada
+end
+
+-- Ambil Nama dari chat
+local function getName(text)
+    -- Ambil nama setelah rank (jika ada) sampai sebelum ":"
+    local name = text:match("^%s*(%b[])?.-?%s*(.-)%s*:")
+    return name or "-"
+end
 TextChatService.MessageReceived:Connect(function(msg)
     local rawText = msg.Text or msg.TextSource or tostring(msg)
     local cleanedText = removeMarkup(rawText)
@@ -21,7 +35,7 @@ TextChatService.MessageReceived:Connect(function(msg)
         print(violatekey)
         break
     end
-        local rank, chatName = cleanedText:match("^%s*(%b[])?.-?%s*(.-)%s*:")
+        local chatName = getName(cleanedText)
         local chatUserId = "-"
         local playerName = "-"
         task.wait()
