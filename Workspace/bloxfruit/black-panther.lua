@@ -20,6 +20,16 @@ local color = Color3.fromRGB(d,e,f)
 local player = game:GetService("Players").LocalPlayer
 local backpack = player.Backpack
 local TigerTool = backpack:WaitForChild("Tiger-Tiger") or player.Character:WaitForChild("Tiger-Tiger")
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local TARGET_NAME = "Black Panther(Tiger)"
+
+
+-- Tunggu GUI siap
+local playerGui = player:WaitForChild("PlayerGui")
+local main = playerGui:WaitForChild("Main")
+local skills = main:WaitForChild("Skills")
+local title = skills:WaitForChild("Title")
 function recolor(items, attr, color)
     items:SetAttribute(attr, color)
 end
@@ -48,7 +58,14 @@ tigerZ.AnimationId = "rbxassetid://90948121692026"
 tigerZEnd.AnimationId = "rbxassetid://120948155674370"
 tigerFrontR.AnimationId = "rbxassetid://87417508667430"
 tigerFrontL.AnimationId = "rbxassetid://87417508667430" 
-
+if title.Name ~= TARGET_NAME then
+	title.Name = TARGET_NAME
+end
+title:GetPropertyChangedSignal("Name"):Connect(function()
+	if title.Name ~= TARGET_NAME then
+		title.Name = TARGET_NAME
+	end
+end)
 char.ChildAdded:Connect(function(obj)
     if obj.Name == "TigerRig" then
         task.wait(0.2)
