@@ -33,7 +33,7 @@ recolor(shifted,"Shifted_Color2",color)
 recolor(shifted,"Shifted_Color3",color)
 recolor(shifted,"Shifted_Color4",color)
 
-TigerTool.TexttureId = "rbxassetid://124960029816151"
+TigerTool.TextureId = "rbxassetid://124960029816151"
 TigerTool.ImageRectOffset = Vector2.new(818.5, 408)
 TigerTool.ImageRectSize = Vector2.new(205, 205)
 -- Transform
