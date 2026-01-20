@@ -702,7 +702,7 @@ local delayGet = 2
 -- request
 show(main)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/VeldoraX/announce-message.lua"))()
-task.spawn(function()
+-- [[task.spawn(function()
 while true do
 	if partyServer then
 		local url = "https://loremipsumapps.infinityfree.me/roblox-script/users/" 
@@ -714,4 +714,4 @@ while true do
 		task.wait(delayGet)
 	end
 end
-end)
+end)]]
