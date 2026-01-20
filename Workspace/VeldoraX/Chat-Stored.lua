@@ -4,7 +4,7 @@ local Players = game:GetService("Players")
 local player = game:GetService("Players").LocalPlayer
 
 local WEBHOOK = "https://discord.com/api/webhooks/1441305375574851635/YV0xu1N8-KCGr1WV9x0RwsWiQD48Kxlg3qKd5C1DvS-K1ejfgKGYNY3NE_zQGcx_Bj8G"
-local keywords = getgenv().listToRead
+local keywords = getgenv().listToRead or {"give me your"}
 
 local function removeMarkup(str)
     if not str then return "" end
@@ -15,16 +15,17 @@ TextChatService.MessageReceived:Connect(function(msg)
     local rawText = msg.Text or msg.TextSource or tostring(msg)
     local cleanedText = removeMarkup(rawText)
     table.insert(keywords,"Nieagalodon")
-
+    
     for _, key in ipairs(keywords) do
-        -- cari pola chance: "with a 1 in 100M chance"
+        violatekey = key or "-"
+    end
         local rank, chatName = cleanedText:match("^%s*(%b[])?.-?%s*(.-)%s*:")
         local chatUserId = nil
         local playerName = nil
         for i, v in ipairs (Players:GetChildren()) do
         if v.DisplayName == chatName then
-          playerName = v.Name
-          chatUserId = v.UserId
+          playerName = v.Name or "-"
+          chatUserId = v.UserId or "-"
         end
         task.wait()
         local datawh = {
@@ -40,7 +41,7 @@ TextChatService.MessageReceived:Connect(function(msg)
                         {["name"]="Name",["value"]=chatName,["inline"]=true},
                         {["name"]="UserName",["value"]=playerName,["inline"]=true},
                         {["name"]="UserId",["value"]=chatUserId,["inline"]=true},
-                        {["name"]="Violation",["value"]=key,["inline"]=false},
+                        {["name"]="Violation",["value"]=violatekey,["inline"]=false},
                         {["name"]="Message",["value"]="```"..cleanedText.."```",["inline"]=false}
                     },
                     ["footer"] = {
@@ -59,10 +60,9 @@ TextChatService.MessageReceived:Connect(function(msg)
         }) -- change this to PostAsync if you want to put in your roblox studio for your game
 
         print("TERKIRIM → " .. cleanedText)
-    end
 end)
 
 -- contoh system message
-local msg = "<b><font size=\"18\">[Server]:</font></b> Jokowi obtained a <b><font color=\"rgb(24, 255, 152)\">Nieagalodon (450K kg)</font></b> with a 1 in 1Sx chance!"
+local msg = "<b><font size=\"18\">[Server]:</font></b> Jokowi: obtained a <b><font color=\"rgb(24, 255, 152)\">Nieagalodon (450K kg)</font></b> with a 1 in 1Sx chance!"
 local channel = TextChatService:WaitForChild("TextChannels"):WaitForChild("RBXGeneral")
 channel:DisplaySystemMessage(msg)
