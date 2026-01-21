@@ -591,19 +591,15 @@ local skyControler = gui("TextBox","Input",buttonBackground,"Sky",Misc,10,frameT
 skyControler.Size = UDim2.new(1,0,0,180)
 skyControler.Position = UDim2.new(0,0,0,580)
 skyControler.ClearTextOnFocus = false
-skyControler.Text = ""
-skyControler.PlaceholderText = "Sky"
-skyControler.TextColor3 = textColor
+skyControler.PlaceholderText = "SkyboxBk\nSkyboxDn\nSkyboxFt\nSkyboxLf\nSkyboxRt\nSkyboxUp\nSunTextureId\nMoonTextureId\nStarCount\nSunAngularSize\nMoonAngularSize"
 skyControler.TextColor3 = textColor
 skyControler.MultiLine = true
 skyControler.TextWrapped = true
 skyControler.TextXAlignment = Enum.TextXAlignment.Left
 skyControler.TextYAlignment = Enum.TextYAlignment.Top
 skyControler.TextScaled = false
-skyControler.Text = ""
 skyControler.TextSize = 15
-skyControler.ClearTextOnFocus = false
-skyControler.Text = "SkyboxBk\nSkyboxDn\nSkyboxFt\nSkyboxLf\nSkyboxRt\nSkyboxUp\nSunTextureId\nMoonTextureId\nStarCount\nSunAngularSize\nMoonAngularSize"
+skyControler.Text = ""
 skyControler.PlaceholderColor3 = textColor
 local skybutton = gui("TextButton","Sky",buttonBackground,"Sky",Misc,10,0)
 skybutton.Size = UDim2.new(1,0,0,40)
@@ -620,18 +616,18 @@ skybutton.MouseButton1Click:Connect(function()
 	local args = string.split(skyControler.Text, "\n")
 	local skys = Instance.new("Sky")
 	skys.Parent = Lighting
-	skys.SkyboxBk = "rbxassetid://"..tostring(args[1])
-	skys.SkyboxDn = "rbxassetid://"..tostring(args[2])
-	skys.SkyboxFt = "rbxassetid://"..tostring(args[3])
-	skys.SkyboxLf = "rbxassetid://"..tostring(args[4])
-	skys.SkyboxRt = "rbxassetid://"..tostring(args[5])
-	skys.SkyboxUp = "rbxassetid://"..tostring(args[6])
-	skys.SunTextureId = "rbxassetid://"..tostring(args[7])
-	skys.MoonTextureId = "rbxassetid://"..tostring(args[8])
-	skys.StarCount = tonumber(args[9]) or 0
-	skys.SunAngularSize = tonumber(args[10]) or 0
-	skys.MoonAngularSize = tonumber(args[11]) or 0
-end)
+	skys.SkyboxBk = "rbxassetid://"..((args[1] and args[1] ~= "") and args[1] or "126569944133822")
+	skys.SkyboxDn = "rbxassetid://"..((args[2] and args[2] ~= "") and args[1] or "126569944133822")
+	skys.SkyboxFt = "rbxassetid://"..((args[3] and args[3] ~= "") and args[1] or "126569944133822")
+	skys.SkyboxLf = "rbxassetid://"..((args[4] and args[4] ~= "") and args[1] or "126569944133822")
+	skys.SkyboxRt = "rbxassetid://"..((args[5] and args[5] ~= "") and args[1] or "126569944133822")
+	skys.SkyboxUp = "rbxassetid://"..((args[6] and args[6] ~= "") and args[1] or "126569944133822")
+	skys.SunTextureId = "rbxassetid://"..((args[6] and args[6] ~= "") and args[1] or "126569944133822")
+	skys.MoonTextureId = "rbxassetid://"..((args[6] and args[6] ~= "") and args[1] or "126569944133822")
+	skys.StarCount = tonumber(args[9]) or 10
+	skys.SunAngularSize = tonumber(args[10]) or 20
+	skys.MoonAngularSize = tonumber(args[11]) or 20
+end))
 --============================================================================================================
 -- settings
 --============================================================================================================
