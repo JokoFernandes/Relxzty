@@ -582,6 +582,56 @@ blurControler.FocusLost:Connect(function(enterPressed)
 		end
 	end
 end)
+local sky = gui("TextLabel","Sky",buttonBackground,"Sky",Misc,10,1)
+sky.Size = UDim2.new(1,0,0,20)
+sky.Position = UDim2.new(0,0,0,560)
+sky.Text = "Sky"
+sky.TextColor3 = textColor
+local skyControler = gui("TextBox","Input",buttonBackground,"Sky",Misc,10,frameTransparency)
+skyControler.Size = UDim2.new(1,0,0,180)
+skyControler.Position = UDim2.new(0,0,0,580)
+skyControler.ClearTextOnFocus = false
+skyControler.Text = ""
+skyControler.PlaceholderText = "Sky"
+skyControler.TextColor3 = textColor
+skyControler.TextColor3 = textColor
+skyControler.MultiLine = true
+skyControler.TextWrapped = true
+skyControler.TextXAlignment = Enum.TextXAlignment.Left
+skyControler.TextYAlignment = Enum.TextYAlignment.Top
+skyControler.TextScaled = false
+skyControler.Text = ""
+skyControler.TextSize = 15
+skyControler.ClearTextOnFocus = false
+skyControler.Text = "SkyboxBk\nSkyboxDn\nSkyboxFt\nSkyboxLf\nSkyboxRt\nSkyboxUp\nSunTextureId\nMoonTextureId\nStarCount\nSunAngularSize\nMoonAngularSize"
+skyControler.PlaceholderColor3 = textColor
+local skybutton = gui("TextButton","Sky",buttonBackground,"Sky",Misc,10,0)
+skybutton.Size = UDim2.new(1,0,0,40)
+skybutton.Position = UDim2.new(0,0,0,760)
+skybutton.Text = "Apply"
+skybutton.TextColor3 = textColor
+skybutton.MouseButton1Click:Connect(function()
+	local Lighting = game:GetService("Lighting")
+	for i,v in ipairs(Lighting:GetChildren()) do
+		if v:IsA("Sky") then
+			v:Destroy()
+		end
+	end
+	local args = string.split(skyControler.Text, "\n")
+	local skys = Instance.new("Sky")
+	skys.Parent = Lighting
+	skys.SkyboxBk = "rbxassetid://"..tostring(args[1])
+	skys.SkyboxDn = "rbxassetid://"..tostring(args[2])
+	skys.SkyboxFt = "rbxassetid://"..tostring(args[3])
+	skys.SkyboxLf = "rbxassetid://"..tostring(args[4])
+	skys.SkyboxRt = "rbxassetid://"..tostring(args[5])
+	skys.SkyboxUp = "rbxassetid://"..tostring(args[6])
+	skys.SunTextureId = "rbxassetid://"..tostring(args[7])
+	skys.MoonTextureId = "rbxassetid://"..tostring(args[8])
+	skys.StarCount = tonumber(args[9]) or 0
+	skys.SunAngularSize = tonumber(args[10]) or 0
+	skys.MoonAngularSize = tonumber(args[11]) or 0
+end)
 --============================================================================================================
 -- settings
 --============================================================================================================
