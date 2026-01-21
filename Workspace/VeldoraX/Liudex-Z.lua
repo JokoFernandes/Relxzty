@@ -16,6 +16,22 @@ local Players = game:GetService("Players")
 local plr = Players.LocalPlayer
 local char = plr.Character or plr.CharacterAdded:Wait()
 local StarterGui = game:GetService("StarterGui")
+if isfolder("LIUDEX Z") then
+for i,v in ipairs(listfiles("LIUDEX Z/Auto Execute")) do
+   print(v)
+   loadfile("LIUDEX Z/Auto Execute/" .. v)
+   if v == "Blox Fruit" then
+      print("bf")
+    end
+end
+else 
+makefolder("LIUDEX Z")
+task.wait()
+makefolder("LIUDEX Z/Auto Execute")
+makefolder("LIUDEX Z/Config")
+writefile("LIUDEX Z/Config/Chat.lorips","true\nViolation under here \ngive me robux\nsex\ni will give you robux\ncutie\ncome with me")
+end
+
 
 -- Buat BindableFunction
 local clickBindable = Instance.new("BindableFunction")
