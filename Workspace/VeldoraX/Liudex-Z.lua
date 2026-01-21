@@ -4,6 +4,7 @@ local place = game.PlaceId
 local function detectGame(placeId,str)
   if place == placeId then
     print(str)
+    getgenv().placeIds = str
   end
 end
 detectGame(121864768012064,"Fish It")
