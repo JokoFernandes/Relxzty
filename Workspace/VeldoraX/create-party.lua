@@ -627,7 +627,7 @@ skybutton.MouseButton1Click:Connect(function()
 	skys.StarCount = tonumber(args[9]) or 10
 	skys.SunAngularSize = tonumber(args[10]) or 20
 	skys.MoonAngularSize = tonumber(args[11]) or 20
-end))
+end)
 --============================================================================================================
 -- settings
 --============================================================================================================
