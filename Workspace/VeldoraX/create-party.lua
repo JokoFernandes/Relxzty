@@ -347,7 +347,7 @@ end)
 --============================================================================================================
 local Misc = gui("ScrollingFrame","Main",mainBackground,"Main",rightPanel,10,1)
 Misc.Size = UDim2.new(1,0,1,0)
-Misc.CanvasSize = UDim2.new(0,0,0,700)
+Misc.CanvasSize = UDim2.new(0,0,0,900)
 Misc.ScrollBarThickness = 8
 Misc.Position = UDim2.new(0,0,0,0)
 
@@ -615,15 +615,18 @@ skybutton.MouseButton1Click:Connect(function()
 	end
 	local args = string.split(skyControler.Text, "\n")
 	local skys = Instance.new("Sky")
+	for i,v in ipairs(args) do
+		args[i] = v:match("%S+") or ""
+	end
 	skys.Parent = Lighting
 	skys.SkyboxBk = "rbxassetid://"..((args[1] and args[1] ~= "") and args[1] or "126569944133822")
-	skys.SkyboxDn = "rbxassetid://"..((args[2] and args[2] ~= "") and args[1] or "126569944133822")
-	skys.SkyboxFt = "rbxassetid://"..((args[3] and args[3] ~= "") and args[1] or "126569944133822")
-	skys.SkyboxLf = "rbxassetid://"..((args[4] and args[4] ~= "") and args[1] or "126569944133822")
-	skys.SkyboxRt = "rbxassetid://"..((args[5] and args[5] ~= "") and args[1] or "126569944133822")
-	skys.SkyboxUp = "rbxassetid://"..((args[6] and args[6] ~= "") and args[1] or "126569944133822")
-	skys.SunTextureId = "rbxassetid://"..((args[6] and args[6] ~= "") and args[1] or "126569944133822")
-	skys.MoonTextureId = "rbxassetid://"..((args[6] and args[6] ~= "") and args[1] or "126569944133822")
+	skys.SkyboxDn = "rbxassetid://"..((args[2] and args[2] ~= "") and args[2] or "126569944133822")
+	skys.SkyboxFt = "rbxassetid://"..((args[3] and args[3] ~= "") and args[3] or "126569944133822")
+	skys.SkyboxLf = "rbxassetid://"..((args[4] and args[4] ~= "") and args[4] or "126569944133822")
+	skys.SkyboxRt = "rbxassetid://"..((args[5] and args[5] ~= "") and args[5] or "126569944133822")
+	skys.SkyboxUp = "rbxassetid://"..((args[6] and args[6] ~= "") and args[6] or "126569944133822")
+	skys.SunTextureId = "rbxassetid://"..((args[6] and args[7] ~= "") and args[7] or "126569944133822")
+	skys.MoonTextureId = "rbxassetid://"..((args[6] and args[8] ~= "") and args[8] or "126569944133822")
 	skys.StarCount = tonumber(args[9]) or 10
 	skys.SunAngularSize = tonumber(args[10]) or 20
 	skys.MoonAngularSize = tonumber(args[11]) or 20
