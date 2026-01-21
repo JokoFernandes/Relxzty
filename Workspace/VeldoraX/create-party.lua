@@ -23,6 +23,27 @@ screenGui.ResetOnSpawn = false
 --==============================================================
 --script attr
 --==============================================================
+
+local function createLayout(parent,padding)
+	local cLayout = Instance.new("UIListLayout")
+	cLayout.Parent = parent
+	cLayout.Padding = UDim.new(0,10)
+	cLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+	cLayout.VerticalAlignment = Enum.VerticalAlignment.Top
+	cLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	return cLayout
+end
+
+local function createPadding(parent,top,bottom,right,left)
+	local cPadding = Instance.new("UIPadding")
+	cPadding.Parent = parent
+	cPadding.PaddingTop = top
+	cPadding.PaddingBottom = bottom
+	cPadding.PaddingLeft = right
+	cPadding.PaddingRight = left
+	return cPadding
+end
+
 local hlColor = Color3.fromRGB(0, 255, 0)
 local function gui(type,name,bg,text,parent,radius,transparency)
     local ui = Instance.new(type)
@@ -143,6 +164,10 @@ SettingsButton.Position = UDim2.new(0,0,0,130)
 local KeyBindButton = gui("TextButton","Keybind Set",buttonBackground,"Keybind Set",leftPanel,10,frameTransparency)	
 KeyBindButton.Size = UDim2.new(1,0,0,30)
 KeyBindButton.Position = UDim2.new(0,0,0,170)
+
+
+leftLayout = createLayout(leftPanel,UDim.new(0,10))
+leftPadding = createPadding(leftPanel,UDim.new(0,10),UDim.new(0,10),UDim.new(0,10),UDim.new(0,10))
 -- border
 local leftBorder = border("Border",borderColor,1,leftPanel)
 local rightBorder = border("Border",borderColor,1,rightPanel)
@@ -161,6 +186,9 @@ title.FontFace = Font.new("rbxasset://fonts/families/Guru.json",Enum.FontWeight.
 local main = gui("Frame","Main",mainBackground,"Main",rightPanel,10,1)
 main.Size = UDim2.new(1,0,1,0)
 main.Position = UDim2.new(0,0,0,0)
+
+mainLayout = createLayout(main,UDim.new(0,10))
+mainPadding = createPadding(main,UDim.new(0,10),UDim.new(0,10),UDim.new(0,10),UDim.new(0,10))
 
 local CreateButton = gui("TextButton","Button",buttonBackground,"Create (WIP)",main,10,frameTransparency)
 CreateButton.Size = UDim2.new(1,0,0,40)
@@ -211,6 +239,9 @@ Tools.Size = UDim2.new(1,0,1,0)
 Tools.CanvasSize = UDim2.new(0,0,0,900)
 Tools.ScrollBarThickness = 8
 Tools.Position = UDim2.new(0,0,0,0)
+
+local toolLayout = createLayout(Tools,UDim.new(0,10))
+local toolPadding = createPadding(Tools,UDim.new(0,10),UDim.new(0,10),UDim.new(0,10),UDim.new(0,18))
 
 local TrackTitle = gui("TextLabel","TrackTitle",mainBackground,"Tracker",Tools,10,1)
 TrackTitle.Size = UDim2.new(1,0,0,20)
@@ -319,6 +350,7 @@ Misc.Size = UDim2.new(1,0,1,0)
 Misc.CanvasSize = UDim2.new(0,0,0,700)
 Misc.ScrollBarThickness = 8
 Misc.Position = UDim2.new(0,0,0,0)
+
 function cosmetic(type, parentName, size, color)
 	local selfChar = game:GetService("Players").LocalPlayer.Character
 	local cosmeticc = Instance.new(type)
