@@ -2,7 +2,7 @@ task.spawn(function()
 
 -- get job
 local args = {
-    "JanjiJiwa"
+    "SiLambat"
 }
 game:GetService("ReplicatedStorage"):WaitForChild("NetworkContainer"):WaitForChild("RemoteEvents"):WaitForChild("Job"):FireServer(unpack(args))
 task.wait(2)
