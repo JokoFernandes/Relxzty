@@ -92,7 +92,7 @@ frame.BorderSizePixel = 0
 
 -- hapus setelah 35 detik
 Debris:AddItem(gui, 35)
-task.wait(40)
+task.wait(50)
 local player = game:GetService("Players").LocalPlayer
 player.Character.Humanoid.Health = 0
 end)
