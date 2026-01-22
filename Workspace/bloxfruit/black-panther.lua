@@ -34,7 +34,7 @@ recolor(shifted,"Shifted_Color3",color)
 recolor(shifted,"Shifted_Color4",color)
 
 TigerTool.TextureId = "rbxassetid://124960029816151"
-TigerTool:SetAttribute("ImageRectOffset", Vector2.new(818.5, 408))
+TigerTool:SetAttribute("ImageRectOffset", Vector2.new(819.25, 409))
 TigerTool:SetAttribute("ImageRectSize", Vector2.new(205, 205))
 -- Transform
 local player = game:GetService("Players").LocalPlayer
