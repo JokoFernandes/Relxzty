@@ -1,0 +1,98 @@
+task.spawn(function()
+
+-- get job
+local args = {
+    "JanjiJiwa"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("NetworkContainer"):WaitForChild("RemoteEvents"):WaitForChild("Job"):FireServer(unpack(args))
+task.wait(2)
+local function goto(target)
+local TweenService = game:GetService("TweenService")
+local Players = game:GetService("Players")
+
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local root = character:WaitForChild("HumanoidRootPart")
+-- Tween info
+local tweenInfo = TweenInfo.new(
+    10, -- durasi (detik)
+    Enum.EasingStyle.Linear,
+    Enum.EasingDirection.Out
+)
+
+-- Goal
+local goal = {
+    CFrame = target.CFrame + Vector3.new(0, 10, 0) -- misalnya agak di atas target
+}
+
+-- Tween
+local tween = TweenService:Create(root, tweenInfo, goal)
+
+-- Supaya player bisa gerak lagi setelah tween selesai
+tween.Completed:Connect(function()
+    root.Anchored = false
+end)
+
+-- Anchor
+root.Anchored = true
+tween:Play()
+end
+
+goto(workspace.Etc.Waypoint.Waypoint)
+task.wait(25)
+-- tp car gk aman wajib delay
+local TweenService = game:GetService("TweenService")
+local Players = game:GetService("Players")
+
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local hrp = character:WaitForChild("HumanoidRootPart")
+
+local model = workspace.Vehicles[player.Name .. "sCar"]
+local waypoint = workspace.Etc.Waypoint.Waypoint
+
+
+-- anbchor
+hrp.Anchored = false
+
+-- tween player ke waypoint
+local tweenInfo = TweenInfo.new(12, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+local tween = TweenService:Create(hrp, tweenInfo, {
+    CFrame = waypoint.CFrame
+})
+
+task.spawn(function()
+tween:Play()
+end)
+
+-- lepas anchor setelah selesai
+tween.Completed:Connect(function()
+    hrp.Anchored = true
+    task.wait(1)
+    hrp.Anchored = false
+end)
+-- target pos
+if model.PrimaryPart then
+    model:SetPrimaryPartCFrame(waypoint.CFrame)
+end
+
+local Debris = game:GetService("Debris")
+local Players = game:GetService("Players")
+
+local player = Players.LocalPlayer
+local gui = Instance.new("ScreenGui")
+gui.Parent = gethui()
+
+local frame = Instance.new("Frame")
+frame.Parent = gui
+frame.Size = UDim2.new(1, 0, 1, 0) -- full 1 layar
+frame.Position = UDim2.new(0, 0, 0, 0)
+frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- hitam
+frame.BorderSizePixel = 0
+
+-- hapus setelah 35 detik
+Debris:AddItem(gui, 35)
+task.wait(40)
+local player = game:GetService("Players").LocalPlayer
+player.Character.Humanoid.Health = 0
+end)
