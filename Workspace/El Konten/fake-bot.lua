@@ -4,7 +4,7 @@ local TextChatService = game:GetService("TextChatService")
 local channel = TextChatService:WaitForChild("TextChannels"):WaitForChild("RBXGeneral")
 
 local msage = {"Hidup Jokowi!!","Saya akan kembali ke solo dan menjadi rakyat biasa","Akan terbuka 19jt lapangan pekerjaan","Oke gas oke gas","Wiwok detok","Aku Nak SAWITTTTT"}
-local color = local color = {
+local color = {
 	{255,0,0},
 	{50,0,255},
 	{0,150,10}}
