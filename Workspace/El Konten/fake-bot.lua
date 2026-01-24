@@ -4,6 +4,7 @@ local TextChatService = game:GetService("TextChatService")
 local channel = TextChatService:WaitForChild("TextChannels"):WaitForChild("RBXGeneral")
 
 local msage = {"Hidup Jokowi!!","Saya akan kembali ke solo dan menjadi rakyat biasa","Akan terbuka 19jt lapangan pekerjaan","Oke gas oke gas","Wiwok detok","Aku Nak SAWITTTTT"}
+local color = {Color3.new(255,0,0),Color3.new(50,0,255),Color3.new(0,150,10)}
 local i = 0
 while i <= 5 do
 local Players = game:GetService("Players")
@@ -27,16 +28,16 @@ local lastJump = 0
 local function SpawnOtherAvatar(modelName, userId)
 	local char = Players:CreateHumanoidModelFromUserId(userId)
 	if not char then return end
-
+	local nameColor = math.random(#color)
 	char.Name = modelName
 	char.Parent = workspace
     task.spawn(function()
       
       while true do
-      local messages = msage[math.random(1, #msage)]
+      local messages = msage[math.random(#msage)]
       local npc = char
       local head = npc:WaitForChild("Head")
-      channel:DisplaySystemMessage(messages)
+      channel:DisplaySystemMessage(<font color='" .. color .. "'>" char.Name "</font>" .. ": " .. messages)
 
       -- kirim bubble chat
       Chat:Chat(head, messages, Enum.ChatColor.White)
