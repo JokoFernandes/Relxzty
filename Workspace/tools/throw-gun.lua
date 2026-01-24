@@ -20,9 +20,7 @@ handle.Parent = tool
 
 local mouse
 local force = 100
-local inputConn -- untuk menyimpan listener
-local t = game:GetService("ReplicatedStorage").t
-
+local inputConn
 local character = player.Character or player.CharacterAdded:Wait()
 local root = character:WaitForChild("HumanoidRootPart")
 
