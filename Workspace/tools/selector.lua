@@ -2,7 +2,7 @@ local player = game.Players.LocalPlayer
 local mouse = player:GetMouse()
 local UIS = game:GetService("UserInputService")
 local Debris = game:GetService("Debris")
-task.wait(1)
+task.wait(2)
 local tool = Instance.new("Tool")
 tool.Name = "Tool"
 tool.RequiresHandle = true
@@ -75,7 +75,7 @@ end)
 tool.Unequipped:Connect(function()
 	print("Tool dilepas")
 
-	if inputConn then
+if inputConn then
 		inputConn:Disconnect()
 		inputConn = nil
 	end
