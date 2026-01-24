@@ -50,23 +50,17 @@ tool.Equipped:Connect(function(m)
 				select.OutlineColor = Color3.new(1, 0, 0)
 				select.Adornee = target
 				select.Parent = target
-				
+				local targetParent = target.Parent
+				if targetParent and targetParent:IsA("Model") then
+					local humtarget = targetParent:FindFirstChild("Humanoid")
+					if humtarget then
+						humtarget.Health = 0
+					end
+				end
 				curretSelect = select
 				targetBody = getModelFromPart(target)
 				print("Part terpilih:", target.Name)
 				print("Body", tostring(targetBody))
-			end
-		end
-		if input.KeyCode == Enum.KeyCode.T then
-			if targetBody then
-				local VFX = Instance.new("Explosion")
-				VFX.Position = targetBody:GetPivot().Position
-				VFX.Parent = targetBody.HumanoidRootPart
-				targetBody:WaitForChild("Humanoid").Health = 0
-				Debris:AddItem(VFX, 2)
-				print("Body terhapus")
-			else
-				print("Tidak ada body yang terpilih")
 			end
 		end
 	end)
