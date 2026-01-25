@@ -15,7 +15,7 @@ local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 
 local LocalPlayer = Players.LocalPlayer
-
+while i <= 5 do
 -- CONFIG
 local FOLLOW_DISTANCE = 6 + (i * 2)
 local TWEEN_DISTANCE = 300 
@@ -26,7 +26,7 @@ local followChar
 local humanoid
 local hrp
 local lastJump = 0
-while i <= 5 do
+
 -- SPAWN NPC
 local function SpawnOtherAvatar(modelName, userId)
 	local char = Players:CreateHumanoidModelFromUserId(userId)
