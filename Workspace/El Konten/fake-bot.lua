@@ -3,7 +3,7 @@ local TextChatService = game:GetService("TextChatService")
 
 local channel = TextChatService:WaitForChild("TextChannels"):WaitForChild("RBXGeneral")
 
-local msage = {"Hidup Jokowi!!","Saya akan kembali ke solo dan menjadi rakyat biasa","Akan terbuka 19jt lapangan pekerjaan","Oke gas oke gas","Wiwok detok","Aku Nak SAWITTTTT","Kita Prwbowo","Sawit?","Sawit?","Sawit?","Sawit?"}
+local msage = {"Hidup Jokowi!!","Saya akan kembali ke solo dan menjadi rakyat biasa","Akan terbuka 19jt lapangan pekerjaan","Oke gas oke gas","Wiwok detok","Aku Nak SAWITTTTT!! 🤑🤑🤑🤑","Kita Prajowo","Sawit?","Sawit?","Sawit?","Sawit?","Sawit chan 😍😍😍"}
 local color = {
 	{255,0,0},
 	{50,0,255},
@@ -99,9 +99,11 @@ RunService.Heartbeat:Connect(function()
 		end
 	end
 end)
-local botName = {"Samsul","fufufafa","Joko","Asep","Bahlul","Sah Ron I","Mulyono","Reza",""}
+local botName = {"Samsul","fufufafa ","Joko","Asep","Bahlul","Sah Ron I","Mulyono ","RezaKecap","OhimImoet","ASTG_Reg_12 ","Jangar371","Muanis551","AmbatukingTheGreat ","Rusdi","DiBwhNamaBluds","DiBwhNamaPrince"}
 -- CONTOH PANGGIL
-SpawnOtherAvatar(botName[math.random(#botName)], getgenv().UserIDChar or 1079792491)
+for i, v in pairs(botName) do 
+	SpawnOtherAvatar(v, getgenv().UserIDChar or 1079792491)
+end
 i = i+1
 task.wait()
 end
