@@ -100,7 +100,6 @@ RunService.Heartbeat:Connect(function()
 		end
 	end
 end)
-local botName = {"Samsul","fufufafa ","Joko","Asep","Bahlul","Sah Ron I","Mulyono ","RezaKecap","OhimImoet","ASTG_Reg_12 ","Jangar371","Muanis551","AmbatukingTheGreat ","Rusdi","DiBwhNamaBluds","DiBwhNamaPrince"}
 -- CONTOH PANGGIL
 SpawnOtherAvatar(v, getgenv().UserIDChar or 1079792491)
 task.wait()
