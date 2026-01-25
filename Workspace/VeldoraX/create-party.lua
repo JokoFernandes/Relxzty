@@ -17,6 +17,7 @@ local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local borderColor = Color3.fromRGB(0, 0, 4) 
 local mainBackground = backgroundColor
+local char = Players.LocalPlayer.Character or Players.LocalPlayers.CharacterAdded:Wait()
 local humanoid = char:WaitForChild("Humanoid")
 local cam = workspace.CurrentCamera
 local UIS = game:GetService("UserInputService")
