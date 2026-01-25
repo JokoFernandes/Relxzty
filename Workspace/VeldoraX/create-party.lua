@@ -63,7 +63,10 @@ local function toggleFreecam()
 
 		humanoid.WalkSpeed = 16
 		humanoid.JumpPower = 50
-		freezcon:Disconnect()
+		if freezcon then
+			freezcon:Disconnect()
+			freezcon = nil
+		end
 		keysDown = {}
 		rotating = false
 		UIS.MouseBehavior = Enum.MouseBehavior.Default
