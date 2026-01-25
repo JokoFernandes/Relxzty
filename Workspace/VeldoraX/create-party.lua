@@ -28,7 +28,7 @@ local freecamEnabled = false
 
 local oldCameraType
 local oldCameraCFrame
-
+local freezcon
 screenGui.Parent = gethui()
 screenGui.IgnoreGuiInset = true
 screenGui.ResetOnSpawn = false
@@ -53,12 +53,17 @@ local function toggleFreecam()
 
 		humanoid.WalkSpeed = 0
 		humanoid.JumpPower = 0
+		freezcon = humanoid.Changed:Connect(function()
+			if property == "WalkSpeed" and humanoid.WalkSpeed ~= 0 then
+				humanoid.WalkSpeed = 0
+			end
+		end)
 	else
 		cam.CameraType = oldCameraType
 
 		humanoid.WalkSpeed = 16
 		humanoid.JumpPower = 50
-
+		freezcon:Disconnect()
 		keysDown = {}
 		rotating = false
 		UIS.MouseBehavior = Enum.MouseBehavior.Default
