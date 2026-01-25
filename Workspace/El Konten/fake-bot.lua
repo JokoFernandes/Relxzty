@@ -101,7 +101,7 @@ RunService.Heartbeat:Connect(function()
 end)
 local botName = {"Samsul","fufufafa","Joko","Asep","Joni","Boby","Usman","Reza","Sarip"}
 -- CONTOH PANGGIL
-SpawnOtherAvatar(botName[tostring(math.random(#botName))], 1079792491)
+SpawnOtherAvatar(botName[math.random(#botName)], 1079792491)
 i = i+1
 task.wait()
 end
