@@ -21,7 +21,7 @@ if not game:IsLoaded() then game.Loaded:Wait() end
 
 local speed = 5
 local sens = .3
-speed /= 10
+speed /= 2
 if onMobile then sens *= 2 end
 
 -- FUNCTION TOGGLE FREECAM
