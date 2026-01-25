@@ -26,7 +26,7 @@ local followChar
 local humanoid
 local hrp
 local lastJump = 0
-
+while i <= 5 do
 -- SPAWN NPC
 local function SpawnOtherAvatar(modelName, userId)
 	local char = Players:CreateHumanoidModelFromUserId(userId)
@@ -100,7 +100,6 @@ RunService.Heartbeat:Connect(function()
 	end
 end)
 local botName = {"Samsul","fufufafa","Joko","Asep","Joni","Boby","Usman","Reza","Sarip"}
-while i <= 5 do
 -- CONTOH PANGGIL
 SpawnOtherAvatar(botName[tostring(math.random(#botName))], 1079792491)
 i = i+1
