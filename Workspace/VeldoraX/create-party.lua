@@ -1,8 +1,8 @@
 local textColor = Color3.fromRGB(255,255,255)
 local backgroundColor = Color3.fromRGB(0, 0, 0)
 local buttonBackground = Color3.fromRGB(56, 0, 154)
-local Camera = workspace.CurrentCamera
 local workspace = game:GetService("Workspace")
+local Camera = workspace.CurrentCamera
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -19,7 +19,6 @@ local borderColor = Color3.fromRGB(0, 0, 4)
 local mainBackground = backgroundColor
 local char = Players.LocalPlayer.Character or Players.LocalPlayers.CharacterAdded:Wait()
 local humanoid = char:WaitForChild("Humanoid")
-local cam = workspace.CurrentCamera
 local UIS = game:GetService("UserInputService")
 local RS = game:GetService("RunService")
 local onMobile = not UIS.KeyboardEnabled
@@ -474,7 +473,7 @@ execute.MouseButton1Click:Connect(function()
 end)
 local FreecamTitle = gui("TextLabel","TrackTitle",mainBackground,"Tracker",Tools,10,1)
 FreecamTitle.Size = UDim2.new(1,0,0,20)
-local Freecam = gui("TextLabel","FreeCam",mainBackground,"FreeCam",Tools,10,1)
+local Freecam = gui("TextButton","FreeCam",mainBackground,"FreeCam",Tools,10,1)
 Freecam.Size = UDim2.new(1,0,0,20)
 Freecam.MouseButton1Click:Connect(function()
 	toggleFreecam()
