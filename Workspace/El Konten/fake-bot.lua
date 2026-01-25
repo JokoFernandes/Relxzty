@@ -9,7 +9,7 @@ local color = {
 	{50,0,255},
 	{0,150,10}}
 local i = 0
-while i <= 5 do
+
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
@@ -99,9 +99,10 @@ RunService.Heartbeat:Connect(function()
 		end
 	end
 end)
-
+local botName = {"Samsul","fufufafa","Joko","Asep","Joni","Boby","Usman",Reza"}
+while i <= 5 do
 -- CONTOH PANGGIL
-SpawnOtherAvatar("Mafia Sawit", 1079792491)
+SpawnOtherAvatar(botName[math.random(#botName)], 1079792491)
 i = i+1
 task.wait()
 end
