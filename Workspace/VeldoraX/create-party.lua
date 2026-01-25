@@ -53,7 +53,7 @@ local function toggleFreecam()
 
 		humanoid.WalkSpeed = 0
 		humanoid.JumpPower = 0
-		freezcon = humanoid.Changed:Connect(function()
+		freezcon = humanoid.Changed:Connect(function(property)
 			if property == "WalkSpeed" and humanoid.WalkSpeed ~= 0 then
 				humanoid.WalkSpeed = 0
 			end
