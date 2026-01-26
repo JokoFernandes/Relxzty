@@ -341,6 +341,8 @@ for i, v in pairs(skinList) do
 				boltable[tostring(v)] = false
 				print(boltable)
 				smallNotify("LIUDEX Z","Stoping " .. tostring(v) .. " Skin Reset to remove it","Reset","Close",bindReset)
+				task.wait()
+				ActivedSkin()
 			end
 		end)
 	end
