@@ -323,26 +323,28 @@ for i, v in pairs(skinList) do
 		end)
 	end
 end
-
+function ActivedSkin()
+	for _, v in pairs(boltable) do
+		if _ == "Black Panther" and v then
+			loadstring(game:HttpGet(listSkins.blackpantherTiger))
+			task.wait(2)
+			print(_, "Loaded")
+		end
+		if _ == "Monarch Lighting" and v then
+			print(listSkins.monarchLighting)
+			task.wait(2)
+			print(_, "Loaded")
+		end
+		if _ == "Monarch Pain" and v then
+			print(listSkins.blackpantherTiger)
+			task.wait(2)
+			print(_, "Loaded")
+		end
+	end
+end
 task.spawn(function()
 	player.CharacterAdded:Connect(function()
-		for _, v in pairs(boltable) do
-			if _ == "Black Panther" and v then
-				print(listSkins.blackpantherTiger)
-				task.wait(2)
-				print(_, "Loaded")
-			end
-			if _ == "Monarch Lighting" and v then
-				print(listSkins.monarchLighting)
-				task.wait(2)
-				print(_, "Loaded")
-			end
-			if _ == "Monarch Pain" and v then
-				print(listSkins.blackpantherTiger)
-				task.wait(2)
-				print(_, "Loaded")
-			end
-		end
+		ActivedSkin()
 	end)
 end)
 
@@ -580,4 +582,6 @@ player.CharacterAdded:Connect(function()
 	char= player.Character or player.CharacterAdded:Wait()
 	humanoid = char:WaitForChild("Humanoid")
 	rootPart = char:WaitForChild("HumanoidRootPart")
+	task.wait(0.1)
+	ActivedSkin()
 end)
