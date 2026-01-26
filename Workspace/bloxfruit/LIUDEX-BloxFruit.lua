@@ -218,6 +218,25 @@ end)
 --==================
 --Main
 --==================
+function ActivedSkin()
+	for _, v in pairs(boltable) do
+		if _ == "Black Panther" and v then
+			loadstring(game:HttpGet(listSkins.blackpantherTiger))()
+			task.wait(2)
+			print(_, "Loaded")
+		end
+		if _ == "Monarch Lighting" and v then
+			print(listSkins.monarchLighting)
+			task.wait(2)
+			print(_, "Loaded")
+		end
+		if _ == "Monarch Pain" and v then
+			print(listSkins.blackpantherTiger)
+			task.wait(2)
+			print(_, "Loaded")
+		end
+	end
+end
 local skinList = {"Black Panther","Monarch Lighting", "Monarch Pain", "Imperial Lighting", "Imperial Dragon Sovereign"}
 local listSkins = {
 	blackpantherTiger = "https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/bloxfruit/black-panther.lua",
@@ -321,25 +340,6 @@ for i, v in pairs(skinList) do
 				smallNotify("LIUDEX Z","Stoping " .. tostring(v) .. " Skin Reset to remove it","Reset","Close",bindReset)
 			end
 		end)
-	end
-end
-function ActivedSkin()
-	for _, v in pairs(boltable) do
-		if _ == "Black Panther" and v then
-			loadstring(game:HttpGet(listSkins.blackpantherTiger))
-			task.wait(2)
-			print(_, "Loaded")
-		end
-		if _ == "Monarch Lighting" and v then
-			print(listSkins.monarchLighting)
-			task.wait(2)
-			print(_, "Loaded")
-		end
-		if _ == "Monarch Pain" and v then
-			print(listSkins.blackpantherTiger)
-			task.wait(2)
-			print(_, "Loaded")
-		end
 	end
 end
 task.spawn(function()
