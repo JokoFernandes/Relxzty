@@ -2,8 +2,9 @@ local screengui = Instance.new("ScreenGui")
 local textColor = Color3.fromRGB(255,255,255)
 local backgroundColor = Color3.fromRGB(0, 0, 0)
 local buttonBackground = Color3.fromRGB(56, 0, 154)
-local Camera = workspace.CurrentCamera
 local workspace = game:GetService("Workspace")
+local Camera = workspace.CurrentCamera
+
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -218,6 +219,13 @@ end)
 --==================
 --Main
 --==================
+
+local skinList = {"Black Panther","Monarch Lighting", "Monarch Pain", "Imperial Lighting", "Imperial Dragon Sovereign"}
+local listSkins = {
+	blackpantherTiger = "https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/bloxfruit/black-panther.lua",
+	monarchLighting = "https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/bloxfruit/monarch-lighting.lua"
+}
+local boltable = {}
 function ActivedSkin()
 	for _, v in pairs(boltable) do
 		if _ == "Black Panther" and v then
@@ -237,11 +245,6 @@ function ActivedSkin()
 		end
 	end
 end
-local skinList = {"Black Panther","Monarch Lighting", "Monarch Pain", "Imperial Lighting", "Imperial Dragon Sovereign"}
-local listSkins = {
-	blackpantherTiger = "https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/bloxfruit/black-panther.lua",
-	monarchLighting = "https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/bloxfruit/monarch-lighting.lua"
-}
 local main = gui("Frame","Main",Color3.fromRGB(255,255,255),"Text",rightPanel,10,1)
 main.Size = UDim2.new(1,-20,0.5,-20)
 mainLayout = layouts(main)
@@ -287,7 +290,7 @@ local bindReset = Instance.new("BindableFunction")
 bindReset.OnInvoke = function()
 	char.Humanoid.Health = 0
 end
-boltable = {}
+
 local GROUP_ID = 411609583
 for i, v in pairs(skinList) do
 	if v == "Imperial Dragon Sovereign" then
