@@ -195,7 +195,7 @@ homeTitle.Size = UDim2.new(0.5,-20,0,20)
 local discord = gui("TextButton","Discord",buttonBackground,"Discord",home,10,0)
 discord.Size = UDim2.new(1,-20,0,40)
 discord.MouseButton1Click:Connect(function()
-	print("Discord")
+	setclipboard("https://discord.gg/WmsssRkgd2")
 end)
 
 
@@ -203,13 +203,13 @@ end)
 local donation = gui("TextButton","Discord",buttonBackground,"Donate",home,10,0)
 donation.Size = UDim2.new(1,-20,0,40)
 donation.MouseButton1Click:Connect(function()
-	print("Donate")
+	setclipboard("Donate")
 end)
 
 local profile = gui("TextButton","profile",buttonBackground,"Our Profile",home,10,0)
 profile.Size = UDim2.new(1,-20,0,40)
 profile.MouseButton1Click:Connect(function()
-	print("Our Profile")
+	setclipboard("Our Profile")
 end)
 
 
