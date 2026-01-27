@@ -822,7 +822,9 @@ NoShaders.Size = UDim2.new(1,0,0,40)
 NoShaders.Position = UDim2.new(0,0,0,55)
 NoShaders.MouseButton1Click:Connect(function()
 	local Lighting = game:GetService("Lighting")
-
+    for i,v in ipairs(Lighting:GetChildren()) do
+		v:Destroy()
+	end
 	-- Matikan shadow
 	Lighting.GlobalShadows = false
 	Lighting.Brightness = 2
@@ -831,7 +833,7 @@ NoShaders.MouseButton1Click:Connect(function()
 
 	-- Fog biar ringan
 	Lighting.FogStart = 0
-	Lighting.FogEnd = 100000
+	Lighting.FogEnd = 10000000
 end)
 local renderDistace = gui("TextBox","Input",buttonBackground,"RenderDistance",Settings,10,frameTransparency)
 renderDistace.Size = UDim2.new(1,0,0,40)
