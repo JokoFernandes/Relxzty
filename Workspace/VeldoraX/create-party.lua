@@ -120,6 +120,12 @@ local function renderStepped()
 	if keysDown["Enum.KeyCode.O"] then
 		cam.CFrame *= CFrame.new(0, 0, 0) * CFrame.Angles(0, 0, math.rad(-15))
 	end
+	if keysDown["Enum.KeyCode.Up"] then
+		cam.CFrame *= CFrame.new(0, speed, 0)
+	end
+	if keysDown["Enum.KeyCode.Down"] then
+		cam.CFrame *= CFrame.new(0, -speed, 0)
+	end
 end
 
 RS.RenderStepped:Connect(renderStepped)
@@ -130,7 +136,9 @@ local validKeys = {
 	"Enum.KeyCode.S",
 	"Enum.KeyCode.D",
 	"Enum.KeyCode.I",
-	"Enum.KeyCode.O"
+	"Enum.KeyCode.O",
+	"Enum.KeyCode.Up",
+	"Enum.KeyCode.Down"
 }
 
 -- INPUT BEGIN
