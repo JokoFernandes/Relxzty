@@ -115,10 +115,10 @@ local function renderStepped()
 		cam.CFrame *= CFrame.new(speed, 0, 0)
 	end
 	if keysDown["Enum.KeyCode.I"] then
-		cam.CFrame *= CFrame.new(speed, 0, 0) * CFrame.Angles(0, 0, math.rad(15))
+		cam.CFrame *= CFrame.new(0, 0, 0) * CFrame.Angles(0, 0, math.rad(15))
 	end
 	if keysDown["Enum.KeyCode.O"] then
-		cam.CFrame *= CFrame.new(speed, 0, 0) * CFrame.Angles(0, 0, math.rad(-15))
+		cam.CFrame *= CFrame.new(0, 0, 0) * CFrame.Angles(0, 0, math.rad(-15))
 	end
 end
 
