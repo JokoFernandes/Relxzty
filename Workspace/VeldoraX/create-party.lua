@@ -128,7 +128,9 @@ local validKeys = {
 	"Enum.KeyCode.W",
 	"Enum.KeyCode.A",
 	"Enum.KeyCode.S",
-	"Enum.KeyCode.D"
+	"Enum.KeyCode.D",
+	"Enum.KeyCode.I",
+	"Enum.KeyCode.O"
 }
 
 -- INPUT BEGIN
