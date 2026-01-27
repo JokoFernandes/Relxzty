@@ -220,9 +220,11 @@ end)
 --Main
 --==================
 
-local skinList = {"Black Panther","Monarch Lighting", "Monarch Pain", "Imperial Lighting", "Imperial Dragon Sovereign"}
+local skinList = {"Black Panther","Monarch Lighting", "Abyss Pain","Pain Over Heaven", "Imperial Lighting", "Imperial Dragon Sovereign"}
 local listSkins = {
 	blackpantherTiger = "https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/bloxfruit/black-panther.lua",
+	abyssPain = "https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/bloxfruit/abyssPain.lua",
+	heavenlyPain = "https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/bloxfruit/heavenlyPain.lua",
 	monarchLighting = "https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/bloxfruit/monarch-lighting.lua"
 }
 local boltable = {}
@@ -230,8 +232,12 @@ function ActivedSkin()
 	for _, v in pairs(boltable) do
 		if _ == "Black Panther" and v then
 			loadstring(game:HttpGet(listSkins.blackpantherTiger))()
-			task.wait(2)
-			print(_, "Loaded")
+		end
+		if _ == "Abyss Pain" and v then
+			loadstring(game:HttpGet(listSkins.abyssPain))()
+		end
+		if _ == "Pain Over Heaven" and v then
+			loadstring(game:HttpGet(listSkins.heavenlyPain))()
 		end
 		if _ == "Monarch Lighting" and v then
 			print(listSkins.monarchLighting)
