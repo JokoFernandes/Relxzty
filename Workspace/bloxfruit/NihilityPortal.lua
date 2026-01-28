@@ -1,4 +1,4 @@
-local location = game:GetService("Players").winzhipu:WaitForChild("PortalFruitVFXColor")
+local location = game:GetService("Players").LocalPlayer:WaitForChild("PortalFruitVFXColor")
 local fruit = location:WaitForChild("Default")
 local shifted = location:WaitForChild("Shifted")
 
