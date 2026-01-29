@@ -14,7 +14,6 @@ local buttonTransparency = 0.6
 local plrparty = nil
 local frameTransparency = 0.4
 local Players = game:GetService("Players")
-local player = Players.LocalPlayer
 local UserInputService = game:GetService("UserInputService")
 local borderColor = Color3.fromRGB(0, 0, 4) 
 local mainBackground = backgroundColor
@@ -467,7 +466,6 @@ Tracker.MouseButton1Click:Connect(function()
 	end
 end)
 
-
 local TextBox = gui("TextBox","TextBox",buttonBackground,"",Tools,10,frameTransparency)
 TextBox.Size = UDim2.new(1,0,0,430)
 TextBox.Position = UDim2.new(0,0,0,400)
@@ -497,14 +495,13 @@ execute.MouseButton1Click:Connect(function()
 		loadstring(result)()
 	end)
 end)
-local FreecamTitle = gui("TextLabel","FreeCam",mainBackground,"Freecam",Tools,10,1)
+local FreecamTitle = gui("TextLabel","TrackTitle",mainBackground,"Tracker",Tools,10,1)
 FreecamTitle.Size = UDim2.new(1,0,0,20)
 local Freecam = gui("TextButton","FreeCam",buttonBackground,"FreeCam",Tools,10,0)
 Freecam.Size = UDim2.new(1,0,0,40)
 Freecam.MouseButton1Click:Connect(function()
 	toggleFreecam()
 end)
-
 --============================================================================================================
 -- misc
 --============================================================================================================
