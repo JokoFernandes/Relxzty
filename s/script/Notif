@@ -1,0 +1,44 @@
+
+
+local datawh = {
+        ["embeds"] = {
+            {
+                ["title"] = "Crystal Spawn",
+                ["description"] = "||@here|| <:shut:1432612191064031252>",
+                ["color"] = 16711680,
+                ["thumbnail"] = {
+                    ["url"] = "https://tr.rbxcdn.com/180DAY-768363145abfc634e1b026bdb214fbef/150/150/Image/Png/noFilter"
+                },
+                ["fields"] = {
+                    {["name"]="Crystal Spawn",["value"]="```".. tostring(prompt.CFrame.Position).. "```",["inline"]=false}
+                },
+                ["footer"] = {
+                    ["text"] = "Place: " .. game.JobId,
+                    ["icon_url"] = "https://tr.rbxcdn.com/180DAY-768363145abfc634e1b026bdb214fbef/150/150/Image/Png/noFilter"
+                },
+                ["timestamp"] = os.date("!%Y-%m-%dT%H:%M:%SZ")
+            }
+        }
+    }
+local delay = 10
+local player = game:GetService("Players").LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+local root = char:WaitForChild("HumanoidRootPart")
+while true do
+for _, crystal in ipairs(workspace.Islands["Crystal Depths"].Crystals:GetChildren()) do
+    if crystal:IsA("MeshPart") then
+        for _, prompt in ipairs(crystal:GetChildren()) do
+            if prompt:IsA("ProximityPrompt") then
+               request({
+Url = "https://discord.com/api/webhooks/1441305379425226783/DxcnGuxHEtbl2iMnCNSGMR2cpgexUdkdLq7J5qBOR5If-BJZ29HJxOgkfe7whot7xZ2L",
+Method = "POST",
+Headers = { ["Content-Type"] = "application/json" },
+Body = HttpService:JSONEncode(datawh)
+})
+
+            end
+        end
+    end
+end
+task.wait(delay)
+end
