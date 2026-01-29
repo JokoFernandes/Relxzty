@@ -1,8 +1,9 @@
 local Player = game:GetService("Players")
-local looping = 0
+local looping = 1
 if not getgenv().ReaderLoaded then
 getgenv().ReaderLoaded = true
-
+getgenv().MaxCount = getgenv().MaxCount or 3
+getgenv().DelaySend = getgenv().DelaySend or 5
 local HttpService = game:GetService("HttpService")
 local del = getgenv().DelaySend or 15
 local delay = del / 2
@@ -15,8 +16,7 @@ char:WaitForChild("HumanoidRootPart").CFrame = CFrame.new(5637.63574, -904.97021
 task.wait()
 char:WaitForChild("HumanoidRootPart").Anchored = true
 local source = game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/s/script/Notif.lua")
-getgenv().MaxCount = getgenv().MaxCount
-getgenv().DelaySend = getgenv().DelaySend
+
 queue_on_teleport(source)
 task.spawn(function()
    task.wait(3)
@@ -53,7 +53,6 @@ for _, crystal in ipairs(workspace.Islands["Crystal Depths"].Crystals:GetChildre
                 Headers = { ["Content-Type"] = "application/json" },
                 Body = HttpService:JSONEncode(datawh)
         })
-        looping = looping + 1
         task.wait()
         if looping >= maxCount then
             local datarj = {
@@ -84,6 +83,7 @@ for _, crystal in ipairs(workspace.Islands["Crystal Depths"].Crystals:GetChildre
            local p = game:GetService("Players").LocalPlayer
            ts:Teleport(game.PlaceId, p)
         end
+        looping = looping + 1
         task.wait(delay)
         break
     end
