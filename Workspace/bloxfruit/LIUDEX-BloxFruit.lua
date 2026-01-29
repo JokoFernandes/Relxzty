@@ -220,10 +220,12 @@ end)
 --Main
 --==================
 
-local skinList = {"Black Panther","Monarch Lighting", "Abyss Pain","Pain Over Heaven", "Imperial Lighting", "Imperial Dragon Sovereign"}
+local skinList = {"Black Panther","Monarch Lighting", "Abyss Pain","Pain Over Heaven", "Imperial Lighting","Cursed Rift Portal", "Nihility Portal", "Imperial Dragon Sovereign"}
 local listSkins = {
 	blackpantherTiger = "https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/bloxfruit/black-panther.lua",
 	abyssPain = "https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/bloxfruit/abyssPain.lua",
+	cursePortal = "https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/bloxfruit/CursedVoidPortal",
+	nihilityPortal = "https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/bloxfruit/NihilityPortal.lua",
 	heavenlyPain = "https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/bloxfruit/heavenlyPain.lua",
 	monarchLighting = "https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/bloxfruit/monarch-lighting.lua"
 }
