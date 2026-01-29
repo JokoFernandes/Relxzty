@@ -1,6 +1,6 @@
 local player = game.Players.LocalPlayer
 local gui = player:WaitForChild("PlayerGui")
-
+local delay = getgenv().timerDelay
 local timer = Instance.new("ScreenGui")
 timer.Name = "Timer"
 timer.Parent = gethui() -- ganti gethui() biar pasti muncul di studio
@@ -43,5 +43,5 @@ task.spawn(function()
 	end
 end)
 
-task.wait(100)
+task.wait(delay * 60)
 timer:Destroy()
