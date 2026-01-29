@@ -14,6 +14,7 @@ local buttonTransparency = 0.6
 local plrparty = nil
 local frameTransparency = 0.4
 local Players = game:GetService("Players")
+local player - Players.LocalPlayer
 local UserInputService = game:GetService("UserInputService")
 local borderColor = Color3.fromRGB(0, 0, 4) 
 local mainBackground = backgroundColor
@@ -466,6 +467,21 @@ Tracker.MouseButton1Click:Connect(function()
 	end
 end)
 
+local function MaxZoomOut(int)
+local maxcam= int
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+player.CameraMinZoomDistance = 0.5
+player.CameraMaxZoomDistance = maxcam
+	if maxcam ~= "" and  maxcam >= 0 then
+		player.CharacterAdded:Connect(function()
+		player.CameraMaxZoomDistance = maxcam
+		end)
+		CameraMaxZoomDistance.Changed:Connect(function()
+		player.CameraMaxZoomDistance = maxcam
+	end
+end
 local TextBox = gui("TextBox","TextBox",buttonBackground,"",Tools,10,frameTransparency)
 TextBox.Size = UDim2.new(1,0,0,430)
 TextBox.Position = UDim2.new(0,0,0,400)
@@ -495,12 +511,21 @@ execute.MouseButton1Click:Connect(function()
 		loadstring(result)()
 	end)
 end)
-local FreecamTitle = gui("TextLabel","TrackTitle",mainBackground,"Tracker",Tools,10,1)
+local FreecamTitle = gui("TextLabel","FreeCam",mainBackground,"Freecam",Tools,10,1)
 FreecamTitle.Size = UDim2.new(1,0,0,20)
 local Freecam = gui("TextButton","FreeCam",buttonBackground,"FreeCam",Tools,10,0)
 Freecam.Size = UDim2.new(1,0,0,40)
 Freecam.MouseButton1Click:Connect(function()
 	toggleFreecam()
+end)
+local ZoomTitle = gui("TextLabel","Zoom",mainBackground,"Zoom",Tools,10,1)
+ZoomTitle.Size = UDim2.new(1,0,0,20)
+local ZoomInput =  gui("TextBox","Input",buttonBackground,"Cosmetic",Misc,10,frameTransparency)
+ZoomInput.Size = UDim2.new(1,0,0,40)
+local Zoom = gui("TextButton","FreeCam",buttonBackground,"FreeCam",Tools,10,0)
+Zoom.Size = UDim2.new(1,0,0,40)
+Zoom.MouseButton1Click:Connect(function()
+	MaxZoomOut(tonumber(ZoomInput)
 end)
 --============================================================================================================
 -- misc
