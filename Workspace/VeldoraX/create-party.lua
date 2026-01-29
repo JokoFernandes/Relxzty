@@ -14,7 +14,7 @@ local buttonTransparency = 0.6
 local plrparty = nil
 local frameTransparency = 0.4
 local Players = game:GetService("Players")
-local player - Players.LocalPlayer
+local player = Players.LocalPlayer
 local UserInputService = game:GetService("UserInputService")
 local borderColor = Color3.fromRGB(0, 0, 4) 
 local mainBackground = backgroundColor
@@ -478,7 +478,7 @@ player.CameraMaxZoomDistance = maxcam
 		player.CharacterAdded:Connect(function()
 		player.CameraMaxZoomDistance = maxcam
 		end)
-		CameraMaxZoomDistance.Changed:Connect(function()
+		player:GetPropertyChangedSignal("CameraMaxZoomDistance"):Connect(function()
 		player.CameraMaxZoomDistance = maxcam
 	end
 end
@@ -525,7 +525,7 @@ ZoomInput.Size = UDim2.new(1,0,0,40)
 local Zoom = gui("TextButton","FreeCam",buttonBackground,"FreeCam",Tools,10,0)
 Zoom.Size = UDim2.new(1,0,0,40)
 Zoom.MouseButton1Click:Connect(function()
-	MaxZoomOut(tonumber(ZoomInput)
+	MaxZoomOut(tonumber(ZoomInput))
 end)
 --============================================================================================================
 -- misc
