@@ -478,9 +478,9 @@ player.CameraMaxZoomDistance = maxcam
 		player.CharacterAdded:Connect(function()
 		player.CameraMaxZoomDistance = maxcam
 		end)
-		player:GetPropertyChangedSignal("CameraMaxZoomDistance"):Connect(function()
+	player:GetPropertyChangedSignal("CameraMaxZoomDistance"):Connect(function()
 		player.CameraMaxZoomDistance = maxcam
-	end
+	end)
 end
 local TextBox = gui("TextBox","TextBox",buttonBackground,"",Tools,10,frameTransparency)
 TextBox.Size = UDim2.new(1,0,0,430)
@@ -522,10 +522,12 @@ local ZoomTitle = gui("TextLabel","Zoom",mainBackground,"Zoom",Tools,10,1)
 ZoomTitle.Size = UDim2.new(1,0,0,20)
 local ZoomInput =  gui("TextBox","Input",buttonBackground,"Cosmetic",Misc,10,frameTransparency)
 ZoomInput.Size = UDim2.new(1,0,0,40)
-local Zoom = gui("TextButton","FreeCam",buttonBackground,"FreeCam",Tools,10,0)
+ZoomInput.PlaceholderText = Color3.new(255,255,255)
+ZoomInput.PlaceholderColor3 = Color3.new(255,255,255)
+local Zoom = gui("TextButton","Zoom",buttonBackground,"ZoomOut",Tools,10,0)
 Zoom.Size = UDim2.new(1,0,0,40)
 Zoom.MouseButton1Click:Connect(function()
-	MaxZoomOut(tonumber(ZoomInput))
+	MaxZoomOut(tonumber(ZoomInput.Text))
 end)
 --============================================================================================================
 -- misc
