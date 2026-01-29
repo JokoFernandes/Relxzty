@@ -17,11 +17,7 @@ char:WaitForChild("HumanoidRootPart").Anchored = true
 local source = game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/s/script/Notif.lua")
 getgenv().MaxCount = getgenv().MaxCount
 getgenv().DelaySend = getgenv().DelaySend
-queue_on_teleport(
-   getgenv().MaxCount = getgenv().MaxCount
-getgenv().DelaySend = getgenv().DelaySend
-   source
-)
+queue_on_teleport(source)
 task.spawn(function()
    task.wait(3)
    char:WaitForChild("HumanoidRootPart").Anchored = false
