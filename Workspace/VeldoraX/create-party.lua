@@ -474,7 +474,7 @@ local player = Players.LocalPlayer
 
 player.CameraMinZoomDistance = 0.5
 player.CameraMaxZoomDistance = maxcam
-	if maxcam ~= "" and  maxcam >= 0 then
+	if maxcam and maxcam >= 0 then
 		player.CharacterAdded:Connect(function()
 		player.CameraMaxZoomDistance = maxcam
 		end)
@@ -520,10 +520,11 @@ Freecam.MouseButton1Click:Connect(function()
 end)
 local ZoomTitle = gui("TextLabel","Zoom",mainBackground,"Zoom",Tools,10,1)
 ZoomTitle.Size = UDim2.new(1,0,0,20)
-local ZoomInput =  gui("TextBox","Input",buttonBackground,"Cosmetic",Misc,10,frameTransparency)
+local ZoomInput =  gui("TextBox","Input",buttonBackground,"ZoomOut Distance",Misc,10,frameTransparency)
 ZoomInput.Size = UDim2.new(1,0,0,40)
-ZoomInput.PlaceholderText = Color3.new(255,255,255)
-ZoomInput.PlaceholderColor3 = Color3.new(255,255,255)
+ZoomInput.PlaceholderText = "Input Max Zoom Out"
+ZoomInput.TextColor3 = textColor
+ZoomInput.PlaceholderColor3 = textColor
 local Zoom = gui("TextButton","Zoom",buttonBackground,"ZoomOut",Tools,10,0)
 Zoom.Size = UDim2.new(1,0,0,40)
 Zoom.MouseButton1Click:Connect(function()
