@@ -1,7 +1,7 @@
 local Player = game:GetService("Players")
-local looping
+local looping = 0
 local HttpService = game:GetService("HttpService")
-local del = getgenv().DelaySend
+local del = getgenv().DelaySend or 20
 local delay = del / 2
 local player = game:GetService("Players").LocalPlayer
 local char = player.Character or player.CharacterAdded:Wait()
@@ -33,7 +33,7 @@ for _, crystal in ipairs(workspace.Islands["Crystal Depths"].Crystals:GetChildre
             }
         }
     }
-        request({
+  request({
                 Url = "https://discord.com/api/webhooks/1441305375574851635/YV0xu1N8-KCGr1WV9x0RwsWiQD48Kxlg3qKd5C1DvS-K1ejfgKGYNY3NE_zQGcx_Bj8G",
                 Method = "POST",
                 Headers = { ["Content-Type"] = "application/json" },
