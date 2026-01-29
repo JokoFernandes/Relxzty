@@ -72,6 +72,8 @@ for _, crystal in ipairs(workspace.Islands["Crystal Depths"].Crystals:GetChildre
         end
         task.wait(delay)
         local source = game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/s/script/Notif.lua")
+        getgenv().MaxCount = getgenv().MaxCount
+        getgenv().DelaySend = getgenv().DelaySend
         queue_on_teleport(source)
         break
     end
