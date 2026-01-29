@@ -2,7 +2,7 @@ local Player = game:GetService("Players")
 local looping = 1
 if not getgenv().ReaderLoaded then
 getgenv().ReaderLoaded = true
-getgenv().MaxCount = getgenv().MaxCount or 5
+getgenv().MaxCount = getgenv().MaxCount or 4
 getgenv().DelaySend = getgenv().DelaySend or 15
 local HttpService = game:GetService("HttpService")
 local del = getgenv().DelaySend or 15
