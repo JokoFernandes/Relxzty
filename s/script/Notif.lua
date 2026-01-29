@@ -2,8 +2,8 @@ local Player = game:GetService("Players")
 local looping = 1
 if not getgenv().ReaderLoaded then
 getgenv().ReaderLoaded = true
-getgenv().MaxCount = getgenv().MaxCount or 3
-getgenv().DelaySend = getgenv().DelaySend or 5
+getgenv().MaxCount = getgenv().MaxCount or 5
+getgenv().DelaySend = getgenv().DelaySend or 10
 local HttpService = game:GetService("HttpService")
 local del = getgenv().DelaySend or 15
 local delay = del / 2
@@ -26,35 +26,7 @@ end)
 while true do
 for _, crystal in ipairs(workspace.Islands["Crystal Depths"].Crystals:GetChildren()) do
    if crystal:IsA("MeshPart") and crystal:FindFirstChildWhichIsA("ProximityPrompt", true) then
-        local datawh = {
-        ["embeds"] = {
-            {
-                ["title"] = "Crystal Detected",
-                ["description"] = "||@here|| <:shut:1432612191064031252>",
-                ["color"] = 16711680,
-                ["thumbnail"] = {
-                    ["url"] = "https://tr.rbxcdn.com/180DAY-768363145abfc634e1b026bdb214fbef/150/150/Image/Png/noFilter"
-                },
-                ["fields"] = {
-                    {["name"]="Crystal Spawned Copy to tp",["value"]="```game:GetService('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(".. tostring(crystal.CFrame.Position).. ")```",["inline"]=false},
-                    {["name"]="Fire Prompt",["value"]="```fireproximityprompt(".. tostring(crystal:GetFullName()).. ")```",["inline"]=false}
-                },
-                ["footer"] = {
-                    ["text"] = "Loop:" .. tostring(looping) .. "Place: " .. game.JobId,
-                    ["icon_url"] = "https://tr.rbxcdn.com/180DAY-768363145abfc634e1b026bdb214fbef/150/150/Image/Png/noFilter"
-                },
-                ["timestamp"] = os.date("!%Y-%m-%dT%H:%M:%SZ")
-            }
-        }
-    }
-  request({
-                Url = "https://discord.com/api/webhooks/1441305375574851635/YV0xu1N8-KCGr1WV9x0RwsWiQD48Kxlg3qKd5C1DvS-K1ejfgKGYNY3NE_zQGcx_Bj8G",
-                Method = "POST",
-                Headers = { ["Content-Type"] = "application/json" },
-                Body = HttpService:JSONEncode(datawh)
-        })
-        task.wait()
-        if looping >= maxCount then
+         if looping >= maxCount then
             local datarj = {
         ["embeds"] = {
             {
@@ -83,6 +55,35 @@ for _, crystal in ipairs(workspace.Islands["Crystal Depths"].Crystals:GetChildre
            local p = game:GetService("Players").LocalPlayer
            ts:Teleport(game.PlaceId, p)
         end
+        local datawh = {
+        ["embeds"] = {
+            {
+                ["title"] = "Crystal Detected",
+                ["description"] = "||@here|| <:shut:1432612191064031252>",
+                ["color"] = 16711680,
+                ["thumbnail"] = {
+                    ["url"] = "https://tr.rbxcdn.com/180DAY-768363145abfc634e1b026bdb214fbef/150/150/Image/Png/noFilter"
+                },
+                ["fields"] = {
+                    {["name"]="Crystal Spawned Copy to tp",["value"]="```game:GetService('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(".. tostring(crystal.CFrame.Position).. ")```",["inline"]=false},
+                    {["name"]="Fire Prompt",["value"]="```fireproximityprompt(".. tostring(crystal:GetFullName()).. ")```",["inline"]=false}
+                },
+                ["footer"] = {
+                    ["text"] = "Loop:" .. tostring(looping) .. "Place: " .. game.JobId,
+                    ["icon_url"] = "https://tr.rbxcdn.com/180DAY-768363145abfc634e1b026bdb214fbef/150/150/Image/Png/noFilter"
+                },
+                ["timestamp"] = os.date("!%Y-%m-%dT%H:%M:%SZ")
+            }
+        }
+    }
+  request({
+                Url = "https://discord.com/api/webhooks/1441305375574851635/YV0xu1N8-KCGr1WV9x0RwsWiQD48Kxlg3qKd5C1DvS-K1ejfgKGYNY3NE_zQGcx_Bj8G",
+                Method = "POST",
+                Headers = { ["Content-Type"] = "application/json" },
+                Body = HttpService:JSONEncode(datawh)
+        })
+        task.wait()
+        
         looping = looping + 1
         task.wait(delay)
         break
