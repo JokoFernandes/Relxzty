@@ -42,7 +42,7 @@ local overhead = char.HumanoidRootPart.Overhead:Clone()
 
 local name = overhead.Content.Header
 local level = LevelContainer.Label
-name.Text = tostring(v)
+name.Text = tostring(modelName)
 level.Text = math.random(20,400)
       while true do
       local messages = msage[math.random(#msage)]
