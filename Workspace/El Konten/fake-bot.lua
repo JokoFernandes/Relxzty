@@ -1,6 +1,7 @@
 local Chat = game:GetService("Chat")
 local TextChatService = game:GetService("TextChatService")
-
+local player = game:GetService("Players").LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
 local channel = TextChatService:WaitForChild("TextChannels"):WaitForChild("RBXGeneral")
 
 local msage = {"Hidup Jokowi!!","Saya akan kembali ke solo dan menjadi rakyat biasa","Akan terbuka 19jt lapangan pekerjaan","Oke gas oke gas","Wiwok detok","Aku Nak SAWITTTTT!! 🤑🤑🤑🤑","Kita Prajowo","Sawit?","Sawit?","Sawit?","Sawit?","Sawit chan 😍😍😍"}
@@ -15,7 +16,7 @@ local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 
 local LocalPlayer = Players.LocalPlayer
-local botName = {"Samsul","fufufafa ","Joko","Asep","Bahlul","Sah Ron I","Mulyono ","RezaKecap","OhimImoet","ASTG_Reg_12 ","Jangar371","Muanis551","AmbatukingTheGreat ","Rusdi","DiBwhNamaBluds","DiBwhNamaPrince"}
+local botName = {"Samsul","fufufafa","Joko","Asep","Bahlul","Sah Ron I","Mulyono","RezaKecap","OhimImoet","ASTG_Reg_12","Jangar371","Muanis551","AmbatukingTheGreat ","Rusdi","DiBwhNamaBluds","DiBwhNamaPrince"}
 for i, v in pairs(botName) do 
 -- CONFIG
 local FOLLOW_DISTANCE = 6 + (i * 2)
@@ -37,6 +38,12 @@ local function SpawnOtherAvatar(modelName, userId)
 	char.Parent = workspace
     task.spawn(function()
       
+local overhead = char.HumanoidRootPart.Overhead:Clone()
+
+local name = overhead.Content.Header
+local level = LevelContainer.Label
+name.Text = tostring(v)
+level.Text = math.random(20,400)
       while true do
       local messages = msage[math.random(#msage)]
       local npc = char
