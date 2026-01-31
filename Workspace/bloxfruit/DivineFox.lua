@@ -7,7 +7,8 @@ local tigerM = game:GetService("ReplicatedStorage").Util.Anims.Storage["2"].Tige
 
 local player = game:GetService("Players").LocalPlayer
 local backpack = player.Backpack
-local FruitTool = backpack:WaitForChild("Tiger-Tiger") or player.Character:WaitForChild("Kitsune-Kitsune")
+local FruitTool = backpack:WaitForChild("Kitsune-Kitsune") or player.Character:WaitForChild("Kitsune-Kitsune")
+local char = player.Character or player.CharacterAdded:Wait()
 function recolor(items, attr, color)
     items:SetAttribute(attr, color)
 end
@@ -41,14 +42,14 @@ char.ChildAdded:Connect(function(obj)
         local body = kitsuneRig:WaitForChild("Kitsune"):WaitForChild("Kitsune")
         local surface = body:FindFirstChild("SurfaceAppearance")
         local var = surface:Clone()
+        if surface then
         var.ColorMap = "rbxassetid://126543037252587"
         var.MetalnessMap = surface.MetalnessMap
-        var.NormalMap = "rbxassetid126543037252587"
+        var.NormalMap = "rbxassetid://126543037252587"
         var.RoughnessMap =surface.RoughnessMap
         var.TexturePack = ""
         var.Parent = body
         print("changed")
-        if surface then
             surface:Destroy()
         end
     end
