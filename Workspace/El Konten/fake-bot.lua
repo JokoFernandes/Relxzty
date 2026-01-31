@@ -41,7 +41,7 @@ local function SpawnOtherAvatar(modelName, userId)
 local overhead = char.HumanoidRootPart.Overhead:Clone()
 
 local name = overhead.Content.Header
-local level = LevelContainer.Label
+local level = overhead.LevelContainer.Label
 name.Text = tostring(modelName)
 level.Text = math.random(20,400)
       while true do
