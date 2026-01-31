@@ -31,7 +31,7 @@ time.Text =jam .. "jam ".. menit .. "menit " .. detik .. "detik "
 local datawh = {
         ["embeds"] = {
             {
-                ["title"] = "Timer ",
+                ["title"] = "Timer ".. player.Name .. "(" .. player.DisplayName .. ")",
                 ["description"] = "||@everyone|| <:shut:1432612191064031252>",
                 ["color"] = 16711680,
                 ["fields"] = {
