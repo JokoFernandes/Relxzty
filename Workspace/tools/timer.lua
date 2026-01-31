@@ -1,6 +1,6 @@
 -- prop
-local webhook = getgenv().WebhookDiscord
-local messageId = getgenv().messageIdDiscord
+local webhook = tostring(getgenv().WebhookDiscord)
+local messageId = tostring(getgenv().messageIdDiscord)
 
 --
 local player = game.Players.LocalPlayer
@@ -52,5 +52,5 @@ request({
                 Headers = { ["Content-Type"] = "application/json" },
                 Body = HttpService:JSONEncode(datawh)
 })
-task.wait(0.7)
+task.wait(0.71)
 end 
