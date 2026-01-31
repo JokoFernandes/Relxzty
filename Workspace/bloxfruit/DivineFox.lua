@@ -3,11 +3,8 @@
 local location = game:GetService("Players").LocalPlayer:WaitForChild("KitsuneFruitVFXColor")
 local fruit = location:WaitForChild("Default")
 local shifted = location:WaitForChild("Shifted")
-local tigerM = game:GetService("ReplicatedStorage").Util.Anims.Storage["2"].Tiger.Transformed.Movement
 
 local player = game:GetService("Players").LocalPlayer
-local backpack = player.Backpack
-local FruitTool = backpack:WaitForChild("Kitsune-Kitsune") or player.Character:WaitForChild("Kitsune-Kitsune")
 local char = player.Character or player.CharacterAdded:Wait()
 function recolor(items, attr, color)
     items:SetAttribute(attr, color)
