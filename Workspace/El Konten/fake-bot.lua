@@ -4,7 +4,7 @@ local player = game:GetService("Players").LocalPlayer
 local char = player.Character or player.CharacterAdded:Wait()
 local channel = TextChatService:WaitForChild("TextChannels"):WaitForChild("RBXGeneral")
 
-local msage = {"Hidup Jokowi!!","Saya akan kembali ke solo dan menjadi rakyat biasa","Akan terbuka 19jt lapangan pekerjaan","Oke gas oke gas","Wiwok detok","Aku Nak SAWITTTTT!! 🤑🤑🤑🤑","Kita Prajowo","Sawit?","Sawit?","Sawit?","Sawit?","Sawit chan 😍😍😍"}
+local msage = {"Hidup Jokowi!!","MBG gratis 🤑" ,"Saya akan kembali ke solo dan menjadi rakyat biasa","Akan tersedia 19jt lapangan pekerjaan","Oke gas oke gas","Wiwok detok","Aku Nak SAWITTTTT!! 🤑🤑🤑🤑","Kita Prajowo","Sawit?","Sawit?","Sawit?","Sawit?","Sawit chan 😍😍😍","Ijazah saya asli"}
 local color = {
 	{255,0,0},
 	{50,0,255},
@@ -16,7 +16,7 @@ local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 
 local LocalPlayer = Players.LocalPlayer
-local botName = {"Samsul","fufufafa","Joko","Asep","Bahlul","Sah Ron I","Mulyono","RezaKecap","OhimImoet","ASTG_Reg_12","Jangar371","Muanis551","AmbatukingTheGreat ","Rusdi","DiBwhNamaBluds","DiBwhNamaPrince"}
+local botName = {"Samsul","fufufafa","Joko","Asep","Bahlul","Sah Ron I","Mulyono","FufuGaming02","OhimImoet","ASTG_Reg_12","Jangar371","Muanis551","AmbatukingTheGreat","Rusdi","DiBwhNamaBluds","BowoGamer02"}
 for i, v in pairs(botName) do 
 -- CONFIG
 local FOLLOW_DISTANCE = 6 + (i * 2)
