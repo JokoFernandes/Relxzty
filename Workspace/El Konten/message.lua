@@ -4,7 +4,8 @@ local RETextNotification = ReplicatedStorage.Packages._Index["sleitnick_net@0.2.
 
 -- This data was received from the server
 firesignal(RETextNotification.OnClientEvent, 
-    {
+    {	
+		CustomSFX = "AdminPing",
         CustomDuration = 5,
         Text = "Hello Everyone",
 		AdminId= 8651913431,
@@ -20,6 +21,7 @@ firesignal(RETextNotification.OnClientEvent,
 task.wait(2)
 firesignal(RETextNotification.OnClientEvent, 
     {
+		CustomSFX = "AdminPing",
         CustomDuration = 5,
         Text = "Tubers Was Here",
 		AdminId= 8651913431,
@@ -35,6 +37,7 @@ firesignal(RETextNotification.OnClientEvent,
 task.wait(4.4)
 firesignal(RETextNotification.OnClientEvent, 
     {
+		CustomSFX = "AdminPing",
         CustomDuration = 8,
         Text = "This game is so boring",
 		AdminId= 8651913431,
@@ -50,6 +53,7 @@ firesignal(RETextNotification.OnClientEvent,
 task.wait(5)
 firesignal(RETextNotification.OnClientEvent, 
     {
+		CustomSFX = "AdminPing",
         CustomDuration = 8,
         Text = "lets make it more fun",
 		AdminId= 8651913431,
@@ -131,6 +135,7 @@ changeMaterial(workspace, Enum.Material.Neon) -- contoh: ubah semua jadi Neon
 task.wait(10)
 firesignal(RETextNotification.OnClientEvent, 
     {
+		CustomSFX = "AdminPing",
         CustomDuration = 8,
         Text = "Perfect",
 		AdminId= 8651913431,
@@ -146,6 +151,7 @@ firesignal(RETextNotification.OnClientEvent,
 task.wait(2)
 firesignal(RETextNotification.OnClientEvent, 
     {
+		CustomSFX = "AdminPing",
         CustomDuration = 8,
         Text = "it's better now.",
 		AdminId= 8651913431,
@@ -161,6 +167,7 @@ firesignal(RETextNotification.OnClientEvent,
 task.wait(5)
 firesignal(RETextNotification.OnClientEvent, 
     {
+		CustomSFX = "AdminPing",
         CustomDuration = 8,
         Text = "We walk the talk, not only talk the talk",
 		AdminId= 8651913431,
@@ -182,6 +189,7 @@ channel:DisplaySystemMessage(msg)
 task.wait(8)
 firesignal(RETextNotification.OnClientEvent, 
     {
+		CustomSFX = "AdminPing",
         CustomDuration = 8,
         Text = "He Deop Jokowi",
 		AdminId= 8651913431,
