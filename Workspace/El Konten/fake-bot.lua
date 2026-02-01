@@ -8,7 +8,11 @@ local msage = {"Hidup Jokowi!!","MBG gratis 🤑" ,"Saya akan kembali ke solo da
 local color = {
 	{255,0,0},
 	{50,0,255},
-	{0,150,10}}
+	{0,150,10},
+	{197,150,10},
+	{75,10,100},
+	{250,170,32}
+}
 local i = 0
 
 local Players = game:GetService("Players")
