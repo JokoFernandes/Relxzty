@@ -1,3 +1,8 @@
+if getgenv().LiudexStart then
+	return
+end
+
+getgenv().LiudexStart = true
 local textColor = Color3.fromRGB(255,255,255)
 local backgroundColor = Color3.fromRGB(0, 0, 0)
 local buttonBackground = Color3.fromRGB(56, 0, 154)
@@ -32,6 +37,25 @@ local freezcon
 screenGui.Parent = gethui()
 screenGui.IgnoreGuiInset = true
 screenGui.ResetOnSpawn = false
+--============================================================
+--Server Hop
+--============================================================
+local function hopServers(maxCount)
+local Http = game:GetService("HttpService")
+local TeleportService = game:GetService("TeleportService")
+local PlaceId = game.PlaceId
+local count = maxCount or 1
+local servers = Http:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..PlaceId.."/servers/Public?sortOrder=Asc&limit=100")).data
+for i, v in pairs(servers) do
+    if v.playing < v.maxPlayers and v.playing <= count then
+        TeleportService:TeleportToPlaceInstance(PlaceId, v.id)
+        break
+    end
+end
+end
+
+
+
 --=============================================================
 --Free Cam
 --=============================================================
@@ -294,13 +318,13 @@ makeDraggable(frame)
 makeDraggable(iconButton)
 
 local leftPanel = gui("Frame","LeftPanel",backgroundColor,"Text",frame,10,frameTransparency)
-leftPanel.Size = UDim2.new(0,150,0.89,0)
-leftPanel.Position = UDim2.new(0,0,0,45)
+leftPanel.Size = UDim2.new(0.2,0,0.89,0)
+leftPanel.Position = UDim2.new(0,0,0.1,2)
 local rightPanel = gui("Frame","RightPanel",backgroundColor,"Text",frame,10,frameTransparency)
-rightPanel.Size = UDim2.new(1,-150,0.89,0)
-rightPanel.Position = UDim2.new(0.5,-148,0,45)
+rightPanel.Size = UDim2.new(0.8,0,0.89,0)
+rightPanel.Position = UDim2.new(0.4,-148,0.1,2)
 local topPanel = gui("Frame","TopPanel",backgroundColor,"Text",frame,10,frameTransparency)
-topPanel.Size = UDim2.new(1,0,0,50)
+topPanel.Size = UDim2.new(1,0,0.1,0)
 topPanel.Position = UDim2.new(0,0,0,0)
 local mainButton = gui("TextButton","Button",buttonBackground,"Main",leftPanel,10,frameTransparency)
 mainButton.Size = UDim2.new(1,0,0,30)
@@ -389,7 +413,7 @@ end)
 --============================================================================================================
 local Tools = gui("ScrollingFrame","Tools",mainBackground,"Tools",rightPanel,10,1)
 Tools.Size = UDim2.new(1,0,1,0)
-Tools.CanvasSize = UDim2.new(0,0,0,900)
+Tools.CanvasSize = UDim2.new(0,0,0,1000)
 Tools.ScrollBarThickness = 8
 Tools.Position = UDim2.new(0,0,0,0)
 
@@ -414,7 +438,8 @@ Tracker.MouseButton1Click:Connect(function()
 	trackToggle = not trackToggle
 	if trackToggle then
 		local args = string.split(trackConfig.Text, ",")
-		for i,v in pairs(Players:GetPlayers()) do
+		task.spawn(function()
+			for i,v in pairs(Players:GetPlayers()) do
 			local highlight = Instance.new("Highlight")
 			highlight.Parent = v.Character
 			highlight.Adornee = v.Character
@@ -446,6 +471,7 @@ Tracker.MouseButton1Click:Connect(function()
 			text.TextYAlignment = Enum.TextYAlignment.Bottom
 			
 		end
+		end)
 		Tracker.Text = "UnTrack"
 	else
 		Tracker.Text = "Track"
@@ -465,7 +491,55 @@ Tracker.MouseButton1Click:Connect(function()
 		end
 	end
 end)
+local TPTitle = gui("TextLabel","Tp",mainBackground,"Go To Player",Tools,10,1)
+TPTitle.Size = UDim2.new(1,0,0,20)
+TPTitle.Position = UDim2.new(0,0,0,10)
+local TP = gui("TextBox","TPInput",buttonBackground,"",Tools,10,frameTransparency)
+TP.Text = ""
+TP.PlaceholderText = "Username.."
+TP.Size = UDim2.new(1,0,0,40)
+TP.TextColor3 = textColor
+TP.PlaceholderColor3 = textColor
+TP.FocusLost:Connect(function(enterPress)
+    if enterPress then
+        local root = Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+        local inputText = TP.Text:lower()
 
+        -- Cari player yang namanya mengandung inputText
+        local targetPlayer
+        for _, plr in ipairs(Players:GetPlayers()) do
+            if plr.Name:lower():sub(1, #inputText) == inputText then
+                targetPlayer = plr
+                break
+            end
+        end
+
+        if targetPlayer and targetPlayer.Character then
+            local targetRoot = targetPlayer.Character:WaitForChild("HumanoidRootPart")
+            root.CFrame = targetRoot.CFrame
+        else
+            warn("Player dengan prefix '"..TP.Text.."' tidak ditemukan atau belum spawn.")
+        end
+    end
+end)
+local hopServer = gui("TextLabel","Tp",mainBackground,"Hop Server",Tools,10,1)
+hopServer.Size = UDim2.new(1,0,0,20)
+hopServer.Position = UDim2.new(0,0,0,10)
+local sHop = gui("TextBox","TPInput",buttonBackground,"",Tools,10,frameTransparency)
+sHop.Text = ""
+sHop.PlaceholderText = "Max Player.."
+sHop.Size = UDim2.new(1,0,0,40)
+sHop.TextColor3 = textColor
+sHop.PlaceholderColor3 = textColor
+sHop.FocusLost:Connect(function(enterPress)
+    if enterPress then
+		local max = tonumber(sHop.Text)
+		if max == "" or max == 0 then
+			max = 100
+		end
+        hopServers(max)
+    end
+end)
 local TextBox = gui("TextBox","TextBox",buttonBackground,"",Tools,10,frameTransparency)
 TextBox.Size = UDim2.new(1,0,0,430)
 TextBox.Position = UDim2.new(0,0,0,400)
@@ -495,12 +569,51 @@ execute.MouseButton1Click:Connect(function()
 		loadstring(result)()
 	end)
 end)
-local FreecamTitle = gui("TextLabel","TrackTitle",mainBackground,"Tracker",Tools,10,1)
+local FreecamTitle = gui("TextLabel","Camera",mainBackground,"Camera",Tools,10,1)
 FreecamTitle.Size = UDim2.new(1,0,0,20)
-local Freecam = gui("TextButton","FreeCam",buttonBackground,"FreeCam",Tools,10,0)
+local inputCamSpeed = gui("TextBox","InputCamSpeed",buttonBackground,"CamSpeed",Tools,10,frameTransparency)
+inputCamSpeed.Size = UDim2.new(1,0,0,40)
+inputCamSpeed.TextColor3 = textColor
+inputCamSpeed.Text = ""
+inputCamSpeed.PlaceholderText = "Camera speed.."
+inputCamSpeed.PlaceholderColor3 = textColor 
+inputCamSpeed.FocusLost:Connect(function()
+	speed = tonumber(inputCamSpeed.Text)
+end)
+local Freecam = gui("TextButton","FreeCam",buttonBackground,"FreeCam",Tools,10,frameTransparency)
 Freecam.Size = UDim2.new(1,0,0,40)
 Freecam.MouseButton1Click:Connect(function()
 	toggleFreecam()
+end)
+
+local Drone = gui("TextBox","Drone",buttonBackground,"Set Max Zoom",Tools,10,frameTransparency)
+Drone.Size = UDim2.new(1,0,0,40)
+Drone.TextColor3 = textColor
+Drone.Text = ""
+Drone.PlaceholderText = "Max Zoom Out"
+Drone.PlaceholderColor3 = textColor 
+local zoomConn
+Drone.FocusLost:Connect(function(enterPress)
+	
+	if enterPress then
+		local maxcam = tonumber(Drone.Text)
+		local player = Players.LocalPlayer
+		if not maxcam or maxcam <= 0 then
+			return
+		end
+		if zoomConn then
+			zoomConn:Disconnect()
+		end
+		player.CameraMinZoomDistance = 0.5
+		player.CameraMaxZoomDistance = maxcam
+		zoomConn = player.Changed:Connect(function(prop)
+			if prop == "CameraMaxZoomDistance" and player.CameraMaxZoomDistance ~= maxcam then
+				print("Changed")
+				player.CameraMaxZoomDistance = maxcam
+				task.wait(1)
+			end
+		end)
+	end
 end)
 --============================================================================================================
 -- misc
@@ -799,7 +912,29 @@ Settings.Size = UDim2.new(1,0,1,0)
 Settings.CanvasSize = UDim2.new(0, 0, 0, 1000)
 Settings.ScrollBarThickness = 8
 Settings.Position = UDim2.new(0,0,0,0)
+local settingsLayout = createLayout(Settings,UDim.new(0,10))
+local settingsPadding = createPadding(Settings,UDim.new(0,10),UDim.new(0,10),UDim.new(0,10),UDim.new(0,18))
 
+local FPSCap = gui("TextBox","Input",buttonBackground,"Atmosphere",Settings,10,frameTransparency)
+FPSCap.Size = UDim2.new(1,0,0,40)
+FPSCap.Position = UDim2.new(0,0,0,520)
+FPSCap.ClearTextOnFocus = false
+FPSCap.Text = ""
+FPSCap.PlaceholderText = "FPS Cap.."
+FPSCap.TextColor3 = textColor
+FPSCap.PlaceholderColor3 = textColor
+local currentFPS
+FPSCap.FocusLost:Connect(function(enterPress)
+	if enterPress then
+		if currentFPS then
+			currentFPS:Disconnect()
+		end
+		local fps = tonumber(FPSCap.Text)
+		if fps then
+			currentFPS = setfpscap(fps)
+		end
+	end
+end)
 local NoParticle = gui("TextButton","Button",buttonBackground,"NoParticle",Settings,10,frameTransparency)
 NoParticle.Size = UDim2.new(1,0,0,40)
 NoParticle.Position = UDim2.new(0,0,0,10)
@@ -866,7 +1001,7 @@ DisableMaterial.MouseButton1Click:Connect(function()
 		end	
 	end
 end)
-DisableMesh = gui("TextButton","Button",buttonBackground,"DisableMesh",Settings,10,frameTransparency)
+DisableMesh = gui("TextButton","Button",buttonBackground,"Disable Mesh",Settings,10,frameTransparency)
 DisableMesh.Size = UDim2.new(1,0,0,40)
 DisableMesh.Position = UDim2.new(0,0,0,235)
 DisableMesh.MouseButton1Click:Connect(function()
@@ -884,6 +1019,54 @@ DisableMesh.MouseButton1Click:Connect(function()
 			v.TextureID = ""
 		end
 	end
+end)
+DisableTerrain = gui("TextButton","Button",buttonBackground,"Disable Terrain",Settings,10,frameTransparency)
+DisableTerrain.Size = UDim2.new(1,0,0,40)
+DisableTerrain.Position = UDim2.new(0,0,0,280)
+DisableTerrain.MouseButton1Click:Connect(function()
+	local workspace = game:GetService("Workspace")
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	local terrain = workspace:WaitForChild("Terrain")
+
+	if terrain then
+		terrain.WaterWaveSpeed = 0
+		terrain.WaterReflectance = 0
+		for _, v in ipairs(terrain:GetChildren()) do
+			v:Destroy()
+		end
+	end
+end)
+--++ close Prompt
+local closeButton = gui("TextButton","CloseButton",Color3.fromRGB(255,0,0),"X",frame,10,1)
+closeButton.Size = UDim2.new(0.05,0,0.1,0)
+closeButton.Position = UDim2.new(0.95,0,0,0)
+local closeaccept = gui("Frame","Button",backgroundColor,"Destroy ui",screenGui,10,0)
+closeaccept.Position = UDim2.new(0.4,0,0.3,50)
+closeaccept.Size = UDim2.new(0.24,0,0,150)
+closeaccept.Visible = false
+
+local closeacceptborder = border("border",Color3.fromRGB(255,255,255),4,closeaccept)
+local closeOk = gui("TextButton","Close",Color3.fromRGB(81, 255, 0),"Ok",closeaccept,10,0)
+local closeCancel = gui("TextButton","Cancel",Color3.fromRGB(255, 0, 4),"Cancel",closeaccept,10,0)
+local closeTitle = gui("TextLabel","Text",Color3.fromRGB(255,255,255),"Do you want to close LIUDEX",closeaccept,0,1)
+closeTitle.Size = UDim2.new(1,-10,0,50)
+closeCancel.Size = UDim2.new(0.48,0,0,50)
+closeOk.Size = UDim2.new(0.48,0,0,50)
+closeOk.Position = UDim2.new(0.51,0,0.48,0)
+closeCancel.Position = UDim2.new(0.01,0,0.48,0)
+
+closeButton.MouseButton1Click:Connect(function()
+	closeaccept.Visible = true
+end)
+
+closeOk.MouseButton1Click:Connect(function()
+	closeaccept.Visible = false
+	getgenv().LiudexStart = false
+	screenGui:Destroy()
+end)
+
+closeCancel.MouseButton1Click:Connect(function()
+	closeaccept.Visible = false
 end)
 -- function
 local function show(ui)
@@ -945,16 +1128,16 @@ local delayGet = 2
 -- request
 show(main)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/VeldoraX/announce-message.lua"))()
-task.spawn(function()
-while true do
-	if partyServer then
-		local url = "https://loremipsumapps.infinityfree.me/roblox-script/users/" 
-			.. tostring(partyServer)
-		task.wait(delayGet)
-		print(url)
-	else
-		warn("partyServer masih nil, isi dulu sebelum dipakai")
-		task.wait(delayGet)
-	end
-end
-end)
+--task.spawn(function()
+-- while true do
+--	if partyServer then
+--		local url = "https://loremipsumapps.infinityfree.me/roblox-script/users/" 
+--			.. tostring(partyServer)
+--		task.wait(delayGet)
+--		print(url)
+--	else
+--		warn("partyServer masih nil, isi dulu sebelum dipakai")
+--		task.wait(delayGet)
+--	end
+--end
+--end
