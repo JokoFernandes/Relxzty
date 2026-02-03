@@ -3,6 +3,26 @@ local bgColor = getgenv().bgColor or Color3.fromRGB(25,5,50)
 local placeHolder = getgenv().placeHolder or "Welcome Place Your Script Here Dont Forget To Join Our Community at https://discord.gg/SshP7wVS - Mod By CecepLoremIpsum"
 local borderColor = getgenv().borderColor or Color3.fromRGB(100,15,150)
 local imageColor = getgenv().imageColor or Color3.fromRGB(255,255,255)
+
+local function getexecutescript(path)
+	local Place = game.PlaceId
+	setclipboard(Place)
+	if isfolder(path)  then
+		for i, v in ipairs (listfiles(path))do
+			if v == (path.. "/" .. Place) then
+				for u,n in ipairs(listfiles(v)) do
+					dofile(n)
+				end
+			end
+		end
+	end
+end
+if not getgenv().LIUDEXLoaded then
+	getexecutescript(file)
+end
+
+getgenv().LIUDEXLoaded = true
+    
 -- clear console
 local Players = game:GetService("Players")
 local plr = Players.LocalPlayer
