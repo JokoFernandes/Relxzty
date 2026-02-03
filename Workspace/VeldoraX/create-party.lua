@@ -3,6 +3,51 @@ if getgenv().LiudexStart then
 end
 
 getgenv().LiudexStart = true
+local file = "LIUDEX Z/Auto Execute"
+local Place = game.PlaceId
+local function addDirectScript(name,script)
+	if not isfolder(tostring(Place)) then
+		makefolder(file .. "/" .. tostring(Place))
+	end
+	writefile(file .. "/" .. tostring(Place) .. "/" .. name, script)
+end
+local StarterGui = game:GetService("StarterGui")
+
+task.wait()
+local function getexecutescript(path)
+	local Place = game.PlaceId
+	setclipboard(Place)
+	if isfolder(path)  then
+		for i, v in ipairs (listfiles(path))do
+			if v == (path.. "/" .. Place) then
+				for u,n in ipairs(listfiles(v)) do
+					dofile(n)
+				end
+			end
+		end
+	end
+end
+local function Notify(Titles,Texts,Buttons1)
+
+-- Fungsi saat tombol diklik
+    local btn1 = Button1
+	local btn2 =Button2
+	
+-- Kirim notifikasi
+StarterGui:SetCore("SendNotification", {
+    Title = Titles,
+    Icon = "rbxassetid://71775514575470", -- contoh ikon notifikasi default
+    Text = Texts,
+	Button1 = Buttons1,
+    Duration = 4
+})
+end
+if not getgenv().LIUDEXLoaded then
+	getexecutescript(file)
+end
+
+getgenv().LIUDEXLoaded = true
+
 local textColor = Color3.fromRGB(255,255,255)
 local backgroundColor = Color3.fromRGB(0, 0, 0)
 local buttonBackground = Color3.fromRGB(56, 0, 154)
@@ -251,12 +296,12 @@ local function gui(type,name,bg,text,parent,radius,transparency)
 end
 
 local function border(name,color,thickness,parrent)
-    local border = Instance.new("UIStroke")
+	local border = Instance.new("UIStroke")
 	border.Parent = parrent
 	border.Name = name
-   	border.Color = color
-    border.Thickness = thickness
-    return border
+	border.Color = color
+	border.Thickness = thickness
+	return border
 end
 
 local frame = gui("Frame","MainFrame",frameColor,"Text",screenGui,10,frameTransparency)
@@ -321,8 +366,8 @@ local leftPanel = gui("Frame","LeftPanel",backgroundColor,"Text",frame,10,frameT
 leftPanel.Size = UDim2.new(0.2,0,0.89,0)
 leftPanel.Position = UDim2.new(0,0,0.1,2)
 local rightPanel = gui("Frame","RightPanel",backgroundColor,"Text",frame,10,frameTransparency)
-rightPanel.Size = UDim2.new(0.75,0,0.89,0)
-rightPanel.Position = UDim2.new(0.25,0,0.1,2)
+rightPanel.Size = UDim2.new(0.79,0,0.89,0)
+rightPanel.Position = UDim2.new(0.21,0,0.1,2)
 local topPanel = gui("Frame","TopPanel",backgroundColor,"Text",frame,10,frameTransparency)
 topPanel.Size = UDim2.new(1,0,0.1,0)
 topPanel.Position = UDim2.new(0,0,0,0)
@@ -915,26 +960,85 @@ Settings.Position = UDim2.new(0,0,0,0)
 local settingsLayout = createLayout(Settings,UDim.new(0,10))
 local settingsPadding = createPadding(Settings,UDim.new(0,10),UDim.new(0,10),UDim.new(0,10),UDim.new(0,18))
 
-local FPSCap = gui("TextBox","Input",buttonBackground,"Atmosphere",Settings,10,frameTransparency)
-FPSCap.Size = UDim2.new(1,0,0,40)
-FPSCap.Position = UDim2.new(0,0,0,520)
-FPSCap.ClearTextOnFocus = false
-FPSCap.Text = ""
-FPSCap.PlaceholderText = "FPS Cap.."
-FPSCap.TextColor3 = textColor
-FPSCap.PlaceholderColor3 = textColor
-local currentFPS
-FPSCap.FocusLost:Connect(function(enterPress)
-	if enterPress then
-		if currentFPS then
-			currentFPS:Disconnect()
+NameR = gui("TextBox","Input",buttonBackground,"",Settings,10,frameTransparency)
+NameR.Size = UDim2.new(1,0,0,40)
+NameR.PlaceholderColor3 = textColor
+NameR.TextColor3 = textColor
+NameR.PlaceholderText = "Name.."
+NameR.Text = ""
+
+AutoExecuteScript = gui("TextBox","Input",buttonBackground,"",Settings,10,frameTransparency)
+AutoExecuteScript.Size = UDim2.new(1,0,0,40)
+AutoExecuteScript.PlaceholderColor3 = textColor
+AutoExecuteScript.TextColor3 = textColor
+AutoExecuteScript.PlaceholderText = "Script.."
+AutoExecuteScript.Text = ""
+
+AddDirectScript = gui("TextButton","Button",buttonBackground,"Add Script",Settings,10,frameTransparency)
+AddDirectScript.Size = UDim2.new(1,0,0,40)
+AddDirectScript.MouseButton1Click:Connect(function()
+	local Sname = tostring(NameR.Text)
+	local Dscript = tostring(AutoExecuteScript.Text)
+	if Sname ~= "" and Dscript ~= "" then
+		Notify("Succes Added Script","Added ".. Sname .. " To Auto Execute list")
+		addDirectScript(Sname,Dscript)
+	else
+		Notify("Failed Added Script","Please input name and the script you want to set")
+	end
+end)
+
+ScriptList = gui("TextButton","Button",buttonBackground,"List Script",Settings,10,frameTransparency)
+ScriptList.Size = UDim2.new(1,0,0,40)
+local ScriptListDropDown
+local scriptlistopen = false
+
+ScriptList.MouseButton1Click:Connect(function()
+	scriptlistopen = not scriptlistopen
+	if scriptlistopen then
+		ScriptListDropDown = gui("ScrollingFrame","Button",Color3.fromRGB(0,0,0),"List Script",ScriptList,10,0)
+		ScriptListDropDown.Position = UDim2.new(0,0,0,40)
+		ScriptListDropDown.Size = UDim2.new(1,0,5,0)
+		ScriptListDropDown.ZIndex = 100
+		ScriptListDropDown.CanvasSize = UDim2.new(0,0,0,1000)
+		border("Border",buttonBackground,3,ScriptListDropDown)
+		ScriptListDropDown.ScrollBarThickness = 8
+		createLayout(ScriptListDropDown,UDim.new(0,10))
+		createPadding(ScriptListDropDown,UDim.new(0,10),UDim.new(0,10),UDim.new(0,10),UDim.new(0,18))
+
+		for i,v in ipairs(listfiles(file .. "/" .. tostring(Place))) do
+			local str = string.split(v,"/")
+			local scrptName = str[#str]
+			local scrpt = gui("TextButton","Button",buttonBackground,scrptName,ScriptListDropDown,10,frameTransparency)
+			scrpt.Size = UDim2.new(1,0,0,40)
+			scrpt.ZIndex = 101
+			scrpt.MouseButton1Click:Connect(function()
+				ScriptList.Text = scrpt.Text
+				ScriptListDropDown:Destroy()
+				ScriptListDropDown = nil
+				scriptlistopen = false
+			end)
 		end
-		local fps = tonumber(FPSCap.Text)
-		if fps then
-			currentFPS = setfpscap(fps)
+	else
+		if ScriptListDropDown then
+			ScriptListDropDown:Destroy()
+			ScriptListDropDown = nil
 		end
 	end
 end)
+
+
+RemoveDirectScript = gui("TextButton","Button",buttonBackground,"Remove Script",Settings,10,frameTransparency)
+RemoveDirectScript.Size = UDim2.new(1,0,0,40)
+RemoveDirectScript.MouseButton1Click:Connect(function()
+	local Sname = tostring(ScriptList.Text)
+	if Sname ~= "" then
+		Notify("Succes Removed Script","Removed ".. Sname .. " From Auto Execute list")
+		delfile(file .. "/" .. tostring(Place) .. "/" .. Sname)
+	else
+		Notify("Failed Removed Script","Please input the Name")
+	end
+end)
+
 local NoParticle = gui("TextButton","Button",buttonBackground,"NoParticle",Settings,10,frameTransparency)
 NoParticle.Size = UDim2.new(1,0,0,40)
 NoParticle.Position = UDim2.new(0,0,0,10)
@@ -986,7 +1090,6 @@ minRender.TextColor3 = textColor
 minRender.Text = "64"
 local DisableMaterial = gui("TextButton","Button",buttonBackground,"DisableMaterial",Settings,10,frameTransparency)
 DisableMaterial.Size = UDim2.new(1,0,0,40)
-DisableMaterial.Position = UDim2.new(0,0,0,190)
 DisableMaterial.MouseButton1Click:Connect(function()
 	local workspace = game:GetService("Workspace")
 	local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -1003,7 +1106,6 @@ DisableMaterial.MouseButton1Click:Connect(function()
 end)
 DisableMesh = gui("TextButton","Button",buttonBackground,"Disable Mesh",Settings,10,frameTransparency)
 DisableMesh.Size = UDim2.new(1,0,0,40)
-DisableMesh.Position = UDim2.new(0,0,0,235)
 DisableMesh.MouseButton1Click:Connect(function()
 	local workspace = game:GetService("Workspace")
 	local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -1022,7 +1124,6 @@ DisableMesh.MouseButton1Click:Connect(function()
 end)
 DisableTerrain = gui("TextButton","Button",buttonBackground,"Disable Terrain",Settings,10,frameTransparency)
 DisableTerrain.Size = UDim2.new(1,0,0,40)
-DisableTerrain.Position = UDim2.new(0,0,0,280)
 DisableTerrain.MouseButton1Click:Connect(function()
 	local workspace = game:GetService("Workspace")
 	local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -1033,6 +1134,27 @@ DisableTerrain.MouseButton1Click:Connect(function()
 		terrain.WaterReflectance = 0
 		for _, v in ipairs(terrain:GetChildren()) do
 			v:Destroy()
+		end
+	end
+end)
+
+local FPSCap = gui("TextBox","Input",buttonBackground,"Atmosphere",Settings,10,frameTransparency)
+FPSCap.Size = UDim2.new(1,0,0,40)
+FPSCap.Position = UDim2.new(0,0,0,520)
+FPSCap.ClearTextOnFocus = false
+FPSCap.Text = ""
+FPSCap.PlaceholderText = "FPS Cap.."
+FPSCap.TextColor3 = textColor
+FPSCap.PlaceholderColor3 = textColor
+local currentFPS
+FPSCap.FocusLost:Connect(function(enterPress)
+	if enterPress then
+		if currentFPS then
+			currentFPS:Disconnect()
+		end
+		local fps = tonumber(FPSCap.Text)
+		if fps then
+			currentFPS = setfpscap(fps)
 		end
 	end
 end)
@@ -1062,7 +1184,14 @@ end)
 closeOk.MouseButton1Click:Connect(function()
 	closeaccept.Visible = false
 	getgenv().LiudexStart = false
+	if zoomConn then
+		zoomConn:Disconnect()
+	end
 	screenGui:Destroy()
+	
+	if freezcon then
+		toggleFreecam()
+	end
 end)
 
 closeCancel.MouseButton1Click:Connect(function()
