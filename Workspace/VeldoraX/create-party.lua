@@ -479,17 +479,16 @@ local Tracker = gui("TextButton","Tracker",buttonBackground,"Track",Tools,10,fra
 Tracker.Size = UDim2.new(1,0,0,40)
 Tracker.Position = UDim2.new(0,0,0,75)
 local trackToggle = false
-Tracker.MouseButton1Click:Connect(function()
+local function Tracking(color)
 	trackToggle = not trackToggle
 	if trackToggle then
-		local args = string.split(trackConfig.Text, ",")
-		task.spawn(function()
-			for i,v in pairs(Players:GetPlayers()) do
+		Tracker.Text = "UnTrack"
+		for i,v in pairs(Players:GetPlayers()) do
 			local highlight = Instance.new("Highlight")
 			highlight.Parent = v.Character
 			highlight.Adornee = v.Character
 			highlight.Name = "Highlight"
-			highlight.FillColor = Color3.fromRGB(args[1], args[2], args[3]) or hlColor
+			highlight.FillColor = color or hlColor
 			highlight.OutlineColor = Color3.fromRGB(0, 0, 0)
 			highlight.FillTransparency = 0.4
 			highlight.OutlineTransparency = 0
@@ -513,11 +512,8 @@ Tracker.MouseButton1Click:Connect(function()
 			text.Font = Enum.Font.GothamBold
 			text.TextSize = 14
 			text.TextXAlignment = Enum.TextXAlignment.Center
-			text.TextYAlignment = Enum.TextYAlignment.Bottom
-			
+			text.TextYAlignment = Enum.TextYAlignment.Bottom	
 		end
-		end)
-		Tracker.Text = "UnTrack"
 	else
 		Tracker.Text = "Track"
 		for i,v in pairs(Players:GetPlayers()) do
@@ -535,6 +531,13 @@ Tracker.MouseButton1Click:Connect(function()
 			end 
 		end
 	end
+end
+Tracker.MouseButton1Click:Connect(function()
+		local args = string.split(trackConfig.Text, ",")
+		local colorT = Color3.fromRGB(args[1], args[2], args[3])
+		task.spawn(function()
+			Tracking(colorT)
+		end)
 end)
 local TPTitle = gui("TextLabel","Tp",mainBackground,"Go To Player",Tools,10,1)
 TPTitle.Size = UDim2.new(1,0,0,20)
@@ -1158,6 +1161,98 @@ FPSCap.FocusLost:Connect(function(enterPress)
 		end
 	end
 end)
+----------------------------------------------------------------------------------------------------------------
+--KeyBind
+----------------------------------------------------------------------------------------------------------------
+local function KeyCode(this, setSubject)
+	this:GetPropertyChangedSignal("Text"):Connect(function()
+		-- apus spasi
+		this.Text = this.Text:gsub("%s+", "")
+
+		-- max 1 huruf
+		if #this.Text > 1 then
+			this.Text = this.Text:sub(1, 1)
+		end
+
+		-- auto kapital
+		this.Text = this.Text:upper()
+
+		-- convert ke Enum.KeyCode
+		local key = Enum.KeyCode:FromName(this.Text)
+		if key then
+			setSubject(key) -- update variable luar
+		end
+	end)
+end
+
+
+local KeyBind = gui("ScrollingFrame","Settings",buttonBackground,"Settings",rightPanel,10,1)
+KeyBind.Size = UDim2.new(1,0,1,0)
+KeyBind.CanvasSize = UDim2.new(0, 0, 0, 1000)
+KeyBind.ScrollBarThickness = 8
+KeyBind.Position = UDim2.new(0,0,0,0)
+local KeyBindLayout = createLayout(KeyBind,UDim.new(0,10))
+local KeyBindPadding = createPadding(KeyBind,UDim.new(0,10),UDim.new(0,10),UDim.new(0,10),UDim.new(0,18))
+-- freeCam
+local FCKey = gui("Frame","FCkey",buttonBackground,"FCKey",KeyBind,10,frameTransparency)
+FCKey.Size = UDim2.new(1,0,0,40)
+local FCKeyInput = gui("TextBox","FCinput",buttonBackground,"Key Code..",FCKey,10,0.1)
+FCKeyInput.Size = UDim2.new(0.3,0,0,35)
+FCKeyInput.Position = UDim2.new(0.6,0,0,2.5)
+FCKeyInput.TextColor3 = textColor
+FCKeyInput.Text = "F"
+
+local FCKeyCode = Enum.KeyCode:FromName(FCKeyInput.Text)
+
+KeyCode(FCKeyInput, function(newKey)
+	FCKeyCode = newKey
+	print("FCKeyCode updated:", FCKeyCode)
+end)
+
+local FCKeyText = gui("TextLabel","Freecam Key",mainBackground,"Free Cam",FCKey,10,1)
+FCKeyText.Size = UDim2.new(0.5,0,0,40)
+FCKeyText.Position = UDim2.new(0.02,0,0,0)
+FCKeyText.TextSize = 100
+FCKeyText.TextXAlignment = Enum.TextXAlignment.Left
+-- Track
+local TrackerKey = gui("Frame","FCkey",buttonBackground,"FCKey",KeyBind,10,frameTransparency)
+TrackerKey.Size = UDim2.new(1,0,0,40)
+local TrackerKeyInput = gui("TextBox","FCinput",buttonBackground,"Key Code..",TrackerKey,10,0.1)
+TrackerKeyInput.Size = UDim2.new(0.3,0,0,35)
+TrackerKeyInput.Position = UDim2.new(0.6,0,0,2.5)
+TrackerKeyInput.TextColor3 = textColor
+TrackerKeyInput.Text = "T"
+
+local TrackerCode = Enum.KeyCode:FromName(TrackerKeyInput.Text)
+
+KeyCode(TrackerKeyInput, function(newKey)
+	TrackerCode = newKey
+	print("FCKeyCode updated:", TrackerCode)
+end)
+
+local TrackerText = gui("TextLabel","Freecam Key",mainBackground,"Free Cam",TrackerKey,10,1)
+TrackerText.Size = UDim2.new(0.5,0,0,40)
+TrackerText.Position = UDim2.new(0.02,0,0,0)
+TrackerText.TextSize = 100
+TrackerText.TextXAlignment = Enum.TextXAlignment.Left
+----------------------------------------------------------------------------------------------------------------
+--KeyCode
+----------------------------------------------------------------------------------------------------------------
+-- FC
+UIS.InputBegan:Connect(function(input, gp)
+	if gp then return end
+
+	if input.KeyCode == FCKeyCode then
+		toggleFreecam()
+	end
+	if input.KeyCode == TrackerCode then
+		local args = string.split(trackConfig.Text, ",")
+		local colorT = Color3.fromRGB(args[1], args[2], args[3])
+		task.spawn(function()
+			Tracking(colorT)
+		end)
+	end
+end)
 --++ close Prompt
 local closeButton = gui("TextButton","CloseButton",Color3.fromRGB(255,0,0),"X",frame,10,1)
 closeButton.Size = UDim2.new(0.05,0,0.1,0)
@@ -1202,11 +1297,13 @@ local function show(ui)
 	main.Visible = false
 	Tools.Visible = false
 	Misc.Visible = false
+	KeyBind.Visible = false
 	Settings.Visible = false
 	main.Active = false
 	Tools.Active = false
 	Misc.Active = false
 	Settings.Active = false
+	KeyBind.Active = false
 	task.wait()
 	ui.Active = true
 	ui.Visible = true
@@ -1224,15 +1321,13 @@ end)
 SettingsButton.MouseButton1Click:Connect(function()
 	show(Settings)
 end)
+KeyBindButton.MouseButton1Click:Connect(function()
+	show(KeyBind)
+end)
 local toggle = false -- mulai dari OFF
 
 iconButton.MouseButton1Click:Connect(function()
-	toggle = not toggle -- setiap klik, nilai dibalik
-	if toggle then
-		frame.Visible = false
-	else
-		frame.Visible = true
-	end
+	frame.Visible = not frame.Visible
 end)
 CreateButton.MouseButton1Click:Connect(function()
 local HttpService = game:GetService("HttpService")
