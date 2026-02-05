@@ -67,6 +67,7 @@ local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local borderColor = Color3.fromRGB(0, 0, 4) 
 local mainBackground = backgroundColor
+local player = Players.LocalPlayer
 local char = Players.LocalPlayer.Character or Players.LocalPlayers.CharacterAdded:Wait()
 local humanoid = char:WaitForChild("Humanoid")
 local UIS = game:GetService("UserInputService")
@@ -79,6 +80,7 @@ local freecamEnabled = false
 local oldCameraType
 local oldCameraCFrame
 local freezcon
+local healthcon
 screenGui.Parent = gethui()
 screenGui.IgnoreGuiInset = true
 screenGui.ResetOnSpawn = false
@@ -125,6 +127,11 @@ local function toggleFreecam()
 		freezcon = humanoid.Changed:Connect(function(property)
 			if property == "WalkSpeed" and humanoid.WalkSpeed ~= 0 then
 				humanoid.WalkSpeed = 0
+			end
+		end)
+		healthcon = humanoid.HealthChanged:Connect(function(health)
+			if health <= 0 then
+				toggleFreecam()
 			end
 		end)
 	else
@@ -1286,6 +1293,13 @@ closeOk.MouseButton1Click:Connect(function()
 	
 	if freezcon then
 		toggleFreecam()
+	end
+end)
+
+player.CharacterAdded:Connect(function()
+	char = player.Character or player.CharacterAdded:Wait()
+	if char then
+		humanoid = char:WaitForChild("Humanoid")
 	end
 end)
 
