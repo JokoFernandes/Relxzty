@@ -16,7 +16,6 @@ local StarterGui = game:GetService("StarterGui")
 task.wait()
 local function getexecutescript(path)
 	local Place = game.PlaceId
-	setclipboard(Place)
 	if isfolder(path)  then
 		for i, v in ipairs (listfiles(path))do
 			if v == (path.. "/" .. Place) then
