@@ -21,7 +21,7 @@ local RunService = game:GetService("RunService")
 
 local LocalPlayer = Players.LocalPlayer
 local charp = LocalPlayer.Character
-local botName = {"Samsul","fufufafa","Joko","Asep","Bahlul","Sah Ron I","Mulyono","FufuGaming02","OhimImoet","ASTG_Reg_12","Jangar371","Muanis551","AmbatukingTheGreat","Rusdi","DiBwhNamaBluds","BowoGamer02"}
+local botName = getgenv().BotName or {"Samsul","fufufafa","Joko","Asep","Bahlul","Sah Ron I","Mulyono","FufuGaming02","OhimImoet","ASTG_Reg_12","Jangar371","Muanis551","AmbatukingTheGreat","Rusdi","DiBwhNamaBluds","BowoGamer02"}
 for i, v in pairs(botName) do 
 -- CONFIG
 local FOLLOW_DISTANCE = 6 + (i * 2)
@@ -43,13 +43,14 @@ local function SpawnOtherAvatar(modelName, userId)
 	char.Parent = workspace
     task.spawn(function()
       
-local overhead = charp.HumanoidRootPart.Overhead:Clone()
-
-local name = overhead.Content.Header
-local level = overhead.LevelContainer.Label
-name.Text = modelName
-level.Text = "Lvl: " .. math.random(20,400)
-overhead.Parent = char.HumanoidRootPart
+if game.PlaceId == 121864768012064 then 
+	local overhead = charp.HumanoidRootPart.Overhead:Clone()
+	local name = overhead.Content.Header
+	local level = overhead.LevelContainer.Label
+	name.Text = modelName
+	level.Text = "Lvl: " .. math.random(20,400)
+	overhead.Parent = char.HumanoidRootPart
+end
       while true do
       local messages = msage[math.random(#msage)]
       local npc = char
