@@ -114,7 +114,7 @@ if onMobile then sens *= 2 end
 local function toggleFreecam()
 	freecamEnabled = not freecamEnabled
 
-	if freecamEnabled then
+	if freecamEnabled and not game.Workspace:GetAttribute("LIUDEX_FREECAM") then
 		oldCameraType = cam.CameraType
 		oldCameraCFrame = cam.CFrame
 
@@ -251,6 +251,30 @@ end)
 --==============================================================
 --script attr
 --==============================================================
+function decal(texture, enum, parent)
+    local decal = Instance.new("Decal")
+    decal.Texture = texture
+    decal.Face = enum
+    decal.Parent = parent
+    return decal
+end
+local function changeMaterial(container, newMaterial, decal)
+    -- Loop semua child di dalam container
+    for _, child in ipairs(game.Workspace:GetDescendants()) do
+        if child:IsA("BasePart") or child:IsA("MeshPart") then
+            child.Material = newMaterial
+            local res = getcustomasset("base.png") or "rbxassetid://126569944133822"
+            decal(res, Enum.NormalId.Top, child)
+            decal(res, Enum.NormalId.Left, child)
+            decal(res, Enum.NormalId.Right, child)
+            decal(res, Enum.NormalId.Front, child)
+            decal(res, Enum.NormalId.Back, child)
+            decal(res, Enum.NormalId.Bottom, child)
+        elseif child:IsA("Model") or child:IsA("Folder") then
+            -- Kalau object adalah Model/Folder, loop lagi ke dalamnya
+        end
+    end
+end
 
 local function createLayout(parent,padding)
 	local cLayout = Instance.new("UIListLayout")
@@ -363,39 +387,54 @@ local function makeDraggable(frame)
 		end
 	end)
 end
+local SIconSize = UDim2.new(0,20,0,20)
+local SIconPos = UDim2.new(0,10,0,10)
+function SetIcon(obj,assetId)
+	local newIcon = Instance.new("ImageLabel")
+	newIcon.Size = SIconSize
+	newIcon.Image = assetId
+	newIcon.Position = SIconPos
+	newIcon.Parent = obj
+	return newIcon
+end
 
 -- panggil fungsi untuk frame kamu
 makeDraggable(frame)
 makeDraggable(iconButton)
 
 local leftPanel = gui("Frame","LeftPanel",backgroundColor,"Text",frame,10,frameTransparency)
-leftPanel.Size = UDim2.new(0.2,0,0.89,0)
+leftPanel.Size = UDim2.new(0.26,0,0.89,0)
 leftPanel.Position = UDim2.new(0,0,0.1,2)
 local rightPanel = gui("Frame","RightPanel",backgroundColor,"Text",frame,10,frameTransparency)
-rightPanel.Size = UDim2.new(0.79,0,0.89,0)
-rightPanel.Position = UDim2.new(0.21,0,0.1,2)
+rightPanel.Size = UDim2.new(0.74,0,0.89,0)
+rightPanel.Position = UDim2.new(0.26,0,0.1,2)
 local topPanel = gui("Frame","TopPanel",backgroundColor,"Text",frame,10,frameTransparency)
 topPanel.Size = UDim2.new(1,0,0.1,0)
 topPanel.Position = UDim2.new(0,0,0,0)
 local mainButton = gui("TextButton","Button",buttonBackground,"Main",leftPanel,10,frameTransparency)
-mainButton.Size = UDim2.new(1,0,0,30)
+mainButton.Size = UDim2.new(1,0,0,40)
 mainButton.Position = UDim2.new(0,0,0,10)
+SetIcon(mainButton,"rbxassetid://126569944133822")
 local ToolsButton = gui("TextButton","Button",buttonBackground,"Tools",leftPanel,10,frameTransparency)
-ToolsButton.Size = UDim2.new(1,0,0,30)
+ToolsButton.Size = UDim2.new(1,0,0,40)
 ToolsButton.Position = UDim2.new(0,0,0,50)
+SetIcon(ToolsButton,"rbxassetid://126569944133822")
 local MiscButton = gui("TextButton","Button",buttonBackground,"Misc",leftPanel,10,frameTransparency)
-MiscButton.Size = UDim2.new(1,0,0,30)
+MiscButton.Size = UDim2.new(1,0,0,40)
 MiscButton.Position = UDim2.new(0,0,0,90)
+SetIcon(MiscButton,"rbxassetid://126569944133822")
 local SettingsButton = gui("TextButton","Button",buttonBackground,"Settings",leftPanel,10,frameTransparency)	
-SettingsButton.Size = UDim2.new(1,0,0,30)
+SettingsButton.Size = UDim2.new(1,0,0,40)
 SettingsButton.Position = UDim2.new(0,0,0,130)
-local KeyBindButton = gui("TextButton","Keybind Set",buttonBackground,"Keybind Set",leftPanel,10,frameTransparency)	
-KeyBindButton.Size = UDim2.new(1,0,0,30)
+SetIcon(SettingsButton,"rbxassetid://126569944133822")
+local KeyBindButton = gui("TextButton","KeyBind",buttonBackground,"Keybind",leftPanel,10,frameTransparency)	
+KeyBindButton.Size = UDim2.new(1,0,0,40)
 KeyBindButton.Position = UDim2.new(0,0,0,170)
+SetIcon(KeyBindButton,"rbxassetid://126569944133822")
 
 
-leftLayout = createLayout(leftPanel,UDim.new(0,10))
-leftPadding = createPadding(leftPanel,UDim.new(0,10),UDim.new(0,10),UDim.new(0,10),UDim.new(0,10))
+leftLayout = createLayout(leftPanel,UDim.new(0,5))
+leftPadding = createPadding(leftPanel,UDim.new(0,5),UDim.new(0,5),UDim.new(0,5),UDim.new(0,5))
 -- border
 local leftBorder = border("Border",borderColor,1,leftPanel)
 local rightBorder = border("Border",borderColor,1,rightPanel)
@@ -459,6 +498,35 @@ leaveButton.MouseButton1Click:Connect(function()
 	partyServer = nil
 	inputJoin.Text = ""
 end)
+local decalId = gui("TextBox","Input",buttonBackground,"Decal Id ...",main,10,frameTransparency)
+decalId.Size = UDim2.new(1,0,0,40)
+decalId.Position = UDim2.new(0,0,0,55)
+decalId.TextColor3 = Color3.fromRGB(255,255,255)
+decalId.Text = ""
+decalId.PlaceholderText = "Insert Party ID..."
+local decalSpam = gui("TextButton","Button",buttonBackground,"Spam Decal",main,10,frameTransparency)
+decalSpam.Size = UDim2.new(1,0,0,40)
+decalSpam.Position = UDim2.new(0,0,0,145)
+decalSpam.MouseButton1Click:Connect(function()
+	local dec = "rbxassetid://" .. tostring(decalId.Text)
+	changeMaterial(game.Workspace, Enum.Material.Neon, decal)
+end)
+local friendspawn = gui("Frame","Friend",buttonBackground,"Friends ID",main,10,frameTransparency)
+friendspawn.Size = UDim2.new(1,0,0,40)
+local friendspawnId = gui("TextBox","Friend",buttonBackground,"Friends ID",friendspawn,10,frameTransparency)
+friendspawnId.Text = ""
+friendspawnId.Size = UDim2.new(0.45,0,0,40)
+friendspawnId.Position = UDim2.new(0,0,0,0)
+local friendspawnCount = gui("TextBox","Friend",buttonBackground,"Count",friendspawn,10,frameTransparency)
+friendspawnCount.Text = "1"
+friendspawnCount.Position = UDim2.new(0.5,0,0,0)
+friendspawnCount.Size = UDim2.new(0.45,0,0,40)
+local spawnfriendbutton = gui("TextButton","Friend",buttonBackground,"Friends ID",main,10,frameTransparency)
+spawnfriendbutton.Size = UDim2.new(1,0,0,40)
+spawnfriendbutton.MouseButton1Click:Connect(function()
+	getgenv().UserIDChar = tonumber(friendspawnId.Text) or 1079792491
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/El%20Konten/fake-bot.lua"))()
+end)
 --============================================================================================================
 -- tools
 --============================================================================================================
@@ -487,7 +555,7 @@ Tracker.Position = UDim2.new(0,0,0,75)
 local trackToggle = false
 local function Tracking(color)
 	trackToggle = not trackToggle
-	if trackToggle then
+	if trackToggle and not game.Workspace:GetAttribute("LIUDEX_TRACKING") then
 		Tracker.Text = "UnTrack"
 		for i,v in pairs(Players:GetPlayers()) do
 			local highlight = Instance.new("Highlight")
