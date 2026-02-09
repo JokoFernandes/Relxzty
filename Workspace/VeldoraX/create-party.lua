@@ -26,6 +26,45 @@ local function getexecutescript(path)
 		end
 	end
 end
+local assets = {"icon.png","icon2.png","icon3.png","icon4.png","icon5.png","icon6.png"}
+
+local function getAllAssets(list)
+	if not isfolder("LIUDEX Z/Asset") then
+		makefolder("LIUDEX Z/Asset")
+	end
+	task.wait()
+    for _, v in ipairs(list) do
+        local path = "LIUDEX Z/Asset/" .. v
+        if not isfile(path) then
+            local ok, content = pcall(function()
+                return game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/Assets/" .. v)
+            end)
+            if ok and content then
+                writefile(path, content)
+            else
+                warn("Gagal download asset: " .. v)
+            end
+        end
+    end
+end
+
+local function allAssetsExist(list)
+    for _, v in ipairs(list) do
+        if not isfile("LIUDEX Z/Asset/" .. v) then
+            return false
+        end
+    end
+    return true
+end
+repeat
+    getAllAssets(assets)
+    task.wait(1)
+until allAssetsExist(assets)
+print("✅ Done")
+
+
+
+
 local function Notify(Titles,Texts,Buttons1)
 
 -- Fungsi saat tombol diklik
@@ -55,13 +94,14 @@ local cam = workspace.CurrentCamera
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local frameColor = Color3.fromRGB(81, 0, 161)
+local frameColor = Color3.fromRGB(37, 5, 75)
 ---------------------------------------------------------------
 local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "LIUDEX Z"
 local HttpService = game:GetService("HttpService")
-local buttonTransparency = 0.6
+local buttonTransparency = 0.5
 local plrparty = nil
-local frameTransparency = 0.4
+local frameTransparency = 0.2
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local borderColor = Color3.fromRGB(0, 0, 4) 
@@ -335,7 +375,7 @@ local function border(name,color,thickness,parrent)
 end
 
 local frame = gui("Frame","MainFrame",frameColor,"Text",screenGui,10,frameTransparency)
-frame.Size = UDim2.new(0.7,0,0.8,0)
+frame.Size = UDim2.new(0.74,0,0.8,0)
 frame.Position = UDim2.new(0.15,0,0.01,0)
 
 local iconButton = gui("TextButton","IconButton",buttonBackground,"",screenGui,10,1)
@@ -387,7 +427,7 @@ local function makeDraggable(frame)
 		end
 	end)
 end
-local SIconSize = UDim2.new(0,20,0,20)
+local SIconSize = UDim2.new(0,18,0,18)
 local SIconPos = UDim2.new(0,10,0,10)
 function SetIcon(obj,assetId)
 	local newIcon = Instance.new("ImageLabel")
@@ -402,36 +442,35 @@ end
 makeDraggable(frame)
 makeDraggable(iconButton)
 
-local leftPanel = gui("Frame","LeftPanel",backgroundColor,"Text",frame,10,frameTransparency)
-leftPanel.Size = UDim2.new(0.26,0,0.89,0)
+local leftPanel = gui("Frame","LeftPanel",backgroundColor,"Text",frame,10,1)
+leftPanel.Size = UDim2.new(0,200,0.89,0)
 leftPanel.Position = UDim2.new(0,0,0.1,2)
-local rightPanel = gui("Frame","RightPanel",backgroundColor,"Text",frame,10,frameTransparency)
-rightPanel.Size = UDim2.new(0.74,0,0.89,0)
-rightPanel.Position = UDim2.new(0.26,0,0.1,2)
-local topPanel = gui("Frame","TopPanel",backgroundColor,"Text",frame,10,frameTransparency)
+local rightPanel = gui("Frame","RightPanel",backgroundColor,"Text",frame,10,1)
+rightPanel.Size = UDim2.new(1,-200,0.89,0)
+rightPanel.Position = UDim2.new(0,200,0.1,2)
+local topPanel = gui("Frame","TopPanel",backgroundColor,"Text",frame,10,1)
 topPanel.Size = UDim2.new(1,0,0.1,0)
 topPanel.Position = UDim2.new(0,0,0,0)
 local mainButton = gui("TextButton","Button",buttonBackground,"Main",leftPanel,10,frameTransparency)
 mainButton.Size = UDim2.new(1,0,0,40)
 mainButton.Position = UDim2.new(0,0,0,10)
-SetIcon(mainButton,"rbxassetid://126569944133822")
+SetIcon(mainButton,getcustomasset("LIUDEX Z/Asset/icon.png"))
 local ToolsButton = gui("TextButton","Button",buttonBackground,"Tools",leftPanel,10,frameTransparency)
 ToolsButton.Size = UDim2.new(1,0,0,40)
 ToolsButton.Position = UDim2.new(0,0,0,50)
-SetIcon(ToolsButton,"rbxassetid://126569944133822")
+SetIcon(ToolsButton,getcustomasset("LIUDEX Z/Asset/icon5.png"))
 local MiscButton = gui("TextButton","Button",buttonBackground,"Misc",leftPanel,10,frameTransparency)
 MiscButton.Size = UDim2.new(1,0,0,40)
 MiscButton.Position = UDim2.new(0,0,0,90)
-SetIcon(MiscButton,"rbxassetid://126569944133822")
+SetIcon(MiscButton,getcustomasset("LIUDEX Z/Asset/icon2.png"))
 local SettingsButton = gui("TextButton","Button",buttonBackground,"Settings",leftPanel,10,frameTransparency)	
 SettingsButton.Size = UDim2.new(1,0,0,40)
 SettingsButton.Position = UDim2.new(0,0,0,130)
-SetIcon(SettingsButton,"rbxassetid://126569944133822")
+SetIcon(SettingsButton,getcustomasset("LIUDEX Z/Asset/icon4.png"))
 local KeyBindButton = gui("TextButton","KeyBind",buttonBackground,"Keybind",leftPanel,10,frameTransparency)	
 KeyBindButton.Size = UDim2.new(1,0,0,40)
 KeyBindButton.Position = UDim2.new(0,0,0,170)
-SetIcon(KeyBindButton,"rbxassetid://126569944133822")
-
+SetIcon(KeyBindButton,getcustomasset("LIUDEX Z/Asset/icon3.png"))
 
 leftLayout = createLayout(leftPanel,UDim.new(0,5))
 leftPadding = createPadding(leftPanel,UDim.new(0,5),UDim.new(0,5),UDim.new(0,5),UDim.new(0,5))
@@ -1349,7 +1388,7 @@ closeCancel.Position = UDim2.new(0.01,0,0.48,0)
 closeButton.MouseButton1Click:Connect(function()
 	closeaccept.Visible = true
 end)
-
+local clossed = false
 closeOk.MouseButton1Click:Connect(function()
 	closeaccept.Visible = false
 	getgenv().LiudexStart = false
@@ -1359,14 +1398,23 @@ closeOk.MouseButton1Click:Connect(function()
 	screenGui:Destroy()
 	
 	if freezcon then
+		clossed = true
 		toggleFreecam()
+		freezcon:Disconnect()
+	end
+	if clossed then
+		cam = nil
+		humanoid = nil
+		char = nil
 	end
 end)
 
 player.CharacterAdded:Connect(function()
-	char = player.Character or player.CharacterAdded:Wait()
-	if char then
-		humanoid = char:WaitForChild("Humanoid")
+	if not clossed then
+		char = player.Character or player.CharacterAdded:Wait()
+		if char then
+			humanoid = char:WaitForChild("Humanoid")
+		end
 	end
 end)
 
