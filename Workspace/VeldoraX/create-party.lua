@@ -115,7 +115,7 @@ local onMobile = not UIS.KeyboardEnabled
 local keysDown = {}
 local rotating = false
 local freecamEnabled = false
-
+local clossed = false
 local oldCameraType
 local oldCameraCFrame
 local freezcon
@@ -153,7 +153,9 @@ if onMobile then sens *= 2 end
 -- FUNCTION TOGGLE FREECAM
 local function toggleFreecam()
 	freecamEnabled = not freecamEnabled
-
+	if clossed then
+		freecamEnabled = false
+	end
 	if freecamEnabled and not game.Workspace:GetAttribute("LIUDEX_FREECAM") then
 		oldCameraType = cam.CameraType
 		oldCameraCFrame = cam.CFrame
@@ -170,7 +172,15 @@ local function toggleFreecam()
 		end)
 		healthcon = humanoid.HealthChanged:Connect(function(health)
 			if health <= 0 then
-				toggleFreecam()
+				cam.CameraType = oldCameraType
+				cam.CFrame = oldCameraCFrame
+				if freezcon then
+					freezcon:Disconnect()
+					freezcon = nil
+				end
+				keysDown = {}
+				rotating = false
+				UIS.MouseBehavior = Enum.MouseBehavior.Default
 			end
 		end)
 	else
@@ -489,8 +499,10 @@ title.FontFace = Font.new("rbxasset://fonts/families/Guru.json",Enum.FontWeight.
 --============================================================================================================
 -- main
 --============================================================================================================
-local main = gui("Frame","Main",mainBackground,"Main",rightPanel,10,1)
+local main = gui("ScrollingFrame","Main",mainBackground,"Main",rightPanel,10,1)
 main.Size = UDim2.new(1,0,1,0)
+main.CanvasSize = UDim2.new(0,0,0,600)
+main.ScrollBarThickness = 10
 main.Position = UDim2.new(0,0,0,0)
 
 mainLayout = createLayout(main,UDim.new(0,10))
@@ -1366,6 +1378,7 @@ UIS.InputBegan:Connect(function(input, gp)
 		end)
 	end
 end)
+
 --++ close Prompt
 local closeButton = gui("TextButton","CloseButton",Color3.fromRGB(255,0,0),"X",frame,10,1)
 closeButton.Size = UDim2.new(0.05,0,0.1,0)
@@ -1388,9 +1401,9 @@ closeCancel.Position = UDim2.new(0.01,0,0.48,0)
 closeButton.MouseButton1Click:Connect(function()
 	closeaccept.Visible = true
 end)
-local clossed = false
 closeOk.MouseButton1Click:Connect(function()
 	closeaccept.Visible = false
+	clossed = true
 	getgenv().LiudexStart = false
 	if zoomConn then
 		zoomConn:Disconnect()
@@ -1398,11 +1411,21 @@ closeOk.MouseButton1Click:Connect(function()
 	screenGui:Destroy()
 	
 	if freezcon then
-		clossed = true
 		toggleFreecam()
-		freezcon:Disconnect()
 	end
 	if clossed then
+		cam.CameraType = oldCameraType
+		humanoid.WalkSpeed = 16
+		humanoid.JumpPower = 50
+		if freezcon then
+			freezcon:Disconnect()
+			freezcon = nil
+		end
+		FCKeyCode = nil
+		TrackerCode = nil
+		keysDown = {}
+		rotating = false
+		UIS.MouseBehavior = Enum.MouseBehavior.Default
 		cam = nil
 		humanoid = nil
 		char = nil
