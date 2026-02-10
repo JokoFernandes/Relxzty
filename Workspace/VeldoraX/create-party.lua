@@ -604,6 +604,7 @@ local Tracker = gui("TextButton","Tracker",buttonBackground,"Track",Tools,10,fra
 Tracker.Size = UDim2.new(1,0,0,40)
 Tracker.Position = UDim2.new(0,0,0,75)
 local trackToggle = false
+local allPLRDistance = {}
 local function Tracking(color)
 	trackToggle = not trackToggle
 	if trackToggle and not game.Workspace:GetAttribute("LIUDEX_TRACKING") then
@@ -638,6 +639,22 @@ local function Tracking(color)
 			text.TextSize = 14
 			text.TextXAlignment = Enum.TextXAlignment.Center
 			text.TextYAlignment = Enum.TextYAlignment.Bottom	
+			if v ~= player then
+				local textDistance = gui("TextLabel","Name",mainBackground,"",frame,100,1)
+				textDistance.Size = UDim2.new(1,0,1,0)
+				textDistance.Position = UDim2.new(0,0,0.45,0)
+				textDistance.Text = v.Name
+				textDistance.TextWrapped = false
+				textDistance.TextScaled = false
+				textDistance.TextColor3 = textColor
+				textDistance.BackgroundTransparency = 1
+				textDistance.Font = Enum.Font.GothamBold
+				textDistance.TextSize = 14
+				textDistance.TextColor3 = Color3.fromRGB(10,235,20)
+				textDistance.TextXAlignment = Enum.TextXAlignment.Center
+				textDistance.TextYAlignment = Enum.TextYAlignment.Bottom	
+				allPLRDistance[v] = textDistance
+			end
 		end
 	else
 		Tracker.Text = "Track"
@@ -657,6 +674,23 @@ local function Tracking(color)
 		end
 	end
 end
+print("jn")
+RunService.RenderStepped:Connect(function()
+    local r = player.Character and player.Character:FindFirstChild("Head")
+    if not r then return end
+
+    for plr, label in pairs(allPLRDistance) do
+        local n = plr.Character and plr.Character:FindFirstChild("Head")
+        if n and n ~= r then
+            local distance = (r.Position - n.Position).Magnitude
+            if distance >= 5 then
+				label.Text = string.format("%d Studs", math.round(distance))
+			else
+				label.Text = ""
+			end 
+        end
+    end
+end)
 Tracker.MouseButton1Click:Connect(function()
 		local args = string.split(trackConfig.Text, ",")
 		local colorT = Color3.fromRGB(args[1], args[2], args[3])
