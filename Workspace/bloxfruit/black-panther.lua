@@ -1,5 +1,6 @@
 -- Tiger Chromatic
 -- simplefied
+local Debris = game:GetService("Debris")
 local location = game:GetService("Players").LocalPlayer:WaitForChild("LeopardFruitVFXColor")
 local fruit = location:WaitForChild("Default")
 local shifted = location:WaitForChild("Shifted")
@@ -51,7 +52,7 @@ tigerFrontL.AnimationId = "rbxassetid://87417508667430"
 
 char.ChildAdded:Connect(function(obj)
     if obj.Name == "TigerRig" then
-        task.wait(0.2)
+        task.wait()
         print("change")
 
         local tigerRig = obj
@@ -60,11 +61,13 @@ char.ChildAdded:Connect(function(obj)
         local surface = body:FindFirstChild("SurfaceAppearance")
         eyes.Color = Color3.fromRGB(255,10,5)
         body.Color = Color3.fromRGB(10,0,25)
-          body.Material = Enum.Material.Cobblestone
+        body.Material = Enum.Material.Cobblestone
         if surface then
-            surface:Destroy()
+            Debris:AddItem(surface, 0)
         end
-          local hair =char:WaitForChild("TigerRig"):WaitForChild("AccessoriesFolder"):WaitForChild("Handle")
+        local hair =char:WaitForChild("TigerRig"):WaitForChild("AccessoriesFolder"):WaitForChild("Handle")
         hair.Transparency = 1
+        task.wait()
+        cr()
     end
 end)
