@@ -21,7 +21,7 @@ local RunService = game:GetService("RunService")
 
 local LocalPlayer = Players.LocalPlayer
 local charp = LocalPlayer.Character
-local botName = getgenv().BotName or {"Samsul","fufufafa","Joko","Asep","Bahlul","Sah Ron I","Mulyono","FufuGaming02","OhimImoet","ASTG_Reg_12","Jangar371","Muanis551","AmbatukingTheGreat","Rusdi","DiBwhNamaBluds","BowoGamer02"}
+local botName = getgenv().FUsersList or {"Samsul","fufufafa","Joko","Asep","Bahlul","Sah Ron I","Mulyono","FufuGaming02","OhimImoet","ASTG_Reg_12","Jangar371","Muanis551","AmbatukingTheGreat","Rusdi","DiBwhNamaBluds","BowoGamer02"}
 for i, v in pairs(botName) do 
 -- CONFIG
 local FOLLOW_DISTANCE = 6 + (i * 2)
