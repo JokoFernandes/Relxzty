@@ -142,7 +142,7 @@ end
 
 
 
---=============================================================
+--=============================================================wwwwwwww
 --Free Cam
 --=============================================================
 local speed = 5
@@ -173,7 +173,7 @@ local function toggleFreecam()
 		healthcon = humanoid.HealthChanged:Connect(function(health)
 			if health <= 0 then
 				cam.CameraType = oldCameraType
-				cam.CFrame = oldCameraCFrame
+
 				if freezcon then
 					freezcon:Disconnect()
 					freezcon = nil
@@ -186,12 +186,12 @@ local function toggleFreecam()
 	else
 		cam.CameraType = oldCameraType
 
-		humanoid.WalkSpeed = 16
-		humanoid.JumpPower = 50
 		if freezcon then
 			freezcon:Disconnect()
 			freezcon = nil
 		end
+		humanoid.WalkSpeed = 16
+		humanoid.JumpPower = 50
 		keysDown = {}
 		rotating = false
 		UIS.MouseBehavior = Enum.MouseBehavior.Default
@@ -203,7 +203,7 @@ local function renderStepped()
 	if not freecamEnabled then return end
 
 	if rotating then
-		local delta = UIS:GetMouseDelta()
+		local delta = UIS:GetMouseDelta() 
 		local cf = cam.CFrame
 		local yAngle = cf:ToEulerAngles(Enum.RotationOrder.YZX)
 		local newAmount = math.deg(yAngle) + delta.Y
@@ -278,7 +278,7 @@ UIS.InputBegan:Connect(function(Input, gp)
 		end
 	end
 
-	if Input.UserInputType == Enum.UserInputType.MouseButton2 then
+	if Input.UserInputType == Enum.UserInputType.MouseButton2 or Input.UserInputType == Enum.UserInputType.Touch then
 		rotating = true
 	end
 end)
@@ -437,6 +437,26 @@ local function makeDraggable(frame)
 		end
 	end)
 end
+
+local function disableGamePlayPaused()
+    pcall(function() networkPaused:Disconnect() end)
+    networkPaused = game:GetService("CoreGui").RobloxGui.ChildAdded:Connect(function(obj)
+        if obj.Name == "CoreScripts/NetworkPause" then
+            obj:Destroy()
+        end
+    end)
+   game:GetService("CoreGui").RobloxGui["CoreScripts/NetworkPause"]:Destroy()
+end
+
+local function GPpaused(time)
+player.GameplayPaused = true
+task.wait(time)
+player.GameplayPaused = false
+end
+
+local function showfps()
+	
+end
 local SIconSize = UDim2.new(0,18,0,18)
 local SIconPos = UDim2.new(0,10,0,10)
 function SetIcon(obj,assetId)
@@ -453,13 +473,13 @@ makeDraggable(frame)
 makeDraggable(iconButton)
 
 local leftPanel = gui("Frame","LeftPanel",backgroundColor,"Text",frame,10,1)
-leftPanel.Size = UDim2.new(0,200,0.89,0)
+leftPanel.Size = UDim2.new(0,200,1,-50)
 leftPanel.Position = UDim2.new(0,0,0.1,2)
 local rightPanel = gui("Frame","RightPanel",backgroundColor,"Text",frame,10,1)
-rightPanel.Size = UDim2.new(1,-200,0.89,0)
+rightPanel.Size = UDim2.new(1,-200,1,-50)
 rightPanel.Position = UDim2.new(0,200,0.1,2)
 local topPanel = gui("Frame","TopPanel",backgroundColor,"Text",frame,10,1)
-topPanel.Size = UDim2.new(1,0,0.1,0)
+topPanel.Size = UDim2.new(1,0,0,50)
 topPanel.Position = UDim2.new(0,0,0,0)
 local mainButton = gui("TextButton","Button",buttonBackground,"Main",leftPanel,10,frameTransparency)
 mainButton.Size = UDim2.new(1,0,0,40)
@@ -504,7 +524,7 @@ main.Size = UDim2.new(1,0,1,0)
 main.CanvasSize = UDim2.new(0,0,0,600)
 main.ScrollBarThickness = 10
 main.Position = UDim2.new(0,0,0,0)
-
+main.Visible = false
 mainLayout = createLayout(main,UDim.new(0,10))
 mainPadding = createPadding(main,UDim.new(0,10),UDim.new(0,10),UDim.new(0,10),UDim.new(0,10))
 
@@ -568,7 +588,7 @@ local friendspawnId = gui("TextBox","Friend",buttonBackground,"Friends ID",frien
 friendspawnId.Text = ""
 friendspawnId.Size = UDim2.new(0.45,0,0,40)
 friendspawnId.Position = UDim2.new(0,0,0,0)
-local friendspawnCount = gui("TextBox","Friend",buttonBackground,"Count",friendspawn,10,frameTransparency)
+local friendspawnCount = gui("TextBox","Friend",buttonBackground,"Friend List",friendspawn,10,frameTransparency)
 friendspawnCount.Text = "1"
 friendspawnCount.Position = UDim2.new(0.5,0,0,0)
 friendspawnCount.Size = UDim2.new(0.45,0,0,40)
@@ -576,6 +596,7 @@ local spawnfriendbutton = gui("TextButton","Friend",buttonBackground,"Friends ID
 spawnfriendbutton.Size = UDim2.new(1,0,0,40)
 spawnfriendbutton.MouseButton1Click:Connect(function()
 	getgenv().UserIDChar = tonumber(friendspawnId.Text) or 1079792491
+	getgenv().FUsersList = loadstring(friendspawnCount.Text)
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/El%20Konten/fake-bot.lua"))()
 end)
 --============================================================================================================
@@ -583,10 +604,10 @@ end)
 --============================================================================================================
 local Tools = gui("ScrollingFrame","Tools",mainBackground,"Tools",rightPanel,10,1)
 Tools.Size = UDim2.new(1,0,1,0)
-Tools.CanvasSize = UDim2.new(0,0,0,1000)
+Tools.CanvasSize = UDim2.new(0,0,0,1100)
 Tools.ScrollBarThickness = 8
 Tools.Position = UDim2.new(0,0,0,0)
-
+Tools.Visible = false
 local toolLayout = createLayout(Tools,UDim.new(0,10))
 local toolPadding = createPadding(Tools,UDim.new(0,10),UDim.new(0,10),UDim.new(0,10),UDim.new(0,18))
 
@@ -609,7 +630,7 @@ local function Tracking(color)
 	trackToggle = not trackToggle
 	if trackToggle and not game.Workspace:GetAttribute("LIUDEX_TRACKING") then
 		Tracker.Text = "UnTrack"
-		for i,v in pairs(Players:GetPlayers()) do
+		for i,v in pairs(Players:GetChildren()) do
 			local highlight = Instance.new("Highlight")
 			highlight.Parent = v.Character
 			highlight.Adornee = v.Character
@@ -626,9 +647,17 @@ local function Tracking(color)
 			Headers.StudsOffset = Vector3.new(0, 3, 0)
 			Headers.AlwaysOnTop = true
 			Headers.MaxDistance = math.huge
+			Headers.Active = true
+			Headers.Enabled = true
+			Headers.ClipsDescendants = false
 			local frame = gui("ImageButton","Profile",mainBackground,"Image", Headers ,100,0)
 			frame.Size = UDim2.new(1,0,1,0)
 			frame.Image = profile
+			frame.Active = true
+			frame.Selectable = true
+			frame.MouseButton1Click:Connect(function()
+				char.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
+			end)
 			local text = gui("TextLabel","Name",mainBackground,"",frame,100,1)
 			text.Size = UDim2.new(1,0,1,0)
 			text.Position = UDim2.new(0,0,0.3,0)
@@ -678,7 +707,7 @@ print("jn")
 RunService.RenderStepped:Connect(function()
     local r = player.Character and player.Character:FindFirstChild("Head")
     if not r then return end
-
+	
     for plr, label in pairs(allPLRDistance) do
         local n = plr.Character and plr.Character:FindFirstChild("Head")
         if n and n ~= r then
@@ -727,6 +756,37 @@ TP.FocusLost:Connect(function(enterPress)
         else
             warn("Player dengan prefix '"..TP.Text.."' tidak ditemukan atau belum spawn.")
         end
+    end
+end)
+local Spectate = gui("TextBox","Spectate",buttonBackground,"Spectate",Tools,10,frameTransparency)
+Spectate.Text = "Spectate"
+Spectate.PlaceholderText = "Username.."
+Spectate.Size = UDim2.new(1,0,0,40)
+Spectate.TextColor3 = textColor
+Spectate.PlaceholderColor3 = textColor
+Spectate.FocusLost:Connect(function(enterPress)
+    if enterPress then
+        local inputText = Spectate.Text:lower()
+
+        -- Cari player yang namanya mengandung inputText
+        local targetPlayer
+        for _, plr in ipairs(Players:GetPlayers()) do
+            if plr.Name:lower():sub(1, #inputText) == inputText and inputText ~= "#self" then
+                targetPlayer = plr
+                break
+            end
+        end
+
+        if targetPlayer and targetPlayer.Character and Spectate.Text:lower() ~= "#self" then
+            local targetRoot = targetPlayer.Character:WaitForChild("Humanoid")
+            cam.CameraSubject = targetRoot
+        else
+            warn("Player dengan prefix '"..Spectate.Text.."' tidak ditemukan atau belum spawn.")
+        end
+		if Spectate.Text:lower() == "#self" then
+			local targetRoot = player.Character:WaitForChild("Humanoid")
+            cam.CameraSubject = targetRoot
+		end
     end
 end)
 local hopServer = gui("TextLabel","Tp",mainBackground,"Hop Server",Tools,10,1)
@@ -822,6 +882,15 @@ Drone.FocusLost:Connect(function(enterPress)
 		end)
 	end
 end)
+function antifling()
+	local var = char.HumanoidRootPart
+	var.Anchored = not var.Anchored
+end
+local anchor = gui("TextButton","Anchor",buttonBackground,"Anchored",Tools,10,frameTransparency)
+anchor.Size = UDim2.new(1,0,0,40)
+anchor.MouseButton1Click:Connect(function()
+	antifling()
+end)
 --============================================================================================================
 -- misc
 --============================================================================================================
@@ -830,6 +899,7 @@ Misc.Size = UDim2.new(1,0,1,0)
 Misc.CanvasSize = UDim2.new(0,0,0,900)
 Misc.ScrollBarThickness = 8
 Misc.Position = UDim2.new(0,0,0,0)
+Misc.Visible = false
 
 function cosmetic(type, parentName, size, color)
 	local selfChar = game:GetService("Players").LocalPlayer.Character
@@ -1119,8 +1189,44 @@ Settings.Size = UDim2.new(1,0,1,0)
 Settings.CanvasSize = UDim2.new(0, 0, 0, 1000)
 Settings.ScrollBarThickness = 8
 Settings.Position = UDim2.new(0,0,0,0)
+Settings.Visible = false
 local settingsLayout = createLayout(Settings,UDim.new(0,10))
 local settingsPadding = createPadding(Settings,UDim.new(0,10),UDim.new(0,10),UDim.new(0,10),UDim.new(0,18))
+
+local function calculateFPS(gui)
+    local lastTime = tick()
+    local frames = 0
+  	RunService.RenderStepped:Connect(function()
+        frames = frames + 1
+        local currentTime = tick()
+        if currentTime - lastTime >= 0.1 then
+            local fps = math.floor(frames / (currentTime - lastTime))
+            gui.Text = "FPS: " .. tostring(fps)
+            if fps < 10 then
+                gui.TextColor3 = Color3.new(1, 0, 0) -- Red color
+			elseif fps < 30 then
+				gui.TextColor3 = Color3.new(1,1,0) -- Yellow Color
+            else
+                gui.TextColor3 = Color3.new(0, 1, 0) -- Green color
+            end
+            frames = 0
+            lastTime = currentTime
+        end
+    end)
+end
+local function calculatePing(gui)
+    RunService.Heartbeat:Connect(function()
+        local ping = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue()
+        gui.Text = "Ping: " .. tostring(math.floor(ping)) .. " ms"
+        if ping > 300 then
+            gui.TextColor3 = Color3.new(1, 0, 0)
+		elseif ping < 50 then
+			gui.TextColor3 = Color3.new(0,1,0)
+        else
+            gui.TextColor3 = Color3.new(1, 1, 0)
+        end
+    end)
+end
 
 NameR = gui("TextBox","Input",buttonBackground,"",Settings,10,frameTransparency)
 NameR.Size = UDim2.new(1,0,0,40)
@@ -1188,7 +1294,6 @@ ScriptList.MouseButton1Click:Connect(function()
 	end
 end)
 
-
 RemoveDirectScript = gui("TextButton","Button",buttonBackground,"Remove Script",Settings,10,frameTransparency)
 RemoveDirectScript.Size = UDim2.new(1,0,0,40)
 RemoveDirectScript.MouseButton1Click:Connect(function()
@@ -1236,20 +1341,6 @@ NoShaders.MouseButton1Click:Connect(function()
 	Lighting.FogStart = 0
 	Lighting.FogEnd = 10000000
 end)
-local renderDistace = gui("TextBox","Input",buttonBackground,"RenderDistance",Settings,10,frameTransparency)
-renderDistace.Size = UDim2.new(1,0,0,40)
-renderDistace.Position = UDim2.new(0,0,0,145)
-renderDistace.Text = "256"
-renderDistace.TextColor3 = textColor
-renderDistace.PlaceholderColor3 = textColor
-renderDistace.PlaceholderText = "Max Distace"
-local minRender = gui("TextBox","Input",buttonBackground,"MinRender",Settings,10,frameTransparency)
-minRender.Size = UDim2.new(1,0,0,40)
-minRender.PlaceholderText = "Min Distace"
-minRender.Position = UDim2.new(0,0,0,100)
-minRender.PlaceholderColor3 = textColor
-minRender.TextColor3 = textColor
-minRender.Text = "64"
 local DisableMaterial = gui("TextButton","Button",buttonBackground,"DisableMaterial",Settings,10,frameTransparency)
 DisableMaterial.Size = UDim2.new(1,0,0,40)
 DisableMaterial.MouseButton1Click:Connect(function()
@@ -1264,6 +1355,21 @@ DisableMaterial.MouseButton1Click:Connect(function()
 		if v:IsA("BasePart") or v:IsA("MeshPart") then
 			v.Material = Enum.Material.Plastic
 		end	
+	end
+end)
+DisableTerrain = gui("TextButton","Button",buttonBackground,"Disable Terrain",Settings,10,frameTransparency)
+DisableTerrain.Size = UDim2.new(1,0,0,40)
+DisableTerrain.MouseButton1Click:Connect(function()
+	local workspace = game:GetService("Workspace")
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	local terrain = workspace:WaitForChild("Terrain")
+
+	if terrain then
+		terrain.WaterWaveSpeed = 0
+		terrain.WaterReflectance = 0
+		for _, v in ipairs(terrain:GetChildren()) do
+			v:Destroy()
+		end
 	end
 end)
 DisableMesh = gui("TextButton","Button",buttonBackground,"Disable Mesh",Settings,10,frameTransparency)
@@ -1284,23 +1390,7 @@ DisableMesh.MouseButton1Click:Connect(function()
 		end
 	end
 end)
-DisableTerrain = gui("TextButton","Button",buttonBackground,"Disable Terrain",Settings,10,frameTransparency)
-DisableTerrain.Size = UDim2.new(1,0,0,40)
-DisableTerrain.MouseButton1Click:Connect(function()
-	local workspace = game:GetService("Workspace")
-	local ReplicatedStorage = game:GetService("ReplicatedStorage")
-	local terrain = workspace:WaitForChild("Terrain")
-
-	if terrain then
-		terrain.WaterWaveSpeed = 0
-		terrain.WaterReflectance = 0
-		for _, v in ipairs(terrain:GetChildren()) do
-			v:Destroy()
-		end
-	end
-end)
-
-local FPSCap = gui("TextBox","Input",buttonBackground,"Atmosphere",Settings,10,frameTransparency)
+local FPSCap = gui("TextBox","Input",buttonBackground,"FPS",Settings,10,frameTransparency)
 FPSCap.Size = UDim2.new(1,0,0,40)
 FPSCap.Position = UDim2.new(0,0,0,520)
 FPSCap.ClearTextOnFocus = false
@@ -1318,6 +1408,28 @@ FPSCap.FocusLost:Connect(function(enterPress)
 		if fps then
 			currentFPS = setfpscap(fps)
 		end
+	end
+end)
+
+local showStats = gui("TextButton","Input",buttonBackground,"Show Stats",Settings,10,frameTransparency)
+showStats.Size = UDim2.new(1,0,0,40)
+showStats.MouseButton1Click:Connect(function()
+	if not getgenv().counterActive then
+		local counter = Instance.new("ScreenGui")
+		counter.Parent = gethui()
+		local counterText = Instance.new("TextLabel")
+		local counterText2 = Instance.new("TextLabel")
+		counterText.Size = UDim2.new(0, 100, 0, 60)
+		counterText.BackgroundTransparency = 1
+		counterText.Position = UDim2.new(0, 10, 0, 10)
+		counterText.Parent = counter
+		counterText2.Size = UDim2.new(0, 100, 0, 60)
+		counterText2.BackgroundTransparency = 1
+		counterText2.Position = UDim2.new(0, 10, 0, 45)
+		counterText2.Parent = counter
+		calculateFPS(counterText)
+		calculatePing(counterText2)
+		getgenv().counterActive = true
 	end
 end)
 ----------------------------------------------------------------------------------------------------------------
@@ -1350,6 +1462,7 @@ KeyBind.Size = UDim2.new(1,0,1,0)
 KeyBind.CanvasSize = UDim2.new(0, 0, 0, 1000)
 KeyBind.ScrollBarThickness = 8
 KeyBind.Position = UDim2.new(0,0,0,0)
+KeyBind.Visible = false
 local KeyBindLayout = createLayout(KeyBind,UDim.new(0,10))
 local KeyBindPadding = createPadding(KeyBind,UDim.new(0,10),UDim.new(0,10),UDim.new(0,10),UDim.new(0,18))
 -- freeCam
@@ -1389,11 +1502,30 @@ KeyCode(TrackerKeyInput, function(newKey)
 	print("FCKeyCode updated:", TrackerCode)
 end)
 
-local TrackerText = gui("TextLabel","Freecam Key",mainBackground,"Free Cam",TrackerKey,10,1)
+local TrackerText = gui("TextLabel","Tracker Key",mainBackground,"Tracker(ESP)",TrackerKey,10,1)
 TrackerText.Size = UDim2.new(0.5,0,0,40)
 TrackerText.Position = UDim2.new(0.02,0,0,0)
 TrackerText.TextSize = 100
 TrackerText.TextXAlignment = Enum.TextXAlignment.Left
+
+local AntiFling = gui("Frame","AntiFling",buttonBackground,"AntiFling",KeyBind,10,frameTransparency)
+AntiFling.Size = UDim2.new(1,0,0,40)
+local AnchorKeyInput = gui("TextBox","FCinput",buttonBackground,"Key Code..",AntiFling,10,0.1)
+AnchorKeyInput.Size = UDim2.new(0.3,0,0,35)
+AnchorKeyInput.Position = UDim2.new(0.6,0,0,2.5)
+AnchorKeyInput.TextColor3 = textColor
+AnchorKeyInput.Text = "R"
+
+local AnchorKeyText = gui("TextLabel","Anchor Key",mainBackground,"Anchored",AntiFling,10,1)
+AnchorKeyText.Size = UDim2.new(0.5,0,0,40)
+AnchorKeyText.Position = UDim2.new(0.02,0,0,0)
+AnchorKeyText.TextSize = 100
+AnchorKeyText.TextXAlignment = Enum.TextXAlignment.Left
+anchoredkey = Enum.KeyCode:FromName(AnchorKeyInput.Text)
+KeyCode(AnchorKeyInput, function (newKey)
+	anchoredkey = Enum.KeyCode:FromName(AnchorKeyInput.Text)
+	print("Anchor Key:", anchoredkey)
+end)
 ----------------------------------------------------------------------------------------------------------------
 --KeyCode
 ----------------------------------------------------------------------------------------------------------------
@@ -1403,6 +1535,9 @@ UIS.InputBegan:Connect(function(input, gp)
 
 	if input.KeyCode == FCKeyCode then
 		toggleFreecam()
+	end
+	if input.KeyCode == anchoredkey then
+		antifling()
 	end
 	if input.KeyCode == TrackerCode then
 		local args = string.split(trackConfig.Text, ",")
@@ -1447,6 +1582,7 @@ closeOk.MouseButton1Click:Connect(function()
 	if freezcon then
 		toggleFreecam()
 	end
+	task.wait()
 	if clossed then
 		cam.CameraType = oldCameraType
 		humanoid.WalkSpeed = 16
@@ -1472,6 +1608,10 @@ player.CharacterAdded:Connect(function()
 		if char then
 			humanoid = char:WaitForChild("Humanoid")
 		end
+	end
+	task.wait()
+	if freecamEnabled then
+		toggleFreecam()
 	end
 end)
 
@@ -1536,6 +1676,7 @@ setclipboard(gethwid())
 end)
 local delayGet = 2
 -- request
+task.wait(1)
 show(main)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/VeldoraX/announce-message.lua"))()
 --task.spawn(function()
