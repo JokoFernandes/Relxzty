@@ -13,8 +13,8 @@ end
 local function uid(bol)
   if bol then
     local guid = getgenv().Http:GenerateGUID(false)
-    local uid = guid:gsub("-","")
-    return uid
+    local uuid = guid:gsub("-","")
+    return uuid
   else
     return getgenv().Http:GenerateGUID(false)
   end
