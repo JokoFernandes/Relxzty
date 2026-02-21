@@ -4,13 +4,14 @@ local gameVar2 = gameVar1.LocalPlayer
 local gameVar3 = game:GetService("UserInputService")
 local gameVar4 = game:GetService("TweenService")
 local gameVar5 = game:GetService("HttpService") 
-
+local gameVar6 = game:GetService("ReplicatedStorage")
 getgenv().gameNewVar = {
   players = gameVar1,
   player = gameVar2,
   UIS = gameVar3,
   TS = gameVar4,
-  Http = gameVar5
+  Http = gameVar5,
+  Replicated = gameVar6
 }
 
 function getchar()
@@ -22,7 +23,7 @@ function loadhttpscript(sc)
 end
 
 function getpath(var)
-  var:GetFullName()
+  return var:GetFullName()
 end
 
 function uid(bol)
@@ -36,11 +37,11 @@ function uid(bol)
 end
 
 function JSONDecode(val)
-  getgenv().gameNewVar.Http:JSONDecode(val)
+  return getgenv().gameNewVar.Http:JSONDecode(val)
 end
 
 function JSONEncode(val)
-  getgenv().gameNewVar.Http:JSONEncode(val)
+  return getgenv().gameNewVar.Http:JSONEncode(val)
 end
 function postjson(uri,json)
 	request({
@@ -54,6 +55,10 @@ end
 
 local ex = {}
 ex.__index = ex
+function ex.new()
+    local self = setmetatable({}, ex)
+    return self
+end
 function ex:GetPlayTime()
   t = math.floor(game.Workspace.DistributedGameTime)
   return t
@@ -91,7 +96,9 @@ end
 function liudex:GetName()
 	print(self.Name)
 end
-
+function liudex:Rspwn()
+	getgenv().gameNewVar.player.Character.Humanoid.Health = 0
+end
 function liudex:GetProperty()
 	return self.Property
 end
