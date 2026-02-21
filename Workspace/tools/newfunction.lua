@@ -105,6 +105,9 @@ end
 
 local a = liudex.new("Jorell")
 local b = liudex.new("Budi","Alok")
-
 print(a:GetName())
 print(b:GetProperty())
+return {
+	ex = ex,
+    liudex = liudex
+}
