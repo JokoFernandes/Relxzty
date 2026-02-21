@@ -48,9 +48,20 @@ function ex:JsonPost(urls,data)
 			Url = urls,
 			Method = "POST",
 			Header = {["Content-Type"] = "application/json"},
-			Body = data or getgenv().Http:JSONEncode(data)
+			Body = data or getgenv().gameNewVar.Http:JSONEncode(data)
 		})
 end
+function ex:Fire(type,part)
+	if type:lower() == "proximity" then
+		fireproximityprompt(part)
+	elseif type:lower() == "touch"
+		firetouchinterest(getgenv().gameNewVar.player.Character.HumanoidRootPart,part,0)
+		firetouchinterest(getgenv().gameNewVar.player.Character.HumanoidRootPart,part,1)
+	elseif type:lower() == "click" then
+		return
+	end
+end
+
 function ex:HttpScript(script)
   loadstring(game:HttpGet(script))()
 end
