@@ -53,6 +53,7 @@ end
 -- method 
 
 local ex = {}
+ex.__index = ex
 function ex:GetPlayTime()
   t = math.floor(game.Workspace.DistributedGameTime)
   return t
