@@ -43,7 +43,13 @@ function ex:GetPlayTime()
   }
   return playtime
 end
-
+function ex:Respawn()
+	getgenv().gameNewVar.player.Character.Humanoid.Health = 0
+end
+function ex:TriggerEvent(event,data)
+	if event == "proximity" then
+		fireproximityprompt(data)
+	end
 function ex:HttpScript(script)
   loadstring(game:HttpGet(script))()
 end
