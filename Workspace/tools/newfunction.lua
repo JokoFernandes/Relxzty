@@ -67,30 +67,13 @@ function ex:TriggerEvent(event,data)
 	if event == "proximity" then
 		fireproximityprompt(data)
 	elseif event == "touch" then
-		firetouchinterest(getchar().HumanoidRootPart,data,0)
-		firetouchinterest(getchar().HumanoidRootPart,data,1)
+		firetouchinterest(getgenv().gameNewVar.player.Character.HumanoidRootPart,data,0)
+		firetouchinterest(getgenv().gameNewVar.player.Character.HumanoidRootPart,data,1)
 	end
 end
 
 function ex:HttpScript(script)
   loadstring(game:HttpGet(script))()
-end
-
-function ex:RunNameCallIf(var,func,metode,varname)
-  var = hookmetamethod(game,"__namecall",function(self,...)
-  local method = getnamecallmethod()
-  if name then
-    if method == metode and name == varname then
-      func()
-    end
-  else
-    if method == metode then
-      func()
-    end
-  end
-     
-    return var(self,...)
-  end)
 end
 
 local liudex = {}
