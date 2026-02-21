@@ -43,7 +43,14 @@ function ex:GetPlayTime()
   }
   return playtime
 end
-
+function ex:JsonPost(urls,data)
+	request({
+			Url = urls,
+			Method = "POST",
+			Header = {["Content-Type"] = "application/json"},
+			Body = data or getgenv().Http:JSONEncode(data)
+		})
+end
 function ex:HttpScript(script)
   loadstring(game:HttpGet(script))()
 end
@@ -57,7 +64,6 @@ function liudex.new(name,prop)
   self.Property = prop
 	return self
 end
-
 function liudex:GetName()
 	print(self.Name)
 end
