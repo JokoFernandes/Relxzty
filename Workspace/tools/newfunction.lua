@@ -61,7 +61,16 @@ end
 function liudex:GetName()
 	print(self.Name)
 end
-
+function liudex:Fire(type,part)
+	if type:lower() == "proximity" then
+		fireproximityprompt(part)
+	elseif type:lower() == "touch"
+		firetouchinterest(getgenv().gameNewVar.player.Character.HumanoidRootPart,part,0)
+		firetouchinterest(getgenv().gameNewVar.player.Character.HumanoidRootPart,part,1)
+	elseif type:lower() == "click" then
+		return
+	end
+end
 function liudex:GetProperty()
 	print(self.Property)
 end
