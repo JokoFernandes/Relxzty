@@ -43,15 +43,39 @@ function ex:GetPlayTime()
   }
   return playtime
 end
+
 function ex:Respawn()
 	getgenv().gameNewVar.player.Character.Humanoid.Health = 0
 end
+
 function ex:TriggerEvent(event,data)
 	if event == "proximity" then
 		fireproximityprompt(data)
+	elseif event == "touch" then
+		firetouchinterest(getchar().HumanoidRootPart,data,0)
+		firetouchinterest(getchar().HumanoidRootPart,data,1)
 	end
+end
+
 function ex:HttpScript(script)
   loadstring(game:HttpGet(script))()
+end
+
+function ex:RunNameCallIf(var,func,metode,varname)
+  var = hookmetamethod(game,"__namecall",function(self,...)
+  local method = getnamecallmethod()
+  if name then
+    if method == metode and name == varname then
+      func()
+    end
+  else
+    if method == metode then
+      func()
+    end
+  end
+     
+    return var(self,...)
+  end)
 end
 
 local liudex = {}
@@ -63,13 +87,15 @@ function liudex.new(name,prop)
   self.Property = prop
 	return self
 end
-
+function liudex:SetProperty(prop)
+  self.Property = prop
+end
 function liudex:GetName()
 	print(self.Name)
 end
 
 function liudex:GetProperty()
-	print(self.Property)
+	return self.Property
 end
 
 local a = liudex.new("Jorell")
