@@ -1,5 +1,5 @@
 local getchar = function()
-  return getgenv().player.Character
+  return getgenv().gameNewVar.player.Character
 end
 
 local function loadhttpscript(sc)
@@ -12,20 +12,20 @@ end
 
 local function uid(bol)
   if bol then
-    local guid = getgenv().Http:GenerateGUID(false)
+    local guid = getgenv().gameNewVar.Http:GenerateGUID(false)
     local uuid = guid:gsub("-","")
     return uuid
   else
-    return getgenv().Http:GenerateGUID(false)
+    return getgenv().gameNewVar.Http:GenerateGUID(false)
   end
 end
 
 local function JSONDecode(val)
-  getgenv().Http:JSONDecode(val)
+  getgenv().gameNewVar.Http:JSONDecode(val)
 end
 
 local function JSONEncode(val)
-  getgenv().Http:JSONEncode(val)
+  getgenv().gameNewVar.Http:JSONEncode(val)
 end
 
 local hooknamecall = function(f)
