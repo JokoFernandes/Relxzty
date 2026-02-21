@@ -1,3 +1,18 @@
+
+local gameVar1 = game:GetService("Players")
+local gameVar2 = gameVar1.LocalPlayer
+local gameVar3 = game:GetService("UserInputService")
+local gameVar4 = game:GetService("TweenService")
+local gameVar5 = game:GetService("HttpService") 
+
+getgenv().gameNewVar = {
+  players = gameVar1,
+  player = gameVar2,
+  UIS = gameVar3,
+  TS = gameVar4,
+  Http = gameVar5
+}
+
 function getchar()
   return getgenv().gameNewVar.player.Character
 end
@@ -27,21 +42,20 @@ end
 function JSONEncode(val)
   getgenv().gameNewVar.Http:JSONEncode(val)
 end
-
+function postjson(uri,json)
+	request({
+			Url = uri,
+			Method = "POST",
+			Head = {["Content-type"] = "application/json"},
+			Body = json or JSONEncode(json)
+		})
+end
 -- method 
 
 local ex = {}
 function ex:GetPlayTime()
-  local t = math.floor(game.Workspace.DistributedGameTime)
-	local jam = math.floor(t / 3600)
-  local menit = math.floor((t % 3600) / 60)
-  local detik = t % 60
-  local playtime = {
-    H = jam,
-    M = menit,
-    S = detik
-  }
-  return playtime
+  t = math.floor(game.Workspace.DistributedGameTime)
+  return t
 end
 
 function ex:Respawn()
