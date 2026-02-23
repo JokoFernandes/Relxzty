@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile Card</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            display:flex;
+            flex-direction: column;
+            width: 320px;
+            text-align: center;
+            align-items: center;
+            justify-content: center,
+        }
+
+        .image-box {
+            height:200px;
+            width:200px;
+            border: 2px solid #fff;
+            border-radius: 100%;
+            padding: 1px;
+            margin-bottom: 20px;
+        }
+
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            border-radius: 100%;
+        }
+        a {
+          text-decoration: none;
+          color: white;
+          text-shadow: 0 0 15px white;
+        }
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            text-shadow: 0 0 15px white;
+            text-decoration: underline;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 18px;
+            text-shadow: 0 0 15px white;
+            margin-bottom: 30px;
+            color: #ddd;
+        }
+
+        .button {
+            display: flex;
+            align-items: center;
+            border: 3px solid #fff;
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            width: 350px;
+            transition: 0.3s;
+        }
+
+        .button:hover {
+            background-color: #111;
+        }
+
+        .icon {
+            width: 40px;
+            height: 40px;
+            background-color: #e6d54c;
+            border-radius: 8px;
+            margin-right: 15px;
+        }
+
+        .button span {
+            text-shadow: 0 0 15px white;
+            font-size: 18px;
+        }
+        .tiktok {
+          background-repeat: no-repeat;
+          background-size:cover;
+          background-image: url("https://img.freepik.com/vektor-premium/logo-tik-tok_578229-290.jpg?semt=ais_related_payload_trends&w=740&q=80") ;
+        }
+        .discord {
+          background-repeat: no-repeat;
+          background-size:cover;
+          background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKIP7xyleSSc5bg5WGAI--fM6JlBI_Dwr9CEaeIaSfsA&s") ;
+        }
+        .donate {
+          background-repeat: no-repeat;
+          background-size:cover;
+          background-image: url("https://p16-sign-sg.tiktokcdn.com/tos-alisg-avt-0068/92d00d5720f43e1096134d1f80436f02~tplv-tiktokx-cropcenter:1080:1080.jpeg?dr=14579&refresh_token=845c8f59&x-expires=1771984800&x-signature=oqqlDInwyu3J9%2FUENO4LR%2FTu%2FEY%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=my2") ;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="image-box">
+            <img src="https://p16-sign-sg.tiktokcdn.com/tos-alisg-avt-0068/92d00d5720f43e1096134d1f80436f02~tplv-tiktokx-cropcenter:1080:1080.jpeg?dr=14579&refresh_token=845c8f59&x-expires=1771984800&x-signature=oqqlDInwyu3J9%2FUENO4LR%2FTu%2FEY%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=my2" alt="Profile Image">
+        </div>
+
+        <h1>Jorell</h1>
+        <p>Good morning Good afternoon Good evening Good night</p>
+
+        <a href="tiktok.com/@ceceploremipsum"><div class="button">
+            <div class="icon tiktok"></div>
+            <b><span>Tiktok</span></b>
+        </div></a>
+
+        <a href="https://discord.gg/WmsssRkgd2"><div class="button">
+            <div class="icon discord"></div>
+            <b><span>Discord</span></b>
+        </div></a>
+    </div>
+</body>
+</html>
