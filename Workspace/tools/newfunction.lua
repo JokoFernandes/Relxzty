@@ -53,7 +53,7 @@ function postjson(uri,json)
 end
 -- method 
 
-local ex = {}
+ex = {}
 ex.__index = ex
 function ex.new()
     local self = setmetatable({}, ex)
@@ -81,7 +81,7 @@ function ex:HttpScript(script)
   loadstring(game:HttpGet(script))()
 end
 
-local liudex = {}
+liudex = {}
 liudex.__index = liudex
 
 function liudex.new(name,prop)
