@@ -17,13 +17,18 @@ local function getexecutescript(path)
 		end
 	end
 end
+if not getgenv().LIUDEXLoaded then
+	getexecutescript(file)
+end
 
 getgenv().LIUDEXLoaded = true
 local dksja
+local iconLogo
+
 -- clear console
 local Players = game:GetService("Players")
 local plr = Players.LocalPlayer
-
+local theex
 -- fungsi utama untuk set warna dll
 local function mod()
     local main = gethui()
@@ -41,9 +46,12 @@ local function mod()
 
         -- Executor
         local executor = v:FindFirstChild("Executor")
+        theex = executor
         if executor and executor:FindFirstChild("Executor") then
             executor.Executor.Image = getcustomasset("background.png")
             executor.Executor.ImageColor3 = imageColor
+            executor.Executor.Overlay.Tabs.AddTab.BackgroundColor3 = buttonColor
+            executor.Executor.Overlay.Tabs["script1.lua"].BackgroundColor3 = buttonColor
             executor.Executor.Overlay.Menu.BackgroundColor3 = buttonColor
             executor.Executor.Overlay.Image = "rbxasset://669f6047d7ef752dacfb0bc2192f8e50/"
             executor.Executor.Overlay.Tabs.BackgroundColor3 = bgColor
@@ -108,12 +116,21 @@ local function mod()
 end
 local function additional()
     if dksja then
+        local consl = dksja.Parent.Parent.Console
         dksja.BackgroundColor3 = bgColor
         dksja.Title.BackgroundColor3 = bgColor
         dksja.Source.BackgroundColor3 = bgColor
         dksja.Add.BackgroundColor3 = buttonColor
+        if consl then
+            consl.RobloxConsole.BackgroundColor3 = buttonColor
+            consl.RobloxConsole.Console.BackgroundColor3 = bgColor
+            consl.RConsole.BackgroundColor3 = buttonColor
+            consl.RConsole.Console.BackgroundColor3 = bgColor
+        end
     end
+    
 end
+
 local function fixButton(btn)
     if btn:IsA("ImageButton") then
         btn.BackgroundColor3 = buttonColor
@@ -126,6 +143,22 @@ local function fixButton(btn)
 end
 
 local main = gethui()
+task.spawn(function()
+    for i,v in ipairs(main:GetChildren()) do
+        if v:IsA("ScreenGui") then
+            for l,n in ipairs(v:GetChildren()) do
+                if n:IsA("ImageButton") and n.Image == getcustomasset("new_logo.png") then
+                    iconLogo = n
+                    for b,m in ipairs(n:GetChildren()) do
+                        if m:IsA("UIStroke") then
+                            m.Color = borderColor
+                        end
+                    end
+                end
+            end
+       end
+    end
+end)
 -- loop semua ScreenGui awal
 for _, gui in ipairs(main:GetChildren()) do
     if gui:IsA("ScreenGui") then
@@ -145,7 +178,6 @@ for _, gui in ipairs(main:GetChildren()) do
             end
             sidebar.DescendantAdded:Connect(function(obj) fixButton(obj) end)
         end
-
         -- Executor
         local executor = gui:FindFirstChild("Executor")
         if executor then
@@ -153,6 +185,11 @@ for _, gui in ipairs(main:GetChildren()) do
             executor.DescendantRemoving:Connect(function(obj) mod() end)
         end
          if executor then
+        executor.Executor.Overlay.Tabs.ChildAdded:Connect(function(child)
+            if child:IsA("ImageButton") then
+                child.BackgroundColor3 = buttonColor
+            end
+        end)
             local console = executor.Parent.Console.RobloxConsole.Console.ScrollingFrame.Header
             plr.Chatted:Connect(function(msg)
                 if msg:lower() == "/clearconsole" then
@@ -177,6 +214,7 @@ for _, gui in ipairs(main:GetChildren()) do
                         n.Changed:Connect(function(prop)
                             if prop == "BackgroundColor3" and n.BackgroundColor3 ~= bgColor then
                                 n.BackgroundColor3 = bgColor
+                                print("change")
                             end
                         end)
                     end
@@ -197,11 +235,9 @@ for _, gui in ipairs(main:GetChildren()) do
         end
     end
 end
--- Execution
+-- run
 mod()
+task.wait()
 additional()
-if not getgenv().LIUDEXLoaded then
-	getexecutescript(file)
-end
--- Cmd script loader
+-- hidehui loader
 loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/VeldoraX/hidehui"))()
