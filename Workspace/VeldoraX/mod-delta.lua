@@ -22,7 +22,7 @@ if not getgenv().LIUDEXLoaded then
 end
 
 getgenv().LIUDEXLoaded = true
-    
+local dksja
 -- clear console
 local Players = game:GetService("Players")
 local plr = Players.LocalPlayer
@@ -70,6 +70,12 @@ local function mod()
             local place = executor.Parent
             local stng = place.Settings
             local holder = place.Settings.Holder
+            local bt = stng.Sort
+            stng.Searchbar.BackgroundColor3 = bgColor
+            bt.BackgroundColor3 = bgColor
+            bt.All.BackgroundColor3 = buttonColor
+            bt.Disabled.BackgroundColor3 = buttonColor
+            bt.Enabled.BackgroundColor3 = buttonColor
             for _, v in ipairs(holder:GetChildren()) do
                 if v:IsA("Frame") then
                     v.BackgroundColor3 = bgColor
@@ -88,6 +94,7 @@ local function mod()
         -- Home
         local home = v:FindFirstChild("Home")
         if home then
+            dksja = home.Popup
             local var3 = home.Holder
             local var4 = home.Searchbar
             var4.Button.BackgroundColor3 = buttonColor
@@ -102,8 +109,14 @@ local function mod()
         end
     end
 end
-
--- fungsi bantu untuk tombol
+local function additional()
+    if dksja then
+        dksja.BackgroundColor3 = bgColor
+        dksja.Title.BackgroundColor3 = bgColor
+        dksja.Source.BackgroundColor3 = bgColor
+        dksja.Add.BackgroundColor3 = buttonColor
+    end
+end
 local function fixButton(btn)
     if btn:IsA("ImageButton") then
         btn.BackgroundColor3 = buttonColor
@@ -161,14 +174,19 @@ for _, gui in ipairs(main:GetChildren()) do
         if setting then
             setting.DescendantAdded:Connect(function(obj) mod() end)
             setting.DescendantRemoving:Connect(function(obj) mod() end)
-            if setting:IsA("Frame") then
-                setting.Changed:Connect(function(prop)
-                    if prop == "BackgroundColor3" and setting.BackgroundColor3 ~= bgColor then
-                    mod()
+            if setting.Holder then
+                for u,n in ipairs(setting.Holder:GetChildren()) do
+                    if n:IsA("Frame") then
+                        n.Changed:Connect(function(prop)
+                            if prop == "BackgroundColor3" and n.BackgroundColor3 ~= bgColor then
+                                n.BackgroundColor3 = bgColor
+                                print("change")
+                            end
+                        end)
                     end
-                end)
+                end
             end
-        end          
+        end
             -- set semua Frame di dalam setting
             for _, child in ipairs(setting:GetDescendants()) do
                 fixButton(child)
@@ -185,6 +203,6 @@ for _, gui in ipairs(main:GetChildren()) do
 end
 -- jalankan sekali di awal
 mod()
-
+additional()
 -- hidehui loader
 loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/VeldoraX/hidehui"))()
