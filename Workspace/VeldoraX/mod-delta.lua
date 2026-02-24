@@ -177,7 +177,6 @@ for _, gui in ipairs(main:GetChildren()) do
                         n.Changed:Connect(function(prop)
                             if prop == "BackgroundColor3" and n.BackgroundColor3 ~= bgColor then
                                 n.BackgroundColor3 = bgColor
-                                print("change")
                             end
                         end)
                     end
