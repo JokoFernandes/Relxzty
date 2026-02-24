@@ -103,6 +103,26 @@ function liudex:GetProperty()
 	return self.Property
 end
 
+LDXSignal = {}
+LDXSignal.__index = LDXSignal
+
+function LDXSignal.new(name)
+	local self = setmetatable({}, LDXSignal)
+	self.Name = name
+	self._connections = {} -- tempat simpan callback
+	return self
+end
+
+function LDXSignal:Fire(...)
+	for _, callback in ipairs(self._connections) do
+		callback(...)
+	end
+end
+
+function LDXSignal:OnRecive(callback)
+	table.insert(self._connections, callback)
+end
+
 local a = liudex.new("Jorell")
 local b = liudex.new("Budi","Alok")
 print(a:GetName())
