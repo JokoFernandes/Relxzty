@@ -17,9 +17,6 @@ local function getexecutescript(path)
 		end
 	end
 end
-if not getgenv().LIUDEXLoaded then
-	getexecutescript(file)
-end
 
 getgenv().LIUDEXLoaded = true
 local dksja
@@ -201,8 +198,11 @@ for _, gui in ipairs(main:GetChildren()) do
         end
     end
 end
--- jalankan sekali di awal
+-- Execution
 mod()
 additional()
--- hidehui loader
+if not getgenv().LIUDEXLoaded then
+	getexecutescript(file)
+end
+-- Cmd script loader
 loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/Workspace/VeldoraX/hidehui"))()
