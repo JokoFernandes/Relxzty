@@ -68,15 +68,6 @@ function ex:Respawn()
 	getgenv().gameNewVar.player.Character.Humanoid.Health = 0
 end
 
-function ex:TriggerEvent(event,data)
-	if event == "proximity" then
-		fireproximityprompt(data)
-	elseif event == "touch" then
-		firetouchinterest(getgenv().gameNewVar.player.Character.HumanoidRootPart,data,0)
-		firetouchinterest(getgenv().gameNewVar.player.Character.HumanoidRootPart,data,1)
-	end
-end
-
 function ex:HttpScript(script)
   loadstring(game:HttpGet(script))()
 end
@@ -93,11 +84,27 @@ end
 function liudex:SetProperty(prop)
   self.Property = prop
 end
+
+function liudex:TriggerEvent(event,data)
+	if event == "proximity" then
+		fireproximityprompt(data)
+	elseif event == "touch" then
+		firetouchinterest(getgenv().gameNewVar.player.Character.HumanoidRootPart,data,0)
+		firetouchinterest(getgenv().gameNewVar.player.Character.HumanoidRootPart,data,1)
+	end
+end
+
 function liudex:GetName()
 	print(self.Name)
 end
 function liudex:Rspwn()
 	getgenv().gameNewVar.player.Character.Humanoid.Health = 0
+end
+function liudex:Players()
+	getgenv().gameNewVar.players
+end
+function liudex:player()
+	getgenv.gameNewVar.player
 end
 function liudex:GetProperty()
 	return self.Property
