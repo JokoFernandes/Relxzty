@@ -1,3 +1,15 @@
+if import.RobloxReplicatedStorage.GetServerType:InvokeServer() ~= "VIPServer" then
+    ldx:Announce("Warning","You are in public right now go to private server to run this script")
+    print("Not on VIPServer")
+    return
+end
+
+if getgenv().ldxautofamrsailor then
+    return
+end
+
+getgenv().ldxautofamrsailor = true
+
 local EquipTool = game:GetService("ReplicatedStorage").Remotes.EquipWeapon
 
 local function useskill(num)
@@ -112,6 +124,8 @@ task.spawn(function()
         task.wait(2)
     end
 end)
+local sessionStart = os.time()
+local qtp = queueonteleport or queue_on_teleport
 
 while true do
 gotoisland("Lawless","QuestNPC19",key1)
@@ -122,4 +136,13 @@ gotoisland("Ninja","QuestNPC17",key1)
 task.wait(1.1)
 gotoisland("Academy","QuestNPC15",key2)
 task.wait(1.1)
+if ((os.time() - sessionStart) / 60) >= 120 then
+    qtp([[
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Asepthegoat/LIUDEX-Z/refs/heads/main/script/delta-addon.lua"))()
+    task.wait()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/s/script/sailor4island.lua"))()
+]])
+task.wait()
+import.TeleportService:Teleport(game.PlaceId,getplayer())
+end
 end
