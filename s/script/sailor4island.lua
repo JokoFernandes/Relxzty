@@ -136,12 +136,13 @@ gotoisland("Ninja","QuestNPC17",key1)
 task.wait(1.1)
 gotoisland("Academy","QuestNPC15",key2)
 task.wait(1.1)
-if ((os.time() - sessionStart) / 60) >= 120 then
+if ((os.time() - sessionStart) / 60) >= 60 then
     qtp([[
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Asepthegoat/LIUDEX-Z/refs/heads/main/script/delta-addon.lua"))()
     task.wait()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/JokoFernandes/Relxzty/refs/heads/main/s/script/sailor4island.lua"))()
 ]])
+equipweapon("Strongest In History")
 task.wait()
 import.TeleportService:Teleport(game.PlaceId,getplayer())
 end
