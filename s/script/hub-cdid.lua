@@ -212,7 +212,7 @@ local bd = {
 }
 
 request({
-    Url = url or "https://discord.com/api/webhooks/1518969384759202005/7PUfMfTLNVqXFvMfTYjuyryFWIBsLolCd66WNdznRvwfj3mv41v-J-D637H5kLNwEd5X",
+    Url = url or "",
     Method = "POST",
     Headers = {
         ["Content-Type"] = "application/json"
