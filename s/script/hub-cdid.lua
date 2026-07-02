@@ -1,6 +1,8 @@
-local trucktimeout = 20
+local trucktimeout = 5
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Asepthegoat/LIUDEX-Z/refs/heads/main/script/tools/functions.lua"))()
 local gui = loadstring(game:HttpGet("https://raw.githubusercontent.com/Asepthegoat/LIUDEX-Z/refs/heads/main/script/packages/UI-LIB.lua"))()
+local camera = workspace.CurrentCamera
+
 gui.Set({
     title = "CDID",
     textcolor = Color3.fromRGB(255,255,255),
@@ -49,16 +51,21 @@ task.wait(1)
 gototarget(workspace.Etc.Waypoint.Waypoint,true,1)
 task.wait(5)
 gototarget(workspace.Etc.Waypoint.Waypoint)
+camera.CFrame = CFrame.lookAt(
+    camera.CFrame.Position,
+    workspace.Etc.Job.Truck.Starter.Prompt.Parent.Image.Position
+)
 task.wait(1)
 fireproximityprompt(workspace.Etc.Job.Truck.Starter.Prompt)
-local part = Instance.new("Part")
-part.Parent = workspace
-part.CanCollide = false
-part.Position = workspace.Etc.Job.Truck.Spawner.Part.Position
+
 task.wait()
-getchar().HumanoidRootPart.CFrame = part.CFrame
+getchar().HumanoidRootPart.CFrame = CFrame.new(0,0,0) + workspace.Etc.Job.Truck.Spawner.Part.Position + Vector3.new(0,8,0)
 task.wait(1)
 fireproximityprompt(workspace.Etc.Job.Truck.Spawner.Part.Prompt)
+camera.CFrame = CFrame.lookAt(
+    camera.CFrame.Position,
+    workspace.Etc.Job.Truck.Spawner.Part.Prompt.Parent.Position
+)
 local player = game:GetService("Players").LocalPlayer
 task.wait(8)
 local car = workspace.Vehicles[player.Name .. "sCar"]
@@ -78,19 +85,23 @@ while scr <= 12 do
 car:SetPrimaryPartCFrame(target.CFrame * CFrame.new(-500,450,0))
 root.Anchored = false
 task.wait(1.8)
+root.AssemblyLinearVelocity = Vector3.new(0,0,0)
 root.Anchored = true
-task.wait(2)
+task.wait(1.8)
+root.AssemblyLinearVelocity = Vector3.new(0,0,0)
+task.wait(0.2)
 scr = scr + 1
 end
 root.Anchored = false
 car:SetPrimaryPartCFrame(target.CFrame * CFrame.new(0,1,0))
 task.wait(1)
 local near = 0
+local nearest = 3000
 for i,v in pairs(workspace.Etc.Job.Truck.Destination:GetChildren()) do
     if v:IsA("BasePart") then
-        if (v.Position - getrootpart().Position) < 100 then
+        if (v.Position - getrootpart().Position).Magnitude < nearest then
             near = v.CFrame
-            break
+            nearest = (getrootpart().Position - v.Position).Magnitude
         end
     end
 end
@@ -100,21 +111,25 @@ local getcash = game:GetService("Players").LocalPlayer.PlayerGui.Main.Container.
 local repeatruck = 0
 repeat
 repeatruck = repeatruck + 1
+root.AssemblyLinearVelocity = Vector3.new(0,0,0)
 car:SetPrimaryPartCFrame(near * CFrame.new(0,-1,0))
 task.wait(0.3)
-until getcash.Transparency < 1 and getcash.TextTransparency < 1
+root.AssemblyLinearVelocity = Vector3.new(0,0,0)
+until (getcash.Transparency < 1 and getcash.TextTransparency < 1) or repeatruck >= trucktimeout
+
 wheels(true)
 end
 farm:Toggle({Text = "Farm Truck",Callback = function(val) truck = val end},false)
 task.spawn(function()
 local is_working = false
-while true do
+while task.wait(0.2) do
     if truck and (tick() - time_job) > 0.9 then
         time_job = tick()
         local suc,res = pcall(dotruck) 
         if not suc then
             warn("Refresh")
         end
+        warn(res)
         is_working = false
     end
     task.wait(0.1)
@@ -194,6 +209,7 @@ local function getthumnail(id)
   print(image)
   return image
 end
+
 print(getthumnail(getplayer().UserId))
 local function sendplrdata(url)
 local bd = {
@@ -221,7 +237,6 @@ request({
 })
 end
 
-
 local wh = gui.new("Webhook")
 local webhook,lastwhsend,enablewh = wh:AddTab("Webhook"),tick(),false
 local urlf,url = webhook:Input({Text = "Webhook URL",Placeholder = "url..."})
@@ -230,7 +245,7 @@ webhook:Toggle({Text = "Enable Send Data",Callback = function(val) enablewh = va
 
 --secondary
 import.RunService.RenderStepped:Connect(function()
-    if enablewh and (tick() - lastwhsend) >= (5 * 60) then
+    if enablewh and (tick() - lastwhsend) >= (15 * 60) then
         lastwhsend = tick()
         sendplrdata(url.Text)
     end
