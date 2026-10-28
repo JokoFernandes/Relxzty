@@ -33,17 +33,6 @@ function writeFile($file, $content)
     return file_put_contents($file, file_get_contents($content)) !== false;
 }
 
-function readFile($file)
-{
-    $dir = dirname($file);
-
-    if (!is_dir($dir)) {
-        return false;
-    }
-
-    return file_get_contents($file, file_get_contents($content)) !== false;
-}
-
 function deleteFile($file)
 {
     if (!is_file($file)) {
